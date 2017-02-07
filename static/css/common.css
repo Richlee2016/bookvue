@@ -1,0 +1,79 @@
+/* CSS Document */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 18px;
+  width:100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #444;
+    font-family: "微软雅黑", Arial, Helvetica, sans-serif;
+    text-align: left;
+    position: relative;
+    font-size: 0.25rem;
+    /*height: 100%;*/
+    font-size: 16px;
+    width:100%;
+    /*overflow: hidden;*/
+}
+
+img {
+  border: 0;
+  position: relative;
+  max-width: 100%;
+}
+
+.clear {
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  clear: both;
+  visibility: hidden;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+div, ul, dl, dd, dt, li, td, th, tr, table, p, span, h1, h2, h3, h4, h5, h6, form {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  list-style-type: none;
+  word-wrap: break-word;
+  position: relative;
+  border: none;
+  font-weight: 400;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+  position: relative;
+  cursor: pointer;
+}
+
+header, footer, nav, section, article, menu, aside {
+  display: block;
+  position: relative;
+}
+
+textarea {
+  resize: none;
+  font-family: "微软雅黑";
+  font-size: 16px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th, td {
+  text-align: left;
+}
