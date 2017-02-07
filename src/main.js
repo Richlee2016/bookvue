@@ -6,7 +6,7 @@ import App from './App'
 import store from './store'
 //page
 import Index from './components/index/index'
-import Cartoon from './components/cartoon/cartoon'
+import Book from './components/book/book'
 //page
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
@@ -18,7 +18,7 @@ Vue.use(VueResource);
 const router = new VueRouter({
 	routes:[
 				{ path: '/', component: Index },
-				{ path: '/cartoon', component: Cartoon }
+				{ path: '/book', component: Book}
 			]
 });
 

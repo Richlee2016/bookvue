@@ -19,7 +19,7 @@ app.all("*", function (req, res, next) {
 
 //后台路由处理
 app.use('/api',require('./node/routers/api'));
-mongoose.connect('mongodb://localhost:27017/richhome',function(err){
+mongoose.connect('mongodb://localhost:27017/bookvue',function(err){
   if(err){
     console.log(err);
   }else{
