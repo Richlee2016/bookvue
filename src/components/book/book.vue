@@ -1,5 +1,8 @@
 <template>
-  <div class="book" @touchmove="navHide">
+  <div 
+  	class="book" 
+  	@touchmove="navHide"  
+  	:class="bodyBd">
   	<div class="book-top" v-show="navOnOff">
   		<section>
 	  		<div class="back">
@@ -8,21 +11,23 @@
 	  		</div>
   		</section>
   	</div>
-  	<div class="book-main" @click="navOnOff = !navOnOff"  :class="bodyBd">
+  	<div class="book-main" @click="navOnOff = !navOnOff;fontShow = false;">
 	  	<h4>请根据上制作过程</h4>
 	  	<ul class="book-body">
-	  		<li v-for="n in 20">请根据上制作过程，认真思考并完成下边栏的结构和样式。请根据上边栏制作过程，认真思考并完成下边栏的结构和样式。请根据上边栏制作过程，认真思考并完成下边栏的结构和样式。</li>
+	  		<li v-for="n in 20" :style="{fontSize:fontSize + 'px',lineHeight:fontSize + 20 + 'px'}">请根据上制作过程，认真思考并完成下边栏的结构和样式。请根据上边栏制作过程，认真思考并完成下边栏的结构和样式。请根据上边栏制作过程，认真思考并完成下边栏的结构和样式。</li>
 	  	</ul>
   	</div>
   	<transition name="slide-fade">
 	  		<div v-show="fontShow" class="fontChoice">
 	  			<div class="fontbox01">
-	  				
+	  				<label>字号</label>
+	  				<span @click="fontBig">大</span>
+	  				<span @click="fontSmall">小</span>
 	  			</div>
 	  			<div class="fontbox02">
-	  				<label></label>
-	  				<span v-for="{n,index} in 5">
-	  					<font></font>
+	  				<label>背景</label>
+	  				<span v-for="(n,i) in 6" @click="getBodyBd(i)" :class="{'active':borderOnOff[i]}">
+	  					<a :class="'bookbd0'+i"></a>
 	  				</span>
 	  		</div>
 		</transition>
@@ -60,26 +65,69 @@ export default {
 	data (){
 		return {
 			navOnOff:false,
-			dayNight:true,
+			dayNight:false,
 			fontShow:false,
 			bodyBd:"bookbd01",
-			oldBd:"bookbd01"
+			oldBd:"bookbd01",
+			fontBorderIndex:1,
+			fontSize:16
+		}
+	},
+	computed:{
+		borderOnOff (){
+			let onOff = [];
+			for (let i = 0; i < 6; i++) {
+				onOff.push(false);
+			}
+			onOff[this.fontBorderIndex] = true;
+			return onOff;
 		}
 	},
 	methods:{
 		navHide (){
 			if( this.navOnOff ){
 				this.navOnOff = false;
+				this.fontShow = false;
 			};
 		},
 		dayChange (){
 			if(this.dayNight){
-				this.bodyBd = "bookbd05";
-			}else{
+				this.fontBorderIndex = 5;
 				this.bodyBd = this.oldBd;
+			}else{
+				this.bodyBd = "bookbd05";
+				this.fontBorderIndex = 1;
 			};
 			this.dayNight = !this.dayNight;
+		},
+		getBodyBd (i){
+			this.bodyBd = "bookbd0" + i;
+			this.fontBorderIndex = i;
+			console.log(i);
+			switch ( i ){
+				case 5 :
+					this.dayNight = true;
+				break;
+				case 2 :
+					this.dayNight = true;
+				break;	
+			}
+		},
+		fontBig (){
+			this.fontSize++;
+			if(this.fontSize > 24){
+				this.fontSize = 24;
+			};
+		},
+		fontSmall (){
+			this.fontSize--;
+			if(this.fontSize < 12){
+				this.fontSize = 12;
+			};
 		}
+	},
+	created (){
+		
 	}
 }
 </script>
