@@ -4,15 +4,18 @@ import Vue from 'vue'
 import App from './App'
 //vuex
 import store from './store'
+//axios
+import axios from 'axios'
 //page
 import Index from './components/index/index'
 import Book from './components/book/book'
 //page
 import VueRouter from 'vue-router'
-import VueResource from 'vue-resource'
 
 Vue.use(VueRouter);
-Vue.use(VueResource);
+window.axios = axios;
+
+
 /* eslint-disable no-new */
 
 const router = new VueRouter({
@@ -28,8 +31,3 @@ const app = new Vue({
 	render: h => h(App)
 }).$mount('#app')
 
-
-//new Vue({
-//el: '#app',
-//render: h => h(App)
-//})

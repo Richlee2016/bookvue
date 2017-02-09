@@ -1,7 +1,7 @@
 const types = {
-	//首页
-	
-	
+	//book
+	GET_CHAPTER : "GET_CHAPTER",
+	GET_TEXT : "GET_TEXT"	
 }
 
 

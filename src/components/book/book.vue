@@ -61,6 +61,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+import {mapAction} from 'vuex'
+import types from 'types'
 export default {
 	data (){
 		return {
@@ -127,7 +130,8 @@ export default {
 		}
 	},
 	created (){
-		
+		this.$store.dispatch(types.GET_CHAPTER);
+		this.$store.dispatch(types.GET_TEXT,{chapter:2});
 	}
 }
 </script>

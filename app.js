@@ -1,31 +1,53 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var app = express();
-//post请求处理
-app.use(bodyParser.json());
+var Koa = require('koa');
+var router = require('koa-route');
+var cors = require('koa-cors');
+var superagent = require('superagent');
+var app = Koa();
+app.use(cors());
+var mockService = require('./service/mockService.js');
+//解析请求头
+var bodyParser = (context) => {
+  var queryString = require('querystring');
+  var params = queryString.parse(context.req._parsedUrl.query);
+  return params;
+}
+//章节
+app.use(router.get('/api/chapter',function* (){
+  this.set('Cache-Control','no-cache');
+  this.body = mockService.get_chapter_data();
+}));
 
-//跨域支持  这个设置要在 后台路由设置之前
-app.all("*", function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
-  res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-  if (req.method == 'OPTIONS') {
-    res.send(200);
-  } else {
-    next();
-  }
-});
+app.use(router.get('/api/read',function* (){
+  this.set('Cache-Control','no-cache');
+  var params = bodyParser(this);
+  var chapter = params.chapter;
+  var res=  mockService.get_read_data(chapter);
+  var result = JSON.parse(res);
+  var turnBook = "";
+  if(result.result === 0){
+    superagent.get(result.jsonp).end((err, read) => {
+      var reg = /[']([\w\W]+)[']/g;
+      var readBook = reg.exec(read.text);
+      var go = readBook.replace(/\/+/g,"");
+      turnBook = new Buffer(readBook[1], 'base64').toString()
+      console.log(JSON.stringify(turnBook));
+    });
+    this.body =turnBook;
+  };
+}));
 
-//后台路由处理
-app.use('/api',require('./node/routers/api'));
-mongoose.connect('mongodb://localhost:27017/bookvue',function(err){
-  if(err){
-    console.log(err);
-  }else{
-    console.log('链接服务器成功');
-  }
-  app.listen(8088);
-});
 
+//app.use(router.get('/api/search',function* (){
+//  this.set('Cache-Control','no-cache')
+//  //解析
+//  var queryString = require('querystring');
+//  var params = queryString.parse(this.req._parsedUrl.query);
+//  var start = params.start;
+//  var end = params.end;
+//  var keyword = params.keyword;
+//  this.body = yield service.get_search_data(keyword, start, end );
+//}));
+
+
+app.listen(3000);
 
