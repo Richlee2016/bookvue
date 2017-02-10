@@ -1,3 +1,73 @@
 .index{
-    background: black;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+
+.top-nav{
+    position: relative;
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    display: -webkit-flex;
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    background-color: #efeff0;
+    >a{
+        flex:1;
+        text-align: center;
+        color: #333;
+        font-size: 14px;
+    }
+    .move-line{
+       position: absolute;
+       bottom: 0px;
+       height: 2px;
+       width: 50%;
+       text-align: center;
+       -webkit-transition: 0.4s ease-in-out;
+        transition: 0.4s ease-in-out;
+       label{
+          float: left;
+          width: 100%;
+          height: 2px;
+          &::before{
+              content: "";
+              width: 30px;
+              height: 2px;
+              background: rgba(0,0,0,0.6);
+              position: absolute;
+              left: 50%;
+              margin-left: -15px;
+              top: 0px;
+          }
+       }
+    }
+}
+
+.index-main{
+    width: 200%;
+    display: -webkit-flex;
+    display: flex;
+    >div{
+        flex:1;
+    }
+}
+
+.city-search{
+    width: 96%;
+    margin: auto;
+    margin-top: 10px;
+    max-width: 600px;
+    padding: 2px 2%;
+}
+.index-inout-enter{
+    -webkit-transform: translateX(100%);
+}
+.index-inout-enter-active{
+    -webkit-transition: 1s ease-in-out;
+}
+.index-inout-leave-active{
+    -webkit-transform: translateX(-100%);
+    -webkit-transition: 1s ease-in-out;
 }

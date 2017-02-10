@@ -16,7 +16,6 @@ const mutations = {
  },
  [types.GET_TEXT] (state,{chapter}){
  	state.bookText = chapter;
- 	console.log(chapter);
  }
 }
 
