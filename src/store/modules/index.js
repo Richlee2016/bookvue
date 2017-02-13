@@ -14,7 +14,6 @@ const util = {
 		};
 		for(let j=3; j<6; j++){
 			two[j-3] = data[j];
-			console.log(j);
 		};
 		return {
 			one:one,
@@ -28,7 +27,6 @@ const getters ={
 		let res = {}
 		if(data[1]){
 			var group = util.twoGroup(data[1].data.data);
-			console.log(data[1].data.data);
 			res = {
 				title:data[1].ad_name,
 				data:data[1].data.data,

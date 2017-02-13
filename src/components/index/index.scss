@@ -21,6 +21,7 @@
     }
     .move-line{
        position: absolute;
+       left: 0px;
        bottom: 0px;
        height: 2px;
        width: 50%;
@@ -47,6 +48,7 @@
 
 .index-main{
     width: 200%;
+    overflow: hidden;
     >div{
         width: 50%;
         float: left;
