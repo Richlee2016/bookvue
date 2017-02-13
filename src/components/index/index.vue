@@ -7,7 +7,7 @@
   			<label></label>
   		</span>
   	</div>
-  	<div class="index-main" ref="indexmain"">
+  	<div class="index-main" ref="indexmain">
   		<v-bookcity></v-bookcity>
   		<v-bookfram></v-bookfram>
   	</div>
@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import bookCity from './bookcity'
-import bookFram from './bookfram'
+import bookCity from './bookcity/bookcity'
+import bookFram from './bookfram/bookfram'
 import mymixin from './mixins'
 export default {
 	components:{
@@ -28,13 +28,7 @@ export default {
 		
 	},
 	created (){
-		axios.get('http://localhost:3000/api/home')
-		.then( (res) => {
-			console.log(res);
-		})
-		.catch( (err) => {
-			console.log(err);
-		});
+		
 	}
 }
 </script>
