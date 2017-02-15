@@ -22,6 +22,7 @@
 	  		<v-boxone
 	  			:hot="weekHotData"
 	  			></v-boxone>
+	  		<div class="clear-line"></div>	
   		</section>
   	</div>
 </template>
