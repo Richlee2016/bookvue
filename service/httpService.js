@@ -4,48 +4,46 @@
 var fs = require('fs')
 var http = require('http')
 var Mock = {};
-//Mock.test = () => {
-//  var content = fs.readFileSync('./mock/test.json','utf-8');
-//  return content;
-//}
-
-Mock.get_search_data = (keyword,start,end) => {
-  return (cb) => {
-    var Http = require('http');
-    var queryString = require('querystring');
-    //关键字
-    var data = {
-      keyword: keyword,
-      start: start,
-      end: end
-    };
-    //路径
-    var content = queryString.stringify(data);
-    var http_request = {
-      hostname : "dushu.xiaomi.com",
-      port : 80,
-      path : '/store/v0/lib/query/onebox?' + content
+var _getData = (client) => {
+  var http = require('http')
+  var client = client || {};
+  var getData = (data) => {
+    var data = data || {};
+    return (cb) => {
+      var queryString = require('querystring');
+      var query  = data;
+      var qs = queryString.stringify(query);
+      var http_request = {
+        hostname : client.hostname,
+        port : 80,
+        path : client.path + qs
+      }
+      //请求
+      req_obj = http.request(http_request,(_res) => {
+        var content = '';
+        _res.setEncoding('utf8');
+        _res.on('data',(chunk) => {
+          content += chunk;
+        })
+        _res.on('end',() => {
+          cb(null,content)
+        })
+      })
+      req_obj.on('error',() => {})
+      req_obj.end();
     }
-    //请求
-    req_obj = http.request(http_request,(_res) => {
-      var content = '';
-      _res.setEncoding('utf8');
-      _res.on('data',(chunk) => {
-        //分块返回  进行拼接
-        content += chunk;
-      })
-      _res.on('end',() => {
-        //错误代码，返回内容
-        cb(null,content)
-      })
-    })
-
-    req_obj.on('error',() => {
-
-    })
-    req_obj.end();
-  }
+  };
+  return getData;
 }
+
+
+
+var get_index ={
+  hostname : "dushu.xiaomi.com",
+  path : '/hs/v3/channel/418'
+}
+Mock.get_index_data = _getData(get_index);
+
 
 module .exports = Mock;
 

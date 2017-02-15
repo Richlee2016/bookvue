@@ -6,14 +6,14 @@ const state = {
 	weekHotData:{}
 }
 const util = {
-	twoGroup (data){
+	twoGroup (data,a,b){
 		let one = [];
 		let two = [];
-		for(let i=0; i<3; i++){
+		for(let i=0; i<a; i++){
 			one[i] = data[i]
 		};
-		for(let j=3; j<6; j++){
-			two[j-3] = data[j];
+		for(let j=a; j<a+b; j++){
+			two[j-a] = data[j];
 		};
 		return {
 			one:one,
@@ -24,15 +24,27 @@ const util = {
 const getters ={
 	weekHotData (){
 		let data = state.bookCity.items || [];
-		let res = {}
+		let res = {};
 		if(data[1]){
-			var group = util.twoGroup(data[1].data.data);
+			var group = util.twoGroup(data[1].data.data,3,3);
 			res = {
 				title:data[1].ad_name,
 				data:data[1].data.data,
 				one:group.one,
 				two:group.two
 			}
+		};
+		return res;
+	},
+	bannerImg (){
+		let data = state.bookCity.items || [];
+		let res = {};
+		if(data[0]){
+			let group =util.twoGroup(data[0].data.data,3,5)
+			res ={
+				one:group.one,
+				two:group.two
+			};
 		};
 		return res;
 	}
@@ -46,7 +58,7 @@ const mutations = {
 
 const actions = {
 	[types.GET_BOOKCITY] ({commit}){
-		axios.get("http://localhost:3000/api/home")
+		axios.get("http://localhost:3000/api/index")
 		.then( (res) => {
 			if(res.status == 200){
 				commit(types.GET_BOOKCITY,{bookcity:res.data});

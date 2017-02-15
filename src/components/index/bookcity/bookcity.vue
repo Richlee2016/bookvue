@@ -5,7 +5,11 @@
 		  		<v-search></v-search>
 	  		</div>
 	  		<div class="city-scroll">
-		  		<v-banner :testImg="img"></v-banner>
+		  		<v-swiper :slider="banner">
+		  			<div slot="box" class="city-banner" v-for="item in bannerImg.one">
+		  				<img :src="item.ad_pic_url"/>
+		  			</div>
+		  		</v-swiper>
 	  		</div>
 	  		<ul class="city-nav">
 	  			<li v-for="item in navArr">
@@ -26,12 +30,12 @@
 import types from "types"
 import {mapGetters} from 'vuex'
 import Search from 'components/common/search'
-import bannerScroll from 'components/common/bannerScroll'
+import richSwiper from 'components/common/richSwiper'
 import bookBoxOne from 'components/common/bookBoxOne'
 export default {
 	components:{
 		"v-search":Search,
-		"v-banner":bannerScroll,
+		"v-swiper":richSwiper,
 		"v-boxone":bookBoxOne
 	},
 	data (){
@@ -43,16 +47,25 @@ export default {
 					{icon:"c-boy",name:"男生"},
 					{icon:"c-classfy",name:"分类"},
 					{icon:"c-rank",name:"排行"}
-					]
+					],
+			banner:{
+				swiper:false,
+				box:3,
+				autoplay:4
+			}
 		}
 	},
 	computed:{
 		...mapGetters({
-	  		weekHotData:"weekHotData"
+	  		weekHotData:"weekHotData",
+	  		bannerImg:"bannerImg"
 	  	})
 	},
 	created (){
 		this.$store.dispatch(types.GET_BOOKCITY);
+		setTimeout(() => {
+			console.log(this.bannerImg);
+		},3000);
 	}
 }
 </script>

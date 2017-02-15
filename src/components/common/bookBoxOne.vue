@@ -1,6 +1,6 @@
 <template>
   	<div class="book-box-one">
-  		<h3>{{hot.title}}</h3>
+  		<v-title :title="hot.title"></v-title>
   		<ul class="box-one-main">
   			<li>
   				<div v-for="item in hot.one">
@@ -19,7 +19,11 @@
 </template>
 
 <script>
+import bookTitle from 'components/common/bookTitle'
 export default {
+	components :{
+		"v-title":bookTitle
+	},
 	props :{
 		hot:{
 			type:Object,

@@ -17,6 +17,8 @@ mockService.get_index_data = (chapter) => {
 
 
 
+
+
 module.exports = mockService;
 //var reg = /[']([\w\W]+)[']/g;
 //var readBook = reg.exec(read.text);
