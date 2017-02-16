@@ -26,15 +26,12 @@ var httpService = require('./service/httpService.js');
 //  this.body =res;
 //}));
 
-app.use(router.get('/api/home',function* (){
-  this.set('Cache-Control','no-cache');
-  this.body = mockService.get_index_data();
-}));
 
 app.use(router.get('/api/index',function* (){
   this.set('Cache-Control','no-cache');
   this.body =yield httpService.get_index_data();
 }));
+
 
 app.listen(3000);
 

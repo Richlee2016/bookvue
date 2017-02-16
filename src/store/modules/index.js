@@ -19,34 +19,50 @@ const util = {
 			one:one,
 			two:two
 		}
-	}
-}
-const getters ={
-	weekHotData (){
+	},
+	setData (num,cb){
 		let data = state.bookCity.items || [];
 		let res = {};
-		if(data[1]){
-			var group = util.twoGroup(data[1].data.data,3,3);
-			res = {
-				title:data[1].ad_name,
-				data:data[1].data.data,
-				one:group.one,
-				two:group.two
-			}
+		if(data[num]){
+			res = cb.call(this,data[num]);
 		};
 		return res;
 	},
+	getBlock (num){
+		return this.setData(num,(o) => {
+			return {
+				title:o.ad_name,
+				data:o.data.data
+			};
+		});
+	}
+}
+
+
+const getters ={
+	weekHotData (){
+		var a = util.getBlock(1)
+		return a;
+	},
 	bannerImg (){
-		let data = state.bookCity.items || [];
-		let res = {};
-		if(data[0]){
-			let group =util.twoGroup(data[0].data.data,3,5)
-			res ={
+		return util.setData(0,(o) => {
+			let group =util.twoGroup(o.data.data,3,5);
+			return {
 				one:group.one,
 				two:group.two
-			};
-		};
-		return res;
+			}
+		});
+	},
+	recommend (){
+		return util.setData(2,(o) => {
+			let group =util.twoGroup(o.data.data,1,5);
+			console.log(group.one);
+			return {
+				title:o.ad_name,
+				one:group.one,
+				two:group.two
+			}
+		});
 	}
 }
 
