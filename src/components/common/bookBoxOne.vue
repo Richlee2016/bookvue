@@ -1,11 +1,15 @@
 <template>
-  		<div :class="data.vclass">
-  			<v-title></v-title>
-  			<v-blockthree
-  			:hot="data.data"	
-  				></v-blockthree>
-  			<v-more></v-more>	
-  		</div>
+	<div :class="">
+  		<v-title
+		:title="weekHotData.title"	
+			></v-title>
+		<v-blockthree
+		:hot="weekHotData.data"	
+			></v-blockthree>
+		<v-more
+			
+			></v-more>	
+	</div>
 </template>
 
 <script>
@@ -15,17 +19,11 @@ import bookMore from 'components/common/bookMore'
 
 export default {
 	props :{
-		data:{
-			type:Object,
-			default (){
-				return {
-					vclass:"week-hot",
-					data:{},
-					title:{},
-					more:{}
-				}
-			}
+		vclass:{
+			type:String,
+			default:'boxone'
 		},
+		
 		
 	},
 	components :{

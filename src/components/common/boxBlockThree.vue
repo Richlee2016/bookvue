@@ -35,7 +35,7 @@ export default {
     display: flex;
     flex-wrap:wrap;
     li{
-        height: 160px;
+        min-height: 160px;
        	flex: 1;
        	min-width: 33.33%;
        	text-align: center;
@@ -47,9 +47,10 @@ export default {
         }
         span{
         	display: inline-block;
-        	width: 100%;
-        	line-height: 30px;
+        	width: 88px;
+        	line-height: 20px;
         	font-size: 12px;
+        	color: rgba(0,0,0,0.4);
         }
     }
 }
