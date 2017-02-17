@@ -37,13 +37,19 @@ var _getData = (client) => {
 }
 
 
-
+//首页
 var get_index ={
   hostname : "dushu.xiaomi.com",
   path : '/hs/v3/channel/418'
 }
 Mock.get_index_data = _getData(get_index);
 
+//瀑布流请求
+var get_pull = {
+  hostname : "dushu.xiaomi.com",
+  path : '/rock/book/recommend?'
+}
+Mock.get_pull_data = _getData(get_pull);
 
 module .exports = Mock;
 

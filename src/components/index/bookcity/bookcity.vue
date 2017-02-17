@@ -1,6 +1,7 @@
 <template>
   	<div class="bookcity">
   		<section>
+  			<!--搜索-->
 	  		<div class="city-search">
 		  		<v-search></v-search>
 	  		</div>
@@ -11,6 +12,7 @@
 		  			</div>
 		  		</v-swiper>
 	  		</div>
+	  		<!--导航-->
 	  		<ul class="city-nav">
 	  			<li v-for="item in navArr">
 	  				<a></a>
@@ -19,6 +21,7 @@
 	  			</li>
 	  		</ul>
 	  		<div class="clear-line"></div>
+	  		<!--本周最热-->
 	  		<div class="week-hot">
 	  			<v-title
 	  			:title="weekHotData.title"	
@@ -29,6 +32,7 @@
 	  			<v-more></v-more>	
 	  		</div>
 	  		<div class="clear-line"></div>	
+	  		<!--重磅推荐-->
 	  		<div class="recommend">
 	  			<v-title
 	  			:type="false"
@@ -38,11 +42,15 @@
 	  			<ul class="recommend-box">
 	  				<li v-for="item in recommend.one">
 		  				<v-blockone
-		  				:prop="item"	
+		  				:prop="item"
+		  				:bookrank="1"
 		  					></v-blockone>
 	  				</li>
-	  				<li>
-		  				<v-blocktwo></v-blocktwo>
+	  				<li v-for="(item,index) in recommend.two">
+		  				<v-blocktwo
+		  				:prop="item"
+		  				:rank="index+2"
+		  					></v-blocktwo>
 	  				</li>
 	  			</ul>
 	  			<v-more
@@ -51,14 +59,17 @@
 	  				></v-more>
 	  		</div>
 	  		<div class="clear-line"></div>	
+	  		<!--女生最爱-->
 	  		<div class="girl-like">
 	  			<v-title
 	  			:type="false"
-	  			:title="recommend.title"
+	  			:title="girllike.title"
 	  				></v-title>
 	  			<ul class="girl-lick-box">
-	  				<li v-for="n in 4">
-	  					<v-blockone></v-blockone>
+	  				<li v-for="item in girllike.one">
+	  					<v-blockone
+	  					:prop="item"	
+	  						></v-blockone>
 	  				</li>
 	  			</ul>
 	  			<v-more
@@ -67,7 +78,63 @@
 	  			:titletwo="'女生频道>>'"
 	  				></v-more>
 	  		</div>
+	  		<div class="clear-line"></div>	
+	  		<!--男生最爱-->
+	  		<div class="boy-like">
+	  			<v-title
+	  			:type="false"
+	  			:title="boyllike.title"
+	  				></v-title>
+	  			<ul class="girl-lick-box">
+	  				<li v-for="item in boyllike.one">
+	  					<v-blockone
+	  					:prop="item"	
+	  						></v-blockone>
+	  				</li>
+	  			</ul>
+	  			<v-more
+	  			:type="false"
+	  			:titleone="'换一换'"
+	  			:titletwo="'男生频道>>'"
+	  				></v-more>
+	  		</div>
 	  		<div class="clear-line"></div>
+	  		<!--限时免费-->
+	  		<div class="time-free">
+	  			<v-title
+	  			:title="timeFree.title"	
+	  				></v-title>
+	  			<v-blockthree
+	  			:hot="timeFree.data"	
+	  				></v-blockthree>
+	  			<v-more
+  				:titleone="'更多限免佳作>>'"
+	  				></v-more>	
+	  		</div>
+	  		<div class="clear-line"></div>
+	  		<!--精选专题-->
+	  		<div class="special-one">
+	  			<v-title
+  				:type="false"
+	  			:title="special.title"	
+	  			:label="'热'"
+	  				></v-title>
+	  			<v-blockfour
+	  			:prop="special.data"	
+	  				></v-blockfour>
+	  			<v-more
+  				:titleone="'更多精彩专题>>'"
+	  				></v-more>
+	  		</div>
+	  		<!--瀑布流-->
+	  		<div class="clear-line"></div>
+	  		<ul class="pull-book">
+	  			<li v-for="item in pullData">
+	  				<v-blockone
+	  				:prop="item"
+	  					></v-blockone>
+	  			</li>
+	  		</ul>
   		</section>
   	</div>
 </template>
@@ -81,7 +148,9 @@ import bookTitle from 'components/common/bookTitle'
 import boxBlockOne from 'components/common/boxBlockOne'
 import boxBlockTwo from 'components/common/boxBlockTwo'
 import boxBlockThree from 'components/common/boxBlockThree'
+import boxBlockFour from 'components/common/boxBlockFour'
 import bookMore from 'components/common/bookMore'
+import hammer from 'hammerjs'
 export default {
 	components:{
 		//搜索
@@ -94,6 +163,8 @@ export default {
 		"v-blocktwo":boxBlockTwo,
 		//书块 three
 		"v-blockthree":boxBlockThree,
+		//书块 fore
+		"v-blockfour":boxBlockFour,
 		//标题
 		"v-title":bookTitle,
 		//更多
@@ -120,15 +191,21 @@ export default {
 		...mapGetters({
 	  		weekHotData:"weekHotData",
 	  		bannerImg:"bannerImg",
-	  		recommend:"recommend"
+	  		recommend:"recommend",
+	  		girllike:"girllike",
+	  		boyllike:"boyllike",
+	  		timeFree:"timeFree",
+	  		special:"special",
+	  		pullData:"pullData"
 	  	})
 	},
 	created (){
 		this.$store.dispatch(types.GET_BOOKCITY);
+		this.$store.dispatch(types.GET_PULL_BOOK);
 		setTimeout(() => {
 //			console.log(this.bannerImg);
-				
 		},3000);
+//		var ham =new Hammer(this.$refs.slide);
 	}
 }
 </script>

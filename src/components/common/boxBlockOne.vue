@@ -2,8 +2,8 @@
   	<div class="box-block-one">
   		<div class="img">
  	 		<img :src="prop.cover"/>
- 	 		<label></label>
- 	 		<p>{{}}</p>
+ 	 		<label v-if="bookrank">{{bookrank}}</label>
+ 	 		<p>{{imglabel}}</p>
   		</div>
   		<div class="text">
   			<h1>{{prop.title}}</h1>
@@ -32,7 +32,7 @@ export default {
 		},
 		bookrank:{
 			type:Number,
-			default:1
+			default:0
 		}
 	}
 }
@@ -43,7 +43,7 @@ export default {
 .box-block-one{
 	width: 100%;
 	height: 130px;
-	padding: 12px 10px;
+	padding: 12px 0px;
 	display: -webkit-flex;
 	display: flex;
     border-bottom: 1px solid #f0f0f0;
@@ -58,7 +58,7 @@ export default {
 		}
 		label{
 			width: 14px;
-			height: 26px;
+			height: 22px;
 			color: white;
 			background: url(../../assets/link.png) no-repeat center;
 			background-size: 14px 22px;
@@ -87,6 +87,7 @@ export default {
 		h3{
 			color: rgba(0,0,0,0.7);
 			line-height: 20px;
+			font-size: 14px;
 		}	
 		p{
 			min-height: 40px;
@@ -97,6 +98,7 @@ export default {
 		    -webkit-line-clamp: 2;
 		    -webkit-box-orient: vertical;
 		    word-break: break-all;
+		    font-size: 12px;
 		}
 		div{
 			max-height: 56px;
@@ -105,8 +107,10 @@ export default {
 		label{
 			margin-top: 6px;
 			display: inline-block;
-			padding:2px 8px;
+			padding:2px 6px;
 			border:#53ac7d 1px solid;
+			color:#53ac7d;
+			font-size: 12px;
 			margin-right: 6px;
 			border-radius: 2px;
 		}	

@@ -1,15 +1,35 @@
 <template>
   	<div class="box-block-two">
-  		<span class="rank">01</span>
-  		<p>sdfsdfsdfdsfdsf</p>
-  		<label>dsfdsfsdf</label>
+  		<span class="rank">{{rankNum}}</span>
+  		<p>{{prop.title}}</p>
+  		<label>{{prop.authors}}</label>
   	</div>
 </template>
 
 <script>
 
 export default {
-	
+	props :{
+		prop:{
+			type:Object,
+			default (){
+				return {}
+			}
+		},
+		rank :{
+			type:Number,
+			default:1
+		}
+	},
+	computed :{
+		rankNum (){
+			if(this.rank <10){
+				return '0' + this.rank;
+			}else{
+				return this.rank;
+			};
+		}
+	}
 }
 </script>
 
@@ -30,7 +50,7 @@ export default {
 		}
 		p{
 			display: inline-block;
-			min-width: 100px;
+			padding-right: 10px;
 		}
 		label{
 			font-size: 12px;

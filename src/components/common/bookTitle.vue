@@ -2,15 +2,15 @@
 	<div>
 		<div class="book-title titleone" v-if="type">{{title}}</div>
 		<div v-else class="book-title titletwo">
-		<div>
-			<h1>{{title}}</h1>
-			<label v-if="labelShow">1</label>
-		</div>
-		<div v-if="tabShow">
-			<span @click="boyGo" :class="{'active':active}">男</span>
-			<span>丨</span>
-			<span @click="girlGo" :class="{'active':!active}">女</span>
-		</div>
+			<div>
+				<h1>{{title}}</h1>
+				<label v-if="label">{{label}}</label>
+			</div>
+			<div v-if="tabShow">
+				<span @click="boyGo" :class="{'active':active}">男</span>
+				<span>丨</span>
+				<span @click="girlGo" :class="{'active':!active}">女</span>
+			</div>
 		</div>
 	</div>
 </template>
@@ -33,7 +33,7 @@ export default {
 		},
 		label:{
 			type:String,
-			default:"标签"
+			default:""
 		},
 		labelShow:{
 			type:Boolean,
@@ -86,6 +86,7 @@ export default {
 		color: white;
 		text-align: center;
 		background: #53ac7d;
+		font-size: 12px;
 	}
 	span,i{
 		font-size: 12px;
