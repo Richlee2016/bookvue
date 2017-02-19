@@ -90,15 +90,16 @@ export default {
 			font-size: 14px;
 		}	
 		p{
-			min-height: 40px;
+		    overflow : hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			font-size: 12px;
+			/*max-height: 40px;*/
+			height: 40px;
 			line-height: 20px;
 			color: rgba(0,0,0,0.6);
-		    overflow: hidden;
-		    display: -webkit-box;
-		    -webkit-line-clamp: 2;
-		    -webkit-box-orient: vertical;
-		    word-break: break-all;
-		    font-size: 12px;
 		}
 		div{
 			max-height: 56px;

@@ -35,7 +35,9 @@ export default {
 		},
 	methods:{
 		_transform (dom){
-			dom.style.WebkitTransform = 'translateX('+ (-100/this.swiper.box)*this.n +'%)';
+			if(dom){
+				dom.style.WebkitTransform = 'translateX('+ (-100/this.swiper.box)*this.n +'%)';
+			};
 		},
 		//左右滑动
 		_swiper (){
