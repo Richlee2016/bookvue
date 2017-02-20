@@ -8,6 +8,8 @@ import store from './store'
 import axios from 'axios'
 //index
 import Index from './components/index/index'
+//banner
+import Banner from 'components/banner/banner'
 //book
 import Book from './components/book/book'
 //page
@@ -22,7 +24,8 @@ window.axios = axios;
 const router = new VueRouter({
 	routes:[
 				{ path: '/', component: Index},
-				{ path: '/book', component: Book}
+				{ path: '/book', component: Book},
+				{path:'/banner', component:Banner}
 			]
 });
 

@@ -4,19 +4,21 @@
 var fs = require('fs')
 var http = require('http')
 var Mock = {};
-var _getData = (client) => {
+var _getData = (path) => {
   var http = require('http')
-  var client = client || {};
-  var getData = (data) => {
+  var client = path || "";
+  var getData = (data,list) => {
     var data = data || {};
+    var list = list || "";
     return (cb) => {
       var queryString = require('querystring');
       var query  = data;
       var qs = queryString.stringify(query);
+      console.log(path + list + qs);
       var http_request = {
-        hostname : client.hostname,
+        hostname : "dushu.xiaomi.com",
         port : 80,
-        path : client.path + qs
+        path : path + list + qs
       }
       //请求
       req_obj = http.request(http_request,(_res) => {
@@ -38,19 +40,16 @@ var _getData = (client) => {
 
 
 //首页
-var get_index ={
-  hostname : "dushu.xiaomi.com",
-  path : '/hs/v3/channel/418'
-}
-Mock.get_index_data = _getData(get_index);
+Mock.get_index_data = _getData('/hs/v3/channel/418');
 
 //瀑布流请求
-var get_pull = {
-  hostname : "dushu.xiaomi.com",
-  path : '/rock/book/recommend?'
-}
-Mock.get_pull_data = _getData(get_pull);
+Mock.get_pull_data = _getData('/rock/book/recommend?');
 
+//搜索页面
+Mock.get_search_page = _getData('/store/v0/ad?');
+
+//banner
+Mock.get_banner_page = _getData('/store/v0/fiction/list/');
 module .exports = Mock;
 
 

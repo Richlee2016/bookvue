@@ -2,20 +2,14 @@ import types from "types"
 const state = {
 	//所有数据
 	bookCity:{},
-	//banner
-	bannerData:{},
-	//本周最火
-	weekHotData:{},
-	//重磅推荐
-	recommendData:{},
-	//女生最爱
-	girlLikeData:{},
-	//男生最爱
-	boyLiceData:{},
 	//限时免费
 	timeFreeData:{},
 	//瀑布流
-	pullBookData:{}
+	pullBookData:{},
+	//searchpage
+	searchpage:{},
+	//bannerpage
+	bannerpage:{}
 }
 const util = {
 	twoGroup (data,a,b){
@@ -54,7 +48,6 @@ const util = {
 		return unescape(str.replace(/\u/g, "%u"))
 	}
 }
-
 
 const getters ={
 	weekHotData (){
@@ -121,8 +114,10 @@ const getters ={
 		return res;
 	},
 	pullData (){
-		console.log(state.pullBookData.items);
 		return state.pullBookData.items || [];
+	},
+	bannerPage (){
+		return state.bannerpage;
 	}
 }
 
@@ -134,11 +129,18 @@ const mutations = {
 	[types.GET_PULL_BOOK] (state, {pullbook}){
 			state.pullBookData = pullbook;
 	},
+	[types.GET_SEARCH_PAGE] (state,{searchpage}){
+			state.searchpage = searchpage;
+	},
+	[types.GET_BANNER_PAGE] (state,{bannerpage}){
+			state.bannerpage = bannerpage;
+			console.log(bannerpage);
+	}
 }
 
 const actions = {
 	[types.GET_BOOKCITY] ({commit}){
-		axios.get("http://192.168.2.249:3000/api/index")
+		axios.get("http://localhost:3000/api/index")
 		.then( (res) => {
 			if(res.status == 200){
 				commit(types.GET_BOOKCITY,{bookcity:res.data});
@@ -149,7 +151,7 @@ const actions = {
 		});
 	},
 	[types.GET_PULL_BOOK] ({commit}){
-		axios.post("http://192.168.2.249:3000/api/ajax/pull",{start:0,count:10})
+		axios.post("http://localhost:3000/api/ajax/pull",{start:0,count:10})
 		.then( (res) => {
 			if(res.status == 200){
 				commit(types.GET_PULL_BOOK,{pullbook:res.data});
@@ -158,7 +160,30 @@ const actions = {
 		.catch( (err) => {
 			console.log(err);
 		});
-	}
+	},
+	[types.GET_SEARCH_PAGE] ({commit}){
+		axios.post("http://localhost:3000/api/search",{key:'df_search_tags',a:1})
+		.then( (res) => {
+			if(res.status == 200){
+				commit(types.GET_SEARCH_PAGE,{searchpage:res.data},);
+			};
+		})
+		.catch( (err) => {
+			console.log(err);
+		});
+	},
+	[types.GET_BANNER_PAGE] ({commit},{list}){
+		axios.post("http://localhost:3000/api/banner",{start:0,count:10,list:list})
+		.then( (res) => {
+			
+			if(res.status == 200){
+				commit(types.GET_BANNER_PAGE,{bannerpage:res.data},);
+			};
+		})
+		.catch( (err) => {
+			console.log(err);
+		});
+	},
 }
 
 export default {
