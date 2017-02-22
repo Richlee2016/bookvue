@@ -18,6 +18,7 @@
 import bookCity from './bookcity/bookcity'
 import bookFram from './bookfram/bookfram'
 import mymixin from './mixins'
+
 export default {
 	components:{
 		"v-bookcity":bookCity,

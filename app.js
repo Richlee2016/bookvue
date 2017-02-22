@@ -2,10 +2,8 @@ var app = require('koa')();
 var router = require('koa-router')();
 var koaBody = require('koa-body')();
 var cors = require('koa-cors');
-var querystring = require('querystring');
 var httpService = require('./service/httpService.js');
 //跨域请求
-
 app.use(cors());
 
 router.get('/api/index',function* (){

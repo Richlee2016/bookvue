@@ -6,7 +6,9 @@
 		<v-blockthree
 		:hot="data.data"	
 			></v-blockthree>
-		<v-more></v-more>	
+		<v-more
+		@onemore="onemore(data.id)"	
+			></v-more>	
 	</div>
 </template>
 
@@ -29,6 +31,11 @@ export default {
 			default (){
 				return {};
 			}
+		}
+	},
+	methods :{
+		onemore (id){
+			this.$router.push({ path:'container', query: { id:id }})
 		}
 	}
 }

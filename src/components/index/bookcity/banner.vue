@@ -1,5 +1,4 @@
 <template>
-  <!--搜索-->
   <div class="banner-city">
 		<div class="city-search" @click="search">
 	  		<v-search></v-search>

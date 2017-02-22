@@ -2,16 +2,48 @@ import types from "types"
 const state = {
 	//所有数据
 	bookCity:{},
+	//热门推荐
+	recommendGroup:[],
+	recommendData:[],
+	changeTime:0,
 	//限时免费
 	timeFreeData:{},
 	//瀑布流
 	pullBookData:{},
-	//searchpage
+	//搜索页面
 	searchpage:{},
-	//bannerpage
-	bannerpage:{}
+	//containerData
+	containerData:{}
 }
 const util = {
+	setGroup (){
+ 		var	args =Array.prototype.slice.call(arguments),
+ 		obj = args.splice(0,1)[0],
+ 		type = args.slice(0,1)[0],
+		len =args.length,
+		extArr = [],
+		arr =[],
+		i = 0,
+		j = 0;
+		for(j;j<obj.length;j++){
+			extArr[j] = obj[j];
+		};
+		var isObject = Object.prototype.toString.call(type) === "[object Object]"? true : false;
+			if(isObject){
+				var eva = Math.ceil(obj.length/type.num);
+				while(i<type.num-1){
+					arr.push(extArr.splice(0,eva));
+					i++;
+				};
+				arr.push(extArr.splice(0,eva));
+			}else{
+				while(args[i]){
+					arr.push(extArr.splice(0,args[i]));
+					i++;
+				};
+			}
+		return arr;
+	},
 	twoGroup (data,a,b){
 		let one = [];
 		let two = [];
@@ -40,7 +72,8 @@ const util = {
 		return this.setData(num,(o) => {
 			return {
 				title:o.ad_name,
-				data:o.data.data
+				data:o.data.data,
+				id:o.reference_id
 			};
 		});
 	},
@@ -56,20 +89,21 @@ const getters ={
 	},
 	bannerImg (){
 		return util.setData(0,(o) => {
-			let group =util.twoGroup(o.data.data,3,5);
+			let group =util.setGroup(o.data.data,3,5);
 			return {
-				one:group.one,
-				two:group.two
+				one:group[0],
+				two:group[1]
 			}
 		});
 	},
 	recommend (){
 		return util.setData(2,(o) => {
-			let group =util.twoGroup(o.data.data,1,5);
+			let arr = util.setGroup(state.recommendGroup,{num:3});
+			let group = util.setGroup(arr[state.changeTime],1,4);
 			return {
 				title:o.ad_name,
-				one:group.one,
-				two:group.two
+				one:group[0],
+				two:group[1]
 			}
 		});
 	},
@@ -116,25 +150,36 @@ const getters ={
 	pullData (){
 		return state.pullBookData.items || [];
 	},
-	bannerPage (){
-		return state.bannerpage;
+	containerPage (){
+		return state.containerData;
 	}
 }
 
 const mutations = {
 	[types.GET_BOOKCITY] (state, {bookcity}){
-			state.bookCity = bookcity;
-			state.timeFreeData=bookcity.items[5];
+		state.bookCity = bookcity;
+		state.timeFreeData=bookcity.items[5];
+		state.recommendGroup =util.setGroup(state.bookCity.items[2].data.data,{num:2})[0]; 
 	},
 	[types.GET_PULL_BOOK] (state, {pullbook}){
-			state.pullBookData = pullbook;
+		state.pullBookData = pullbook;
 	},
+	//跳转 搜索页
 	[types.GET_SEARCH_PAGE] (state,{searchpage}){
-			state.searchpage = searchpage;
+		state.searchpage = searchpage;
 	},
-	[types.GET_BANNER_PAGE] (state,{bannerpage}){
-			state.bannerpage = bannerpage;
-			console.log(bannerpage);
+	//跳转到 banner页
+	[types.ID_JUMP] (state,{data}){
+		state.containerData = data;
+	},
+	//recommend 操作
+	[types.RECOMMEND_CHANGE] (state){
+		state.changeTime++;
+		state.changeTime = state.changeTime%3;d
+	},
+	[types.RECOMMEND_TAB] (state,{tab}){
+		state.changeTime = 0;
+		state.recommendGroup =util.setGroup(state.bookCity.items[2].data.data,{num:2})[tab]; 
 	}
 }
 
@@ -172,12 +217,12 @@ const actions = {
 			console.log(err);
 		});
 	},
-	[types.GET_BANNER_PAGE] ({commit},{list}){
+	[types.ID_JUMP] ({commit},{list}){
 		axios.post("http://localhost:3000/api/banner",{start:0,count:10,list:list})
 		.then( (res) => {
 			
 			if(res.status == 200){
-				commit(types.GET_BANNER_PAGE,{bannerpage:res.data},);
+				commit(types.ID_JUMP,{data:res.data},);
 			};
 		})
 		.catch( (err) => {

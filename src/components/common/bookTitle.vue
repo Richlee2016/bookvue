@@ -51,7 +51,7 @@ export default {
 		},
 		girlGo (){
 			this.active = false;
-			this.$emit("boyGo");
+			this.$emit("girlGo");
 		}
 	}
 }

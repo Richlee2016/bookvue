@@ -4,6 +4,8 @@
 		:type="false"
 		:title="data.title"
 		:tabShow="true"
+		@boyGo="boyGo"
+		@girlGo="girlGo"
 			></v-title>
 		<ul class="recommend-box">
 			<li v-for="item in data.one">
@@ -22,11 +24,14 @@
 		<v-more
 		:type="false"
 		:titleone="'换一换'"
+		@onemore="onemore"
+		@twomore="twomore"
 			></v-more>
 	</div>
 </template>
 
 <script>
+import types from 'types'
 import bookTitle from 'components/common/bookTitle'
 import bookMore from 'components/common/bookMore'
 import boxBlockOne from 'components/common/boxBlockOne'
@@ -48,6 +53,20 @@ export default {
 			default (){
 				return {};
 			}
+		}
+	},
+	methods :{
+		onemore (){
+			this.$store.commit(types.RECOMMEND_CHANGE);
+		},
+		twomore (){
+			
+		},
+		boyGo (){
+			this.$store.commit(types.RECOMMEND_TAB,{tab:0});
+		},
+		girlGo (){
+			this.$store.commit(types.RECOMMEND_TAB,{tab:1});
 		}
 	}
 }

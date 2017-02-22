@@ -5,37 +5,35 @@ var fs = require('fs')
 var http = require('http')
 var Mock = {};
 var _getData = (path) => {
-  var http = require('http')
-  var client = path || "";
-  var getData = (data,list) => {
-    var data = data || {};
-    var list = list || "";
-    return (cb) => {
-      var queryString = require('querystring');
-      var query  = data;
-      var qs = queryString.stringify(query);
-      console.log(path + list + qs);
-      var http_request = {
-        hostname : "dushu.xiaomi.com",
-        port : 80,
-        path : path + list + qs
-      }
-      //请求
-      req_obj = http.request(http_request,(_res) => {
-        var content = '';
-        _res.setEncoding('utf8');
-        _res.on('data',(chunk) => {
-          content += chunk;
-        })
-        _res.on('end',() => {
-          cb(null,content)
-        })
-      })
-      req_obj.on('error',() => {})
-      req_obj.end();
-    }
-  };
-  return getData;
+    var http = require('http');
+    var client = path || "";
+    var getData = (data,list) => {
+        var data = data || {};
+        var list = list || "";
+        return (cb) => {
+            //解析请求数据
+            var queryString = require('querystring');
+            var query  = data;
+            var qs = queryString.stringify(query);
+            //console.log(path + list + qs);
+            //请求地址
+            var http_request = {
+                hostname : "dushu.xiaomi.com",
+                port : 80,
+                path : path + list + qs
+            }
+            //请求
+            req = http.request(http_request,(res) => {
+                var content = '';
+                res.setEncoding('utf8');
+                res.on('data',(chunk) => { content += chunk;});
+                res.on('end',() => { cb(null,content)});
+            })
+            req.on('error',() => {})
+            req.end();
+        }
+    };
+    return getData;
 }
 
 
