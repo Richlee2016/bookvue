@@ -13,7 +13,9 @@ const state = {
 	//搜索页面
 	searchpage:{},
 	//containerData
-	containerData:{}
+	containerData:{},
+	//boylike
+	boyChange:0
 }
 const util = {
 	setGroup (){
@@ -98,32 +100,35 @@ const getters ={
 	},
 	recommend (){
 		return util.setData(2,(o) => {
-			let arr = util.setGroup(state.recommendGroup,{num:3});
+			let arr = util.setGroup(o.data.data,{num:6});
+				arr = arr.map( (o) => {
+					var res = util.setGroup(o,1,4);
+					return res;
+				});
+				arr = util.setGroup(arr,{num:2});
+				console.log(arr);
 			let group = util.setGroup(arr[state.changeTime],1,4);
 			return {
 				title:o.ad_name,
-				one:group[0],
-				two:group[1]
+				one:arr
 			}
 		});
 	},
 	girllike (){
 		return util.setData(3,(o) => {
-			let group =util.twoGroup(o.data.data,5);
+			let group =util.setGroup(o.data.data,{num:3});
 			return {
 				title:o.ad_name,
-				one:group.one,
-				two:group.two
+				one:group
 			}
 		});
 	},
 	boyllike (){
 		return util.setData(4,(o) => {
-			let group =util.twoGroup(o.data.data,5);
+			let group =util.setGroup(o.data.data,{num:3});
 			return {
 				title:o.ad_name,
-				one:group.one,
-				two:group.two
+				one:group
 			}
 		});
 	},
@@ -175,7 +180,7 @@ const mutations = {
 	//recommend 操作
 	[types.RECOMMEND_CHANGE] (state){
 		state.changeTime++;
-		state.changeTime = state.changeTime%3;d
+		state.changeTime = state.changeTime%3;
 	},
 	[types.RECOMMEND_TAB] (state,{tab}){
 		state.changeTime = 0;

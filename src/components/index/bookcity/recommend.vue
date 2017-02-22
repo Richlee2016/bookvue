@@ -1,6 +1,6 @@
 <template>
   <div class="recommend">
-		<v-title
+		<!--<v-title
 		:type="false"
 		:title="data.title"
 		:tabShow="true"
@@ -20,12 +20,11 @@
   				:rank="index+2"
   					></v-blocktwo>
 			</li>
-		</ul>
+		</ul>-->
 		<v-more
 		:type="false"
 		:titleone="'换一换'"
 		@onemore="onemore"
-		@twomore="twomore"
 			></v-more>
 	</div>
 </template>
@@ -47,6 +46,13 @@ export default {
 		//书块two
 		"v-blocktwo":boxBlockTwo
 	},
+	data (){
+		return {
+			recommend :{},
+			num:0,
+			tab:0
+		}
+	},
 	props:{
 		data:{
 			type:Object,
@@ -59,15 +65,15 @@ export default {
 		onemore (){
 			this.$store.commit(types.RECOMMEND_CHANGE);
 		},
-		twomore (){
-			
-		},
 		boyGo (){
 			this.$store.commit(types.RECOMMEND_TAB,{tab:0});
 		},
 		girlGo (){
 			this.$store.commit(types.RECOMMEND_TAB,{tab:1});
 		}
+	},
+	created (){
+	
 	}
 }
 </script>

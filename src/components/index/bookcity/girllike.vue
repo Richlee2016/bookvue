@@ -4,8 +4,8 @@
 		:type="false"
 		:title="data.title"
 			></v-title>
-		<ul class="girl-lick-box">
-			<li v-for="item in data.one">
+		<ul class="girl-lick-box" v-for="(n,index) in data.one" v-show="index===num">
+			<li v-for='item in n'>
 				<v-blockone
 				:prop="item"	
 					></v-blockone>
@@ -15,6 +15,7 @@
 		:type="false"
 		:titleone="'换一换'"
 		:titletwo="'女生频道>>'"
+		@onemore ="onemore"
 			></v-more>
 	</div>
 </template>
@@ -32,12 +33,23 @@ export default {
 		//书块one
 		"v-blockone":boxBlockOne
 	},
+	data (){
+		return {
+			num:0
+		}
+	},
 	props:{
 		data:{
 			type:Object,
 			default (){
 				return {};
 			}
+		}
+	},
+	methods :{
+		onemore (){
+			this.num++;
+			this.num = this.num%3;
 		}
 	}
 }
