@@ -35,7 +35,7 @@ export default {
 	},
 	methods :{
 		onemore (id){
-			this.$router.push({ path:'container', query: { id:id }})
+			this.$router.push({ path:'containerone', query: { id:id }})
 		}
 	}
 }

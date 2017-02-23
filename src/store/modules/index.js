@@ -1,10 +1,10 @@
 import types from "types"
+import {setGroup,chineseReg} from "assets/util"
+
 const state = {
 	//所有数据
 	bookCity:{},
 	//热门推荐
-	recommendGroup:[],
-	recommendData:[],
 	changeTime:0,
 	//限时免费
 	timeFreeData:{},
@@ -14,54 +14,10 @@ const state = {
 	searchpage:{},
 	//containerData
 	containerData:{},
-	//boylike
-	boyChange:0
+	//girlmore
+	moreData:{}
 }
 const util = {
-	setGroup (){
- 		var	args =Array.prototype.slice.call(arguments),
- 		obj = args.splice(0,1)[0],
- 		type = args.slice(0,1)[0],
-		len =args.length,
-		extArr = [],
-		arr =[],
-		i = 0,
-		j = 0;
-		for(j;j<obj.length;j++){
-			extArr[j] = obj[j];
-		};
-		var isObject = Object.prototype.toString.call(type) === "[object Object]"? true : false;
-			if(isObject){
-				var eva = Math.ceil(obj.length/type.num);
-				while(i<type.num-1){
-					arr.push(extArr.splice(0,eva));
-					i++;
-				};
-				arr.push(extArr.splice(0,eva));
-			}else{
-				while(args[i]){
-					arr.push(extArr.splice(0,args[i]));
-					i++;
-				};
-			}
-		return arr;
-	},
-	twoGroup (data,a,b){
-		let one = [];
-		let two = [];
-		for(let i=0; i<a; i++){
-			one[i] = data[i]
-		};
-		if(b){
-			for(let j=a; j<a+b; j++){
-				two[j-a] = data[j];
-			};
-		};
-		return {
-			one:one,
-			two:two
-		}
-	},
 	setData (num,cb){
 		let data = state.bookCity.items || [];
 		let res = {};
@@ -78,9 +34,6 @@ const util = {
 				id:o.reference_id
 			};
 		});
-	},
-	unicode (str){
-		return unescape(str.replace(/\u/g, "%u"))
 	}
 }
 
@@ -91,7 +44,7 @@ const getters ={
 	},
 	bannerImg (){
 		return util.setData(0,(o) => {
-			let group =util.setGroup(o.data.data,3,5);
+			let group =setGroup(o.data.data,3,5);
 			return {
 				one:group[0],
 				two:group[1]
@@ -100,35 +53,37 @@ const getters ={
 	},
 	recommend (){
 		return util.setData(2,(o) => {
-			let arr = util.setGroup(o.data.data,{num:6});
+			let arr = setGroup(o.data.data,{num:6});
 				arr = arr.map( (o) => {
-					var res = util.setGroup(o,1,4);
+					var res = setGroup(o,1,4);
 					return res;
 				});
-				arr = util.setGroup(arr,{num:2});
-				console.log(arr);
-			let group = util.setGroup(arr[state.changeTime],1,4);
+				arr = setGroup(arr,{num:2});
+			let group = setGroup(arr[state.changeTime],1,4);
 			return {
 				title:o.ad_name,
-				one:arr
+				one:arr,
+				id:o.reference_id
 			}
 		});
 	},
 	girllike (){
 		return util.setData(3,(o) => {
-			let group =util.setGroup(o.data.data,{num:3});
+			let group =setGroup(o.data.data,{num:3});
 			return {
 				title:o.ad_name,
-				one:group
+				one:group,
+				id:370
 			}
 		});
 	},
 	boyllike (){
 		return util.setData(4,(o) => {
-			let group =util.setGroup(o.data.data,{num:3});
+			let group =setGroup(o.data.data,{num:3});
 			return {
 				title:o.ad_name,
-				one:group
+				one:group,
+				id:369
 			}
 		});
 	},
@@ -139,13 +94,15 @@ const getters ={
 			arr = data.data.data.map( (o) => {
 				return {
 					title:o.ad_name,
-					cover:o.data.cover
+					cover:o.data.cover,
+					id:371
 				}
 			});
 		};
 		return {
 			title:data.ad_name || "",
-			data:arr
+			data:arr,
+			id:""
 		};
 	},
 	special (){
@@ -157,6 +114,19 @@ const getters ={
 	},
 	containerPage (){
 		return state.containerData;
+	},
+	getMoreData (){
+		let res = state.moreData;
+		var str = res.hidden_info;
+		var title = "";
+		if(str){
+			var reg = chineseReg;
+			title = reg.exec(str)[1];
+		};	
+		return {
+			title:title,
+			data:res.items
+		};
 	}
 }
 
@@ -164,7 +134,6 @@ const mutations = {
 	[types.GET_BOOKCITY] (state, {bookcity}){
 		state.bookCity = bookcity;
 		state.timeFreeData=bookcity.items[5];
-		state.recommendGroup =util.setGroup(state.bookCity.items[2].data.data,{num:2})[0]; 
 	},
 	[types.GET_PULL_BOOK] (state, {pullbook}){
 		state.pullBookData = pullbook;
@@ -177,15 +146,10 @@ const mutations = {
 	[types.ID_JUMP] (state,{data}){
 		state.containerData = data;
 	},
-	//recommend 操作
-	[types.RECOMMEND_CHANGE] (state){
-		state.changeTime++;
-		state.changeTime = state.changeTime%3;
+	//更多
+	[types.GET_MORE] (state,{data}){
+		state.moreData = data;
 	},
-	[types.RECOMMEND_TAB] (state,{tab}){
-		state.changeTime = 0;
-		state.recommendGroup =util.setGroup(state.bookCity.items[2].data.data,{num:2})[tab]; 
-	}
 }
 
 const actions = {
@@ -223,9 +187,8 @@ const actions = {
 		});
 	},
 	[types.ID_JUMP] ({commit},{list}){
-		axios.post("http://localhost:3000/api/banner",{start:0,count:10,list:list})
+		axios.post("http://localhost:3000/api/moreone",{start:0,count:10,list:list})
 		.then( (res) => {
-			
 			if(res.status == 200){
 				commit(types.ID_JUMP,{data:res.data},);
 			};
@@ -234,6 +197,17 @@ const actions = {
 			console.log(err);
 		});
 	},
+	[types.GET_MORE] ({commit},{list}){
+		axios.post("http://localhost:3000/api/moretwo",{list:list})
+		.then( (res) => {
+			if(res.status == 200){
+				commit(types.GET_MORE,{data:res.data},);
+			};
+		})
+		.catch( (err) => {
+			console.log(err);
+		});
+	}
 }
 
 export default {

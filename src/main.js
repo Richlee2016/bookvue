@@ -9,9 +9,10 @@ import axios from 'axios'
 //index
 import Index from './components/index/index'
 //banner
-import Banner from 'components/banner/banner'
+import Banner from 'components/container/banner'
 //bookContainer
-import bookContainer from 'components/bookContainer/bookContainer'
+import containerOne from 'components/container/containerOne'
+import containerTwo from 'components/container/containerTwo'
 //book
 import Book from './components/book/book'
 //page
@@ -28,8 +29,13 @@ const router = new VueRouter({
 				{ path: '/', component: Index},
 				{ path: '/book', component: Book},
 				{path:'/banner', component:Banner},
-				{path:'/container', component:bookContainer}
-			]
+				{path:'/containerone', component:containerOne},
+				{path:'/containertwo', component:containerTwo}
+			],
+	//回退页面 滚动位置设置		
+	scrollBehavior (to, from, savedPosition) {
+	  return { x: 0, y: 0 }
+	}		
 });
 
 const app = new Vue({

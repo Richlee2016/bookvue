@@ -17,14 +17,13 @@
 <script>
 import bookCity from './bookcity/bookcity'
 import bookFram from './bookfram/bookfram'
-import mymixin from './mixins'
-
+import {translate} from 'assets/mixins'
 export default {
 	components:{
 		"v-bookcity":bookCity,
 		"v-bookfram":bookFram
 	},
-	mixins:[mymixin],
+	mixins:[translate],
 	methods:{
 		
 	},

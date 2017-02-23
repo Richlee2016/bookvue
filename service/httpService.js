@@ -48,6 +48,9 @@ Mock.get_search_page = _getData('/store/v0/ad?');
 
 //banner
 Mock.get_banner_page = _getData('/store/v0/fiction/list/');
+
+//女生更多
+Mock.get_more_page = _getData('/hs/v3/channel/');
 module .exports = Mock;
 
 

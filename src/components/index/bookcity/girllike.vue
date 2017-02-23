@@ -15,12 +15,14 @@
 		:type="false"
 		:titleone="'换一换'"
 		:titletwo="'女生频道>>'"
-		@onemore ="onemore"
+		@onemore="onemore"
+		@twomore="twomore(data.id)"
 			></v-more>
 	</div>
 </template>
 
 <script>
+import {change} from 'assets/mixins'
 import bookTitle from 'components/common/bookTitle'
 import bookMore from 'components/common/bookMore'
 import boxBlockOne from 'components/common/boxBlockOne'
@@ -33,11 +35,7 @@ export default {
 		//书块one
 		"v-blockone":boxBlockOne
 	},
-	data (){
-		return {
-			num:0
-		}
-	},
+	mixins:[change],
 	props:{
 		data:{
 			type:Object,
@@ -47,9 +45,8 @@ export default {
 		}
 	},
 	methods :{
-		onemore (){
-			this.num++;
-			this.num = this.num%3;
+		twomore (id){
+			this.$router.push({ path:'containertwo', query: { id:id }})
 		}
 	}
 }
