@@ -30,7 +30,9 @@ export default {
 		})
 	},
 	created (){
-		this.$store.dispatch(types.ID_JUMP,{list:this.$route.query.id});
+		this.$nextTick(() => {
+			this.$store.dispatch(types.ID_JUMP,{list:this.$route.query.id});
+		});
 	}
 }
 </script>

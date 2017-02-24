@@ -4,7 +4,7 @@
 		:title="data.title"	
 			></v-title>
 		<v-blockthree
-		:hot="data.data"	
+		:prop="data.data"	
 			></v-blockthree>
 		<v-more
 		@onemore="onemore(data.id)"	

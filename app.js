@@ -37,6 +37,11 @@ router.post('/api/moretwo',koaBody,function* (){
   this.body =yield httpService.get_more_page({},list);
 })
 
+router.post('/api/morethree',koaBody,function* (){
+  this.set('Cache-Control','no-cache');
+  this.body =yield httpService.get_special_page(this.request.body);
+})
+
 app
   .use(router.routes())
   .use(router.allowedMethods());

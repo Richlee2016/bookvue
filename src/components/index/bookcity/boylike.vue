@@ -46,7 +46,6 @@ export default {
 	},
 	methods :{
 		twomore (id){
-			console.log(this.data);
 			this.$router.push({ path:'containertwo', query: { id:id }})
 		}
 	}

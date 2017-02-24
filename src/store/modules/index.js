@@ -15,7 +15,9 @@ const state = {
 	//containerData
 	containerData:{},
 	//girlmore
-	moreData:{}
+	moreData:{},
+	//精选更多
+	specialMore:{}
 }
 const util = {
 	setData (num,cb){
@@ -94,15 +96,14 @@ const getters ={
 			arr = data.data.data.map( (o) => {
 				return {
 					title:o.ad_name,
-					cover:o.data.cover,
-					id:371
+					cover:o.data.cover
 				}
 			});
 		};
 		return {
 			title:data.ad_name || "",
 			data:arr,
-			id:""
+			id:371
 		};
 	},
 	special (){
@@ -121,12 +122,15 @@ const getters ={
 		var title = "";
 		if(str){
 			var reg = chineseReg;
-			title = reg.exec(str)[1];
+			title = str.match(reg)[0];
 		};	
 		return {
 			title:title,
 			data:res.items
 		};
+	},
+	specialMore (){
+		return state.specialMore;
 	}
 }
 
@@ -150,6 +154,10 @@ const mutations = {
 	[types.GET_MORE] (state,{data}){
 		state.moreData = data;
 	},
+	//精选更多
+	[types.SPECIAL_MORE] (state,{data}){
+		state.specialMore = data;
+	}
 }
 
 const actions = {
@@ -202,6 +210,17 @@ const actions = {
 		.then( (res) => {
 			if(res.status == 200){
 				commit(types.GET_MORE,{data:res.data},);
+			};
+		})
+		.catch( (err) => {
+			console.log(err);
+		});
+	},
+	[types.SPECIAL_MORE] ({commit},{start,count,type}){
+		axios.post("http://localhost:3000/api/morethree",{start:start,count:count,type:type})
+		.then( (res) => {
+			if(res.status == 200){
+				commit(types.SPECIAL_MORE,{data:res.data},);
 			};
 		})
 		.catch( (err) => {

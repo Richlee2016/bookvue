@@ -13,6 +13,8 @@ import Banner from 'components/container/banner'
 //bookContainer
 import containerOne from 'components/container/containerOne'
 import containerTwo from 'components/container/containerTwo'
+import containerThree from 'components/container/containerThree'
+import containerFour from 'components/container/containerFour'
 //book
 import Book from './components/book/book'
 //page
@@ -30,12 +32,14 @@ const router = new VueRouter({
 				{ path: '/book', component: Book},
 				{path:'/banner', component:Banner},
 				{path:'/containerone', component:containerOne},
-				{path:'/containertwo', component:containerTwo}
+				{path:'/containertwo', component:containerTwo},
+				{path:'/containerthree', component:containerThree},
+				{path:'/containerfour', component:containerFour}
 			],
 	//回退页面 滚动位置设置		
-	scrollBehavior (to, from, savedPosition) {
-	  return { x: 0, y: 0 }
-	}		
+//	scrollBehavior (to, from, savedPosition) {
+//	  return { x: 0, y: 0 }
+//	}		
 });
 
 const app = new Vue({

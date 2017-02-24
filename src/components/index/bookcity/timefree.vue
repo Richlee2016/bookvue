@@ -4,10 +4,11 @@
 		:title="data.title"	
 			></v-title>
 		<v-blockthree
-		:hot="data.data"	
+		:prop="data.data"	
 			></v-blockthree>
 		<v-more
 		:titleone="'更多限免佳作>>'"
+		@onemore="onemore(data.id)"
 			></v-more>	
 	</div>
 </template>
@@ -31,6 +32,12 @@ export default {
 			default (){
 				return {};
 			}
+		}
+	},
+	methods :{
+		onemore (id){
+			console.log(id);
+			this.$router.push({ path:'containerfour', query: { id:id }})
 		}
 	}
 }

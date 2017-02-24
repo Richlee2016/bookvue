@@ -11,7 +11,9 @@ const types = {
 	//id跳转
 	ID_JUMP:"ID_JUMP",
 	//get
-	GET_MORE:"GET_MORE"
+	GET_MORE:"GET_MORE",
+	//精选more
+	SPECIAL_MORE:"SPECIAL_MORE"
 }
 
 

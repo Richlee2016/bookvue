@@ -15,7 +15,7 @@ var _getData = (path) => {
             var queryString = require('querystring');
             var query  = data;
             var qs = queryString.stringify(query);
-            //console.log(path + list + qs);
+            console.log(path + list + qs);
             //请求地址
             var http_request = {
                 hostname : "dushu.xiaomi.com",
@@ -51,6 +51,10 @@ Mock.get_banner_page = _getData('/store/v0/fiction/list/');
 
 //女生更多
 Mock.get_more_page = _getData('/hs/v3/channel/');
+
+//更多专题
+Mock.get_special_page =  _getData('/store/v0/ad/persistent?');
+
 module .exports = Mock;
 
 

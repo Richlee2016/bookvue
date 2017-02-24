@@ -1,23 +1,22 @@
 <template>
-	  <div class="container-two">
-	  		<v-head
-	  		:title="container.title[0]"	
-	  			></v-head>
-	  		<section v-for="(item,index) in container.data">
+  <div class="container-four">
+  		<v-head
+  		:title="container.title"	
+  			></v-head>
+  		
+			<section v-for="(item,index) in container.data">
 	  			<v-title
 					:title="item.ad_name"	
 						></v-title>
-	  			<div class="container-inner" v-for="book in item.data.data">
-	  				<v-blockone
-	  				:prop="book"
-	  					></v-blockone>
-	  			</div>
+  				<v-blockthree	
+					 ></v-blockthree>
+					 {{freeData}}
 	  			<v-more
 					:titleone="titleone[index]"
 						></v-more>
 					<div class="clear-line"></div>
 	  		</section>	
-	  </div>
+  </div>
 </template>
 
 <script>
@@ -27,7 +26,7 @@ import {chineseReg} from 'assets/util'
 import bookHead from 'components/common/bookHead'
 import bookTitle from 'components/common/bookTitle'
 import bookMore from 'components/common/bookMore'
-import boxBlockOne from 'components/common/boxBlockOne'
+import boxBlockThree from 'components/common/boxBlockThree'
 export default {
 	components :{
 		//标题
@@ -36,13 +35,8 @@ export default {
 		"v-more":bookMore,
 		//抬头
 		"v-head":bookHead,
-		//书块one
-		"v-blockone":boxBlockOne,
-	},
-	data (){
-		return {
-			onemoreTitle:["查看更多","更多主编推荐>>","更多新书抢鲜读>>","更多新书抢鲜读>>"]
-		}
+		//书块three
+		"v-blockthree":boxBlockThree,
 	},
 	computed :{
 		...mapGetters({
@@ -59,12 +53,21 @@ export default {
 									return "查看更多";
 								});
 			return res;
+		},
+		freeData (){
+			var data =  this.container;
+			var res = data;
+			console.log(res);
+//			var res = data.forEach( (o) => {
+//										console.log(o.data);
+//								});
+			return res;
 		}
 	},
 	created (){
 		this.$nextTick(() => {
 			this.$store.dispatch(types.GET_MORE,{list:this.$route.query.id});
-		});		
+		});
 	}
 }
 </script>
