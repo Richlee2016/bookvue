@@ -88,8 +88,10 @@ export default {
 	  	})
 	},
 	created (){
-		this.$store.dispatch(types.GET_BOOKCITY);
-		this.$store.dispatch(types.GET_PULL_BOOK);
+		this.$nextTick(() => {
+			this.$store.dispatch(types.GET_BOOKCITY);
+			this.$store.dispatch(types.GET_PULL_BOOK);
+		});
 	}
 }
 </script>

@@ -1,13 +1,14 @@
 <template>
   	<ul class="box-block-four">
-		<li v-for="item in prop">
+		<li v-for="(item,index) in prop">
+			<router-link :to="{path: '/banner', query: { id: item.reference_id }}">
 			<img :src="item.ad_pic_url"/>
+			</router-link>
 		</li>
   	</ul>
 </template>
 
 <script>
-
 export default {
 	props:{
 		prop :{

@@ -6,15 +6,17 @@
 		:label="'热'"
 			></v-title>
 		<v-blockfour
-		:prop="data.data"	
+		:prop="data.data"
 			></v-blockfour>
 		<v-more
 		:titleone="'更多精彩专题>>'"
+		@onemore="onemore(data.id)"
 			></v-more>
 	</div>
 </template>
 
 <script>
+import types from 'types'	
 import bookTitle from 'components/common/bookTitle'
 import bookMore from 'components/common/bookMore'
 import boxBlockFour from 'components/common/boxblockfour'
@@ -33,6 +35,11 @@ export default {
 			default (){
 				return {};
 			}
+		}
+	},
+	methods :{
+		onemore (id){
+			this.$router.push({ path:'containerthree', query: { id:id }})
 		}
 	}
 }

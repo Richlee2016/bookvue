@@ -1,7 +1,10 @@
 <template>
   	<div class="box-block-one">
   		<div class="img">
- 	 		<img :src="prop.cover"/>
+  			<div class="img-box">
+	 	 		<img :src="prop.cover"/>
+	 	 		<span class="bookfree" v-if="bookfree">{{bookfree}}</span>
+  			</div>
  	 		<label v-if="bookrank">{{bookrank}}</label>
  	 		<p>{{imglabel}}</p>
   		</div>
@@ -10,7 +13,7 @@
   			<h3>{{prop.authors}}</h3>
   			<p>{{prop.summary}}</p>
   			<div>
-	  			<label v-for="n in prop.tags">{{n}}</label>
+	  			<label v-for="(n,index) in prop.tags" v-if="index<4">{{n}}</label>
   			</div>
   		</div>
   	</div>
@@ -22,17 +25,24 @@ export default {
 	props :{
 		prop:{
 			type:Object,
-			default (){
+			default (){              
 				return {}
 			}
 		},
+		//是否完结
 		imglabel:{
 			type:String,
-			default:"完结"
+			default:""
 		},
+		//是否排行
 		bookrank:{
 			type:Number,
 			default:0
+		},
+		//是否限免
+		bookfree:{
+			type:String,
+			default:""
 		}
 	}
 }
@@ -41,9 +51,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='scss'>
 .box-block-one{
-	width: 100%;
+	/*width: 100%;*/
 	height: 130px;
-	padding: 12px 0px;
+	padding: 12px;
 	display: -webkit-flex;
 	display: flex;
     border-bottom: 1px solid #f0f0f0;
@@ -77,6 +87,24 @@ export default {
 			color: white;
 			font-size: 14px;
 			padding-left: 10px;
+		}
+		.bookfree{
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    line-height: 1.4;
+			background: #49ab3f;
+		    color: #fff;
+		    width: 100%;
+		    -webkit-transform-origin: top center;
+		    -webkit-transform: translateX(50%) rotate(45deg) translateY(50%) scale(0.8);
+		    font-size: 14px;
+		    text-align: center;
+		}
+		.img-box{
+			position: relative;
+			overflow: hidden;
+			width: 87px;
 		}
 	}
 	.text{

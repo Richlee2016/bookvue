@@ -1,6 +1,6 @@
 <template>
   	<ul class="box-block-three">
-		<li v-for="item in hot">
+		<li v-for="item in prop">
 			<img :src="item.cover"/>
 			<span>{{item.title}}</span>
 		</li>
@@ -16,7 +16,7 @@ export default {
 		"v-more":bookMore
 	},
 	props :{
-		hot:{
+		prop:{
 			type:Array,
 			default (){
 				return []
