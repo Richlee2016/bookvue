@@ -49,11 +49,14 @@ Mock.get_search_page = _getData('/store/v0/ad?');
 //banner
 Mock.get_banner_page = _getData('/store/v0/fiction/list/');
 
-//女生更多
+//频道更多
 Mock.get_more_page = _getData('/hs/v3/channel/');
 
 //更多专题
 Mock.get_special_page =  _getData('/store/v0/ad/persistent?');
+
+//分类
+Mock.get_class_page =  _getData('/hs/v0/android/store/category');
 
 module .exports = Mock;
 

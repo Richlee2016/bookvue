@@ -14,8 +14,7 @@
 		</div>
 		<!--导航-->
 		<ul class="city-nav">
-			<li v-for="item in navArr">
-				<a></a>
+			<li v-for="(item,index) in navArr" @click="navGo(index,item.id)">
 				<span :class="item.icon"></span>
 				<label>{{item.name}}</label>
 			</li>
@@ -43,9 +42,9 @@ export default {
 				autoplay:4,
 			},
 			navArr:[
-					{icon:"c-free",name:"免费"},
-					{icon:"c-girl",name:"女生"},
-					{icon:"c-boy",name:"男生"},
+					{icon:"c-free",name:"免费",id:371},
+					{icon:"c-girl",name:"女生",id:370},
+					{icon:"c-boy",name:"男生",id:369},
 					{icon:"c-classfy",name:"分类"},
 					{icon:"c-rank",name:"排行"}
 			],
@@ -62,7 +61,20 @@ export default {
 	methods :{
 		...mapActions({
 			search:types.GET_SEARCH_PAGE
-		})
+		}),
+		navGo (i,id){
+			if(i>=0&&i<=2){
+				this.$router.push({ path:'containertwo', query: { id:id }})
+			}else if(i == 3){
+				console.log(3);
+			}else if(i == 4){
+				console.log(4);
+			};
+			
+			
+			
+			
+		}
 	}
 }
 </script>
