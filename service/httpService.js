@@ -58,6 +58,9 @@ Mock.get_special_page =  _getData('/store/v0/ad/persistent?');
 //分类
 Mock.get_class_page =  _getData('/hs/v0/android/store/category');
 
+//分类
+Mock.get_rank_page =  _getData('/store/v0/ad/ranks');
+
 module .exports = Mock;
 
 

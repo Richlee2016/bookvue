@@ -17,7 +17,11 @@ const state = {
 	//girlmore
 	moreData:{},
 	//精选更多
-	specialMore:{}
+	specialMore:{},
+	//分类
+	classpageData:{},
+	//排行
+	rankData :{}
 }
 const util = {
 	setData (num,cb){
@@ -131,6 +135,28 @@ const getters ={
 	},
 	specialMore (){
 		return state.specialMore;
+	},
+	classpage (){
+		var res = state.classpageData;
+		console.log(res.section,[res.book,res.magazine,res.male,res.female]);
+		if(res.section){
+			return {
+				title:[res.section[2],res.section[3]],
+				data:[res.male,res.female]
+			};
+		};
+		return {
+			title:[],
+			data:[]
+		}
+	},
+	rankpage (){
+		var res = state.rankData.items;
+		var data = [];
+		if(res){
+			data = res.filter( (o) => o.click);
+		};
+		return data;
 	}
 }
 
@@ -157,6 +183,13 @@ const mutations = {
 	//精选更多
 	[types.SPECIAL_MORE] (state,{data}){
 		state.specialMore = data;
+	},
+	[types.CLASS_PAGE] (state,{data}){
+		state.classpageData = data;
+	}
+	,
+	[types.RANK_PAGE] (state,{data}){
+		state.rankData = data;
 	}
 }
 
@@ -226,9 +259,31 @@ const actions = {
 		.catch( (err) => {
 			console.log(err);
 		});
+	},
+	[types.CLASS_PAGE] ({commit}){
+		axios.get("http://localhost:3000/api/class")
+		.then( (res) => {
+			if(res.status == 200){
+				commit(types.CLASS_PAGE,{data:res.data},);
+			};
+		})
+		.catch( (err) => {
+			console.log(err);
+		});
+	},
+	[types.RANK_PAGE] ({commit}){
+		axios.get("http://localhost:3000/api/rank")
+		.then( (res) => {
+			console.log(0);
+			if(res.status == 200){
+				commit(types.RANK_PAGE,{data:res.data},);
+			};
+		})
+		.catch( (err) => {
+			console.log(err);
+		});
 	}
 }
-
 export default {
   state,
   mutations,

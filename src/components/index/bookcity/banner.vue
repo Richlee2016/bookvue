@@ -66,9 +66,9 @@ export default {
 			if(i>=0&&i<=2){
 				this.$router.push({ path:'containertwo', query: { id:id }})
 			}else if(i == 3){
-				console.log(3);
+				this.$router.push({ path:'classcontainer'});
 			}else if(i == 4){
-				console.log(4);
+				this.$router.push({ path:'rankcontainer'})
 			};
 			
 			

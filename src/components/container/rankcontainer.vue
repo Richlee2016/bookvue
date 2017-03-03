@@ -1,19 +1,18 @@
 <template>
-  <div class="banner-main">
+  <div class="rank-container">
   		<v-head
-  		:title="bannerpage.label"	
+  		:title="'排行'"	
   			></v-head>
-  		<img class="b-img" :src="bannerpage.banner"/>
-  		<p class="description">{{bannerpage.description}}</p>
-  		<div class="clear-line"></div>
-  		<section>
-  			<div class="banner-inner" v-for="item in bannerpage.items">
-  				<v-blockone
-  				:prop="item"
-  				:bookfree="'限免'"
-  					></v-blockone>
-  			</div>
-  		</section>
+  		<ul class="rank-box">
+  			<li>
+  				<div>
+  					<img src=""/>
+  				</div>
+  				<div>
+  					<span></span>
+  				</div>
+  			</li>
+  		</ul>
   </div>
 </template>
 
@@ -30,11 +29,11 @@ export default {
 	},
 	computed :{
 		...mapGetters({
-			bannerpage:'containerPage'
+			rankcontainer:'rankpage'
 		})
 	},
 	created (){
-		this.$store.dispatch(types.ID_JUMP,{list:this.$route.query.id});
+		this.$store.dispatch(types.RANK_PAGE);
 	}
 }
 </script>

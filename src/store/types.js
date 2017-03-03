@@ -13,7 +13,11 @@ const types = {
 	//get
 	GET_MORE:"GET_MORE",
 	//精选more
-	SPECIAL_MORE:"SPECIAL_MORE"
+	SPECIAL_MORE:"SPECIAL_MORE",
+	//分类
+	CLASS_PAGE:"CLASS_PAGE",
+	//排行
+	RANK_PAGE:"RANK_PAGE"
 }
 
 

@@ -49,11 +49,16 @@ router.post('/api/morethree',koaBody,function* (){
 })
 
 //分类请求
-router.get('/api/class',koaBody,function* (){
+router.get('/api/class',function* (){
   this.set('Cache-Control','no-cache');
   this.body =yield httpService.get_class_page();
 })
 
+//排行请求
+router.get('/api/rank',function* (){
+  this.set('Cache-Control','no-cache');
+  this.body =yield httpService.get_rank_page();
+})
 
 app
   .use(router.routes())
