@@ -152,11 +152,22 @@ const getters ={
 	},
 	rankpage (){
 		var res = state.rankData.items;
-		var data = [];
+		var data = [],
+			description=[];
 		if(res){
-			data = res.filter( (o) => o.click);
+			description =res.map( (o) => {
+				if( /、/g.test(o.description) ){
+					return o.description.split("、");
+				}else{
+					return o.description.split("\n");
+				};
+			});
+			data = res.filter( (o) => o.id>19);
 		};
-		return data;
+		return{
+			data:data,
+			description:description
+		};
 	}
 }
 
@@ -272,9 +283,9 @@ const actions = {
 		});
 	},
 	[types.RANK_PAGE] ({commit}){
+		//获取排行
 		axios.get("http://localhost:3000/api/rank")
 		.then( (res) => {
-			console.log(0);
 			if(res.status == 200){
 				commit(types.RANK_PAGE,{data:res.data},);
 			};

@@ -61,6 +61,9 @@ Mock.get_class_page =  _getData('/hs/v0/android/store/category');
 //分类
 Mock.get_rank_page =  _getData('/store/v0/ad/ranks');
 
+//详情
+Mock.get_book_detail =  _getData('/hs/v0/android/fiction/book/');
+
 module .exports = Mock;
 
 

@@ -60,6 +60,16 @@ router.get('/api/rank',function* (){
   this.body =yield httpService.get_rank_page();
 })
 
+//详情请求
+router.post('/api/detail',koaBody,function* (){
+  this.set('Cache-Control','no-cache');
+  var req = this.request.body || {};
+  var list = req.list;
+  this.body =yield httpService.get_book_detail({},list);
+})
+
+
+
 app
   .use(router.routes())
   .use(router.allowedMethods());

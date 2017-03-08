@@ -4,12 +4,12 @@
   		:title="'排行'"	
   			></v-head>
   		<ul class="rank-box">
-  			<li>
-  				<div>
-  					<img src=""/>
+  			<li v-for="(item,index) in rankcontainer.data">
+  				<div class="left">
+  					<img :src="item.cover"/>
   				</div>
-  				<div>
-  					<span></span>
+  				<div class="right">
+  					<p v-for="(n,i) in rankcontainer.description[index]">{{i+1}}:{{n}}</p>
   				</div>
   			</li>
   		</ul>
@@ -38,15 +38,33 @@ export default {
 }
 </script>
 <style lang="scss">
-.banner-main{
-	.b-img{
-		width: 100%;
+.rank-box{
+	li{
+		padding: 10px;
+		display: -webkit-flex;
+		display: flex;
+		border-bottom: #ddd 1px solid;
+		>div{
+			-webkit-flex: 1;
+			flex: 1;
+		}
+		.left{
+			max-width: 90px;
+		}
+		.right{
+			padding-left: 10px;
+		}
+		img{
+			width: 90px;
+			height: 90px;
+		}
+		p{
+			line-height: 30px;
+			font-size: 16px;
+			font-size: 14px;
+			color: #666666;
+		}
 	}
-	.description{
-		color: #8d8d8d;
-		padding:10px;
-		font-size: 14px;
-		line-height: 20px;
-	}
-}	
+}
+
 </style>
