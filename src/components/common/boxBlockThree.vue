@@ -1,6 +1,6 @@
 <template>
   	<ul class="box-block-three">
-		<li v-for="item in prop">
+		<li v-for="item in prop" @click="detailGo(item.fiction_id)">
 			<img :src="item.cover"/>
 			<span>{{item.title}}</span>
 		</li>
@@ -21,6 +21,16 @@ export default {
 			default (){
 				return []
 			}
+		}
+	},
+	watch :{
+		prop (n,o){
+			console.log(n,o);
+		}
+	}
+	,methods :{
+		detailGo (id){
+			this.$router.push({ path:'detailcontainer', query: { id:id }})
 		}
 	}
 }

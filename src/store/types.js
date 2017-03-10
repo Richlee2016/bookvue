@@ -17,7 +17,9 @@ const types = {
 	//分类
 	CLASS_PAGE:"CLASS_PAGE",
 	//排行
-	RANK_PAGE:"RANK_PAGE"
+	RANK_PAGE:"RANK_PAGE",
+	//详情页
+	DETAIL_PAGE:"DETAIL_PAGE"
 }
 
 
