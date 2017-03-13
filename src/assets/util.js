@@ -40,8 +40,34 @@ const setGroup = function(){
 const chineseReg = /([\u4e00-\u9fa5]+)/g;	
 //解析more 标题类容正则
 //const moreTitleReg 
+//get 请求
+const axiosGet = (url,cb) => {
+	axios.get(url)
+	.then( (res) => {
+		if(res.status == 200){
+			cb&&cb(res);
+		};
+	})
+	.catch( (err) => {
+		console.log(err);
+	});
+}
+//post 请求
+const axiosPost = (url,pstdata,cb) => {
+	axios.post(url,pstdata)
+	.then( (res) => {
+		if(res.status == 200){
+			cb&cb(res);
+		};
+	})
+	.catch( (err) => {
+		console.log(err);
+	});
+}
 export {
 	css3,
 	setGroup,
-	chineseReg
+	chineseReg,
+	axiosGet,
+	axiosPost
 }

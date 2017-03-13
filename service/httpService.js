@@ -3,6 +3,7 @@
  */
 var fs = require('fs')
 var http = require('http')
+var fetch = require('node-fetch');
 var Mock = {};
 var _getData = (path) => {
     var http = require('http');

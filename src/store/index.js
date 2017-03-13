@@ -6,7 +6,7 @@ import mutations from './mutations'
 //modules
 import index from './modules/index'
 import book from './modules/book'
-import banner from './modules/banner'
+import handle from './modules/handle'
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
@@ -18,7 +18,7 @@ export default new Vuex.Store({
   modules: {
     index,
     book,
-    banner
+    handle
   },
   strict: debug
 })

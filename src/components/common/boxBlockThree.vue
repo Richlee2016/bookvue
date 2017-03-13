@@ -25,7 +25,6 @@ export default {
 	},
 	watch :{
 		prop (n,o){
-			console.log(n,o);
 		}
 	}
 	,methods :{

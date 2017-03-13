@@ -1,6 +1,6 @@
 import types from "types"
-import {setGroup,chineseReg} from "assets/util"
-
+import {setGroup,chineseReg,axiosGet,axiosPost} from "assets/util"
+import requestApi from "assets/requestapi"
 const state = {
 	//所有数据
 	bookCity:{},
@@ -10,19 +10,8 @@ const state = {
 	timeFreeData:{},
 	//瀑布流
 	pullBookData:{},
-	//搜索页面
-	searchpage:{},
-	//containerData
-	containerData:{},
-	//girlmore
-	moreData:{},
-	//精选更多
-	specialMore:{},
-	//分类
-	classpageData:{},
-	//排行
-	rankData :{}
 }
+
 const util = {
 	setData (num,cb){
 		let data = state.bookCity.items || [];
@@ -116,58 +105,6 @@ const getters ={
 	},
 	pullData (){
 		return state.pullBookData.items || [];
-	},
-	containerPage (){
-		return state.containerData;
-	},
-	getMoreData (){
-		let res = state.moreData;
-		var str = res.hidden_info;
-		var title = "";
-		if(str){
-			var reg = chineseReg;
-			title = str.match(reg)[0];
-		};	
-		return {
-			title:title,
-			data:res.items
-		};
-	},
-	specialMore (){
-		return state.specialMore;
-	},
-	classpage (){
-		var res = state.classpageData;
-		console.log(res.section,[res.book,res.magazine,res.male,res.female]);
-		if(res.section){
-			return {
-				title:[res.section[2],res.section[3]],
-				data:[res.male,res.female]
-			};
-		};
-		return {
-			title:[],
-			data:[]
-		}
-	},
-	rankpage (){
-		var res = state.rankData.items;
-		var data = [],
-			description=[];
-		if(res){
-			description =res.map( (o) => {
-				if( /、/g.test(o.description) ){
-					return o.description.split("、");
-				}else{
-					return o.description.split("\n");
-				};
-			});
-			data = res.filter( (o) => o.id>19);
-		};
-		return{
-			data:data,
-			description:description
-		};
 	}
 }
 
@@ -178,120 +115,18 @@ const mutations = {
 	},
 	[types.GET_PULL_BOOK] (state, {pullbook}){
 		state.pullBookData = pullbook;
-	},
-	//跳转 搜索页
-	[types.GET_SEARCH_PAGE] (state,{searchpage}){
-		state.searchpage = searchpage;
-	},
-	//跳转到 banner页
-	[types.ID_JUMP] (state,{data}){
-		state.containerData = data;
-	},
-	//更多
-	[types.GET_MORE] (state,{data}){
-		state.moreData = data;
-	},
-	//精选更多
-	[types.SPECIAL_MORE] (state,{data}){
-		state.specialMore = data;
-	},
-	[types.CLASS_PAGE] (state,{data}){
-		state.classpageData = data;
-	}
-	,
-	[types.RANK_PAGE] (state,{data}){
-		state.rankData = data;
 	}
 }
 
 const actions = {
 	[types.GET_BOOKCITY] ({commit}){
-		axios.get("http://localhost:3000/api/index")
-		.then( (res) => {
-			if(res.status == 200){
-				commit(types.GET_BOOKCITY,{bookcity:res.data});
-			};
-		})
-		.catch( (err) => {
-			console.log(err);
+		axiosGet(requestApi.index,(res) => {
+			commit(types.GET_BOOKCITY,{bookcity:res.data});
 		});
 	},
 	[types.GET_PULL_BOOK] ({commit}){
-		axios.post("http://localhost:3000/api/ajax/pull",{start:0,count:10})
-		.then( (res) => {
-			if(res.status == 200){
-				commit(types.GET_PULL_BOOK,{pullbook:res.data});
-			};
-		})
-		.catch( (err) => {
-			console.log(err);
-		});
-	},
-	[types.GET_SEARCH_PAGE] ({commit}){
-		axios.post("http://localhost:3000/api/search",{key:'df_search_tags',a:1})
-		.then( (res) => {
-			if(res.status == 200){
-				commit(types.GET_SEARCH_PAGE,{searchpage:res.data},);
-			};
-		})
-		.catch( (err) => {
-			console.log(err);
-		});
-	},
-	[types.ID_JUMP] ({commit},{list}){
-		axios.post("http://localhost:3000/api/moreone",{start:0,count:10,list:list})
-		.then( (res) => {
-			if(res.status == 200){
-				commit(types.ID_JUMP,{data:res.data},);
-			};
-		})
-		.catch( (err) => {
-			console.log(err);
-		});
-	},
-	[types.GET_MORE] ({commit},{list}){
-		axios.post("http://localhost:3000/api/moretwo",{list:list})
-		.then( (res) => {
-			if(res.status == 200){
-				commit(types.GET_MORE,{data:res.data},);
-			};
-		})
-		.catch( (err) => {
-			console.log(err);
-		});
-	},
-	[types.SPECIAL_MORE] ({commit},{start,count,type}){
-		axios.post("http://localhost:3000/api/morethree",{start:start,count:count,type:type})
-		.then( (res) => {
-			if(res.status == 200){
-				commit(types.SPECIAL_MORE,{data:res.data},);
-			};
-		})
-		.catch( (err) => {
-			console.log(err);
-		});
-	},
-	[types.CLASS_PAGE] ({commit}){
-		axios.get("http://localhost:3000/api/class")
-		.then( (res) => {
-			if(res.status == 200){
-				commit(types.CLASS_PAGE,{data:res.data},);
-			};
-		})
-		.catch( (err) => {
-			console.log(err);
-		});
-	},
-	[types.RANK_PAGE] ({commit}){
-		//获取排行
-		axios.get("http://localhost:3000/api/rank")
-		.then( (res) => {
-			if(res.status == 200){
-				commit(types.RANK_PAGE,{data:res.data},);
-			};
-		})
-		.catch( (err) => {
-			console.log(err);
+		axiosPost(requestApi.pull,{start:0,count:10},(res) => {
+			commit(types.GET_PULL_BOOK,{pullbook:res.data});
 		});
 	}
 }
