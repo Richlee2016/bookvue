@@ -1,6 +1,7 @@
 import types from "types"
-import {setGroup,chineseReg,axiosGet,axiosPost} from "assets/util"
+import {setGroup,chineseReg,myScroll} from "assets/util"
 import requestApi from "assets/requestapi"
+import {index,pull} from 'service/serviceApi'
 const state = {
 	//所有数据
 	bookCity:{},
@@ -120,14 +121,19 @@ const mutations = {
 
 const actions = {
 	[types.GET_BOOKCITY] ({commit}){
-		axiosGet(requestApi.index,(res) => {
+		index().then( res => {
 			commit(types.GET_BOOKCITY,{bookcity:res.data});
-		});
+		})	
 	},
-	[types.GET_PULL_BOOK] ({commit}){
-		axiosPost(requestApi.pull,{start:0,count:10},(res) => {
+	getPullBook ({commit}, {pullBox}){
+		pull(10,10).then( res => {
 			commit(types.GET_PULL_BOOK,{pullbook:res.data});
-		});
+			return Promise.resolve()
+		}).then( res => {
+			myScroll(pullBox, () => {
+				
+			});
+		})
 	}
 }
 export default {

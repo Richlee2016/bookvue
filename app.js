@@ -70,6 +70,10 @@ router.post('/api/detail',koaBody,function* (){
 
 
 
+
+
+
+
 app
   .use(router.routes())
   .use(router.allowedMethods());

@@ -7,10 +7,7 @@
   			<label></label>
   		</span>
   	</div>
-  	<div class="index-main" ref="indexmain">
-  		<v-bookcity></v-bookcity>
-  		<v-bookfram></v-bookfram>
-  	</div>
+	<v-bookcity></v-bookcity>
   </div>
 </template>
 

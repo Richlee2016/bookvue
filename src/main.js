@@ -4,8 +4,7 @@ import Vue from 'vue'
 import App from './App'
 //vuex
 import store from './store'
-//axios
-import axios from 'axios'
+
 //index
 import Index from './components/index/index'
 //banner
@@ -24,7 +23,7 @@ import Book from './components/book/book'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter);
-window.axios = axios;
+// window.axios = axios;
 
 
 /* eslint-disable no-new */

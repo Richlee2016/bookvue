@@ -1,3 +1,4 @@
+import IScroll from 'iscroll'
 //css3 转化
 const css3 = function(obj,m,n){
 	var one = m.toLowerCase(); 
@@ -39,35 +40,24 @@ const setGroup = function(){
 //解析标题正则	
 const chineseReg = /([\u4e00-\u9fa5]+)/g;	
 //解析more 标题类容正则
-//const moreTitleReg 
-//get 请求
-const axiosGet = (url,cb) => {
-	axios.get(url)
-	.then( (res) => {
-		if(res.status == 200){
-			cb&&cb(res);
-		};
+
+const myScroll = function(box, cb){	
+	let scroll = new IScroll(box, {
+		click:true
 	})
-	.catch( (err) => {
-		console.log(err);
-	});
-}
-//post 请求
-const axiosPost = (url,pstdata,cb) => {
-	axios.post(url,pstdata)
-	.then( (res) => {
-		if(res.status == 200){
-			cb&cb(res);
+	scroll.on('scrollEnd', function(){
+		console.log(this.y);
+		if(-this.y >= 4384){
+			scroll.destroy();
+			cb&&cb(box);
 		};
-	})
-	.catch( (err) => {
-		console.log(err);
 	});
-}
+};
+
+
 export {
 	css3,
 	setGroup,
 	chineseReg,
-	axiosGet,
-	axiosPost
+	myScroll
 }

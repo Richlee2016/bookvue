@@ -3,5 +3,7 @@
     "emmet.syntaxProfiles": {
         "vue-html": "html",
         "vue": "html"
-    }
+    },
+    "vueBeautify.isTabIndent": false,
+    "vueBeautify.indentSize": 2
 }
