@@ -6,7 +6,7 @@
 		:label="'热'"
 			></v-title>
 		<v-blockfour
-		:prop="data.data"
+		:prop="data.data?data.data.data:[]"
 			></v-blockfour>
 		<v-more
 		:titleone="'更多精彩专题>>'"

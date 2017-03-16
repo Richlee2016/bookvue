@@ -5,14 +5,13 @@
     </div>
     <div class="city-scroll">
       <v-swiper :slider="banner">
-        <div slot="box" class="city-banner" v-for="item in data.one">
-          <router-link :to="{path: '/banner', query: { id: item.reference_id }}">
+        <div slot="box" class="city-banner" v-for="item in data.data?data.data.data[0] : []">
+          <router-link :to="{path: '/banner/' + item.reference_id }">
             <img :src="item.ad_pic_url" />
           </router-link>
         </div>
       </v-swiper>
     </div>
-
     <!--导航-->
     <ul class="city-nav">
       <li v-for="(item,index) in navArr" @click="navGo(index,item.id)">
@@ -85,12 +84,7 @@
       }),
       navGo(i, id) {
         if (i >= 0 && i <= 2) {
-          this.$router.push({
-            path: 'containertwo',
-            query: {
-              id: id
-            }
-          })
+          this.$router.push({path: '/containertwo/'+id})
         } else if (i == 3) {
           this.$router.push({
             path: 'classcontainer'

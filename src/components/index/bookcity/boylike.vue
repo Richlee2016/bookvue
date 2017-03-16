@@ -2,9 +2,9 @@
   <div class="boy-like">
 		<v-title
 		:type="false"
-		:title="data.title"
+		:title="data.ad_name"
 			></v-title>
-		<ul class="boy-lick-box" v-for="(n,index) in data.one" v-show="index===num">
+		<ul class="boy-lick-box" v-for="(n,index) in data.data?data.data.data:{}" v-show="index===num">
 			<li v-for='item in n'>
 				<v-blockone
 				:prop="item"	
@@ -16,7 +16,7 @@
 		:titleone="'换一换'"
 		:titletwo="'男生频道>>'"
 		@onemore ="onemore"
-		@twomore="twomore(data.id)"
+		@twomore="twomore(data.reference_id)"
 			></v-more>
 	</div>
 </template>

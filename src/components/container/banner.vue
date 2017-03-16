@@ -22,19 +22,23 @@ import types from 'types'
 import {mapActions,mapGetters} from 'vuex'
 import bookHead from 'components/common/bookHead'
 import boxBlockOne from 'components/common/boxBlockOne'
+import {search} from 'service/serviceApi'
 export default {
 	components :{
 		"v-head":bookHead,
 		//书块one
 		"v-blockone":boxBlockOne,
 	},
-	computed :{
-		...mapGetters({
-			bannerpage:'containerPage'
-		})
+	data (){
+		return {
+			bannerpage:{}
+		}
 	},
-	created (){
-		this.$store.dispatch(types.ID_JUMP,{list:this.$route.query.id});
+	mounted (){
+		search(this.$route.params.id)
+		.then( res => {
+			this.bannerpage = res.data;
+		})
 	}
 }
 </script>

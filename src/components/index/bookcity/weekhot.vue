@@ -1,13 +1,13 @@
 <template>
   <div class="week-hot">
 		<v-title
-		:title="data.title"	
+		:title="data.ad_name"	
 			></v-title>
 		<v-blockthree
-		:prop="data.data"	
+		:prop="data.data ? data.data.data : []"	
 			></v-blockthree>
 		<v-more
-		@onemore="onemore(data.id)"	
+		@onemore="onemore(data.reference_id)"	
 			></v-more>	
 	</div>
 </template>

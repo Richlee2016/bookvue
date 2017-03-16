@@ -1,90 +1,59 @@
 import types from "types"
 import {setGroup,chineseReg,myScroll} from "assets/util"
-import requestApi from "assets/requestapi"
+import defaultsDeep from 'lodash/defaultsDeep'
 import {index,pull} from 'service/serviceApi'
 const state = {
-	//所有数据
-	bookCity:{},
-	//热门推荐
-	changeTime:0,
-	//限时免费
-	timeFreeData:{},
+	bannerImg:{},
+	weekHotData:{},
+	recommend:{},
+	girllike:{},
+	boylike:{},
+	timefree:{},
+	special:{},
 	//瀑布流
-	pullBookData:{},
+	pullbook:[],
+	pullNum:0,
+	addNum:4
 }
 
 const util = {
-	setData (num,cb){
-		let data = state.bookCity.items || [];
-		let res = {};
-		if(data[num]){
-			res = cb.call(this,data[num]);
+	changeGroup (arr,num){
+		let group = defaultsDeep({},arr);
+		if(group.data){
+			group.data.data = setGroup(group.data.data,{num: num});
 		};
-		return res;
-	},
-	getBlock (num){
-		return this.setData(num,(o) => {
-			return {
-				title:o.ad_name,
-				data:o.data.data,
-				id:o.reference_id
-			};
-		});
+		return group;
 	}
 }
 
 const getters ={
-	weekHotData (){
-		var res = util.getBlock(1)
-		return res;
-	},
 	bannerImg (){
-		return util.setData(0,(o) => {
-			let group =setGroup(o.data.data,3,5);
-			return {
-				one:group[0],
-				two:group[1]
-			}
-		});
+		let group = defaultsDeep({},state.bannerImg);
+		if(group.data){
+			group.data.data = setGroup(group.data.data, 3, 5);
+		};
+		return group;
 	},
+	weekHotData (){return state.weekHotData},
 	recommend (){
-		return util.setData(2,(o) => {
-			let arr = setGroup(o.data.data,{num:6});
-				arr = arr.map( (o) => {
-					var res = setGroup(o,1,4);
-					return res;
-				});
-				arr = setGroup(arr,{num:2});
-			let group = setGroup(arr[state.changeTime],1,4);
-			return {
-				title:o.ad_name,
-				one:arr,
-				id:o.reference_id
-			}
-		});
+		let recommend = defaultsDeep({},state.recommend);
+		let arr = [];
+		if(recommend.data){
+			arr = setGroup(recommend.data.data,{num: 6});
+			arr = arr.map( (o) => setGroup(o,1,4));
+			arr = setGroup(arr,{num: 2});
+			recommend.data.data = arr;
+		};
+		return recommend;
 	},
 	girllike (){
-		return util.setData(3,(o) => {
-			let group =setGroup(o.data.data,{num:3});
-			return {
-				title:o.ad_name,
-				one:group,
-				id:370
-			}
-		});
+		return util.changeGroup(state.girllike, 3);
 	},
-	boyllike (){
-		return util.setData(4,(o) => {
-			let group =setGroup(o.data.data,{num:3});
-			return {
-				title:o.ad_name,
-				one:group,
-				id:369
-			}
-		});
+	boylike (){
+		return util.changeGroup(state.boylike, 3);
 	},
-	timeFree (){
-		let data = state.timeFreeData;
+	timefree (){
+		let data = state.timefree;
 		let arr = [];
 		if(data.data){
 			arr = data.data.data.map( (o) => {
@@ -95,27 +64,35 @@ const getters ={
 			});
 		};
 		return {
-			title:data.ad_name || "",
+			ad_name:data.ad_name || "",
 			data:arr,
 			id:371
 		};
 	},
-	special (){
-		var res = util.getBlock(6)
-		return res;
-	},
-	pullData (){
-		return state.pullBookData.items || [];
+	special(){return state.special},
+	pullbook (){
+		return state.pullbook.items || [];
 	}
 }
 
 const mutations = {
 	[types.GET_BOOKCITY] (state, {bookcity}){
-		state.bookCity = bookcity;
-		state.timeFreeData=bookcity.items[5];
+		state.bannerImg=bookcity.items[0];
+		state.weekHotData=bookcity.items[1];
+		state.recommend=bookcity.items[2];
+		state.girllike = bookcity.items[3];
+		state.boylike = bookcity.items[4];
+		state.timefree = bookcity.items[5];
+		state.special = bookcity.items[6];
 	},
 	[types.GET_PULL_BOOK] (state, {pullbook}){
-		state.pullBookData = pullbook;
+		if(Object.keys(state.pullbook).length === 0){
+			state.pullbook = pullbook;
+		}else{
+			state.pullbook.items = state.pullbook.items.concat(pullbook.items);
+			state.pullbook.count+=state.addNum;
+		}; 
+		state.pullNum+=state.addNum;
 	}
 }
 
@@ -125,15 +102,19 @@ const actions = {
 			commit(types.GET_BOOKCITY,{bookcity:res.data});
 		})	
 	},
-	getPullBook ({commit}, {pullBox}){
-		pull(10,10).then( res => {
-			commit(types.GET_PULL_BOOK,{pullbook:res.data});
-			return Promise.resolve()
-		}).then( res => {
-			myScroll(pullBox, () => {
-				
-			});
-		})
+	getPullBook ({commit, state}, {pullBox}){
+		var addBook = myScroll();
+		let getPull = () => {
+			pull(state.pullNum+1,state.addNum).then( res => {
+				commit(types.GET_PULL_BOOK,{pullbook:res.data});
+				return Promise.resolve();
+			}).then( res => {
+				addBook(pullBox, () => {
+					getPull();
+				},state.addNum*150);
+			})
+		}
+		getPull();
 	}
 }
 export default {

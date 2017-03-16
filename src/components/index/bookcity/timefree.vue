@@ -1,7 +1,7 @@
 <template>
   <div class="time-free">
 		<v-title
-		:title="data.title"	
+		:title="data.ad_name"	
 			></v-title>
 		<v-blockthree
 		:prop="data.data"	

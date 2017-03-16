@@ -32,9 +32,9 @@ const router = new VueRouter({
 	routes:[
 				{ path: '/', component: Index},
 				{ path: '/book', component: Book},
-				{path:'/banner', component:Banner},
+				{path:'/banner/:id', component:Banner},
 				{path:'/containerone', component:containerOne},
-				{path:'/containertwo', component:containerTwo},
+				{path:'/containertwo/:id', component:containerTwo},
 				{path:'/containerthree', component:containerThree},
 				{path:'/containerfour', component:containerFour},
 				{path:'/classcontainer', component:classcontainer},

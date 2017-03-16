@@ -19,11 +19,11 @@
 
       <!--男生最爱-->
       <div class="clear-line"></div>
-      <v-boylike :data="boyllike"></v-boylike>
+      <v-boylike :data="boylike"></v-boylike>
 
       <!--限时免费-->
       <div class="clear-line"></div>
-      <v-timefree :data="timeFree"></v-timefree>
+      <v-timefree :data="timefree"></v-timefree>
 
       <!--精选专题-->
       <div class="clear-line"></div>
@@ -31,7 +31,7 @@
 
       <!--瀑布流-->
       <div class="clear-line"></div>
-      <v-pullbook :data="pullData"></v-pullbook>
+      <v-pullbook :data="pullbook"></v-pullbook>
     </section>
   </div>
 </template>
@@ -77,10 +77,10 @@
         bannerImg: "bannerImg",
         recommend: "recommend",
         girllike: "girllike",
-        boyllike: "boyllike",
-        timeFree: "timeFree",
+        boylike: "boylike",
+        timefree: "timefree",
         special: "special",
-        pullData: "pullData"
+        pullbook: "pullbook"
       })
     },
     created() {

@@ -2,12 +2,12 @@
   <div class="recommend">
 		<v-title
 		:type="false"
-		:title="data.title"
+		:title="data.ad_name"
 		:tabShow="true"
 		@boyGo="tabn=0"
 		@girlGo="tabn=1"
 			></v-title>
-		<div v-for="(tab,tabnum) in data.one" v-if="tabnum===tabn">
+		<div v-for="(tab,tabnum) in data.data?data.data.data:{}" v-if="tabnum===tabn">
 		<ul class="recommend-box" v-for="(n,nnum) in tab" v-show="nnum===num">
 			<li v-for="item in n[0]">
   				<v-blockone
@@ -27,7 +27,7 @@
 		:type="false"
 		:titleone="'换一换'"
 		@onemore="onemore"
-		@twomore="twomore(data.id)"
+		@twomore="twomore(data.reference_id)"
 			></v-more>
 	</div>
 </template>

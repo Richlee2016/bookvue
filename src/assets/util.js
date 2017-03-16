@@ -41,18 +41,25 @@ const setGroup = function(){
 const chineseReg = /([\u4e00-\u9fa5]+)/g;	
 //解析more 标题类容正则
 
-const myScroll = function(box, cb){	
-	let scroll = new IScroll(box, {
-		click:true
-	})
-	scroll.on('scrollEnd', function(){
-		console.log(this.y);
-		if(-this.y >= 4384){
-			scroll.destroy();
-			cb&&cb(box);
-		};
-	});
-};
+const myScroll = function(){
+		let start = false;
+		return function(box, cb, addHei){	
+			let hei = box.querySelector('section').offsetHeight;
+			let clientHei = document.documentElement.clientHeight;
+			let end = (hei - clientHei) || 0;
+			let scroll = new IScroll(box, {
+				click:true,
+				startY:addHei&&start ? -(end-addHei) : 0
+			})
+			scroll.on('scrollEnd', function(){
+				if(-this.y >= end){
+					scroll.destroy();
+					cb&&cb(box);
+					start = true;
+				};
+			});
+	};
+}
 
 
 export {

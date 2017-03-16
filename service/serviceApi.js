@@ -6,4 +6,8 @@ var pull = (start, count) => getAxios('POST', '/rock/book/recommend', {
     start:start,
     count:count
 })
-export {index,pull}
+var search = (id) => getAxios('GET', '/store/v0/fiction/list/'+id);
+
+var getmore = (id) =>  getAxios('GET', '/hs/v3/channel/'+id);
+
+export {index,pull,search,getmore}

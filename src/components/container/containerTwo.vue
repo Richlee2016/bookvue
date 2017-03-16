@@ -1,9 +1,9 @@
 <template>
 	  <div class="container-two">
 	  		<v-head
-	  		:title="container.title[0]"	
+	  		:title="title"	
 	  			></v-head>
-	  		<section v-for="(item,index) in container.data">
+	  		<section v-for="(item,index) in container">
 	  			<v-title
 					:title="item.ad_name"	
 						></v-title>
@@ -14,6 +14,7 @@
 	  			</div>
 	  			<v-more
 					:titleone="titleone[index]"
+					@onemore="onemore(item.reference_id)"
 						></v-more>
 					<div class="clear-line"></div>
 	  		</section>	
@@ -28,6 +29,7 @@ import bookHead from 'components/common/bookHead'
 import bookTitle from 'components/common/bookTitle'
 import bookMore from 'components/common/bookMore'
 import boxBlockOne from 'components/common/boxBlockOne'
+import {getmore} from 'service/serviceApi'
 export default {
 	components :{
 		//标题
@@ -41,30 +43,42 @@ export default {
 	},
 	data (){
 		return {
-			onemoreTitle:["查看更多","更多主编推荐>>","更多新书抢鲜读>>","更多新书抢鲜读>>"]
+			onemoreTitle:["查看更多","更多主编推荐>>","更多新书抢鲜读>>","更多新书抢鲜读>>"],
+			name:"title",
+			container:[],
+			foot:"更多"
 		}
 	},
 	computed :{
-		...mapGetters({
-			container:'getMoreData'
-		}),
+		title (){
+			let title = this.name;
+			var res = title.match(chineseReg);
+			return res?res[0]:res
+		},
 		titleone (){
-			var data = this.container.data;
+			var data = this.container;
 			var res = data.map( (o) => {
-									var reg = chineseReg;
-									var go = o.hidden_info.match(reg);
-									if(go){
-										return go[0];
-									};
-									return "查看更多";
-								});
+				var reg = chineseReg;
+				var go = o.hidden_info.match(reg);
+				if(go){
+					return go[0];
+				};
+				return "查看更多";
+			});
 			return res;
 		}
 	},
-	created (){
-		this.$nextTick(() => {
-			this.$store.dispatch(types.GET_MORE,{list:this.$route.query.id});
-		});		
+	methods: {
+		onemore (id){
+			this.$router.push({path: '/containertwo/'+id})
+		}
+	},
+	mounted (){
+		getmore(this.$route.params.id)
+		.then( res => {
+			this.name = res.data.hidden_info;
+			this.container = res.data.items;
+		})
 	}
 }
 </script>

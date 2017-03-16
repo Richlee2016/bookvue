@@ -105,6 +105,7 @@ export default {
 			position: relative;
 			overflow: hidden;
 			width: 87px;
+			height: 100%;
 		}
 	}
 	.text{
