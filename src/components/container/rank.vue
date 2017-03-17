@@ -22,6 +22,7 @@ import types from 'types'
 import {mapActions,mapGetters} from 'vuex'
 import bookHead from 'components/common/bookHead'
 import boxBlockOne from 'components/common/boxBlockOne'
+import {ranks} from 'service/serviceApi'
 export default {
 	components :{
 		"v-head":bookHead,

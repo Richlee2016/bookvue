@@ -27,20 +27,29 @@
 import types from 'types'
 import {mapGetters} from 'vuex'
 import bookHead from 'components/common/bookHead'
+import {category} from 'service/serviceApi'
 export default {
 	components :{
 		//抬头
 		"v-head":bookHead,
 	},
-	computed :{
-		...mapGetters({
-			container:'classpage'
-		})
+	data (){
+		return {
+			container:{}
+		}
 	},
-	created (){
-		this.$nextTick(() => {
-			this.$store.dispatch(types.CLASS_PAGE);
-		});
+	mounted (){
+		category()
+		.then(res => {
+			let data = res.data;
+			this.container ={
+				title:[data.section[2],data.section[3]],
+				data:[data.male,data.female]
+			};
+		}).
+		catch( err => {
+			console.log(err)
+		})
 	}
 }
 </script>

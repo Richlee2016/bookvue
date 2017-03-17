@@ -21,19 +21,44 @@ import types from 'types'
 import {mapActions,mapGetters} from 'vuex'
 import bookHead from 'components/common/bookHead'
 import boxBlockOne from 'components/common/boxBlockOne'
+import {ranks} from 'service/serviceApi'
 export default {
 	components :{
 		"v-head":bookHead,
 		//书块one
 		"v-blockone":boxBlockOne,
 	},
-	computed :{
-		...mapGetters({
-			rankcontainer:'rankpage'
-		})
+	data (){
+		return {
+			ranks:{}
+		}
 	},
-	created (){
-		this.$store.dispatch(types.RANK_PAGE);
+	computed: {
+		rankcontainer (){
+			var res = this.ranks.items;
+			var data = [],
+				description=[];
+			if(res){
+				description =res.map( (o) => {
+					if( /、/g.test(o.description) ){
+						return o.description.split("、");
+					}else{
+						return o.description.split("\n");
+					};
+				});
+				data = res.filter( (o) => o.id>19);
+			};
+			return{
+				data:data,
+				description:description
+			};
+		}
+	},
+	mounted (){
+		ranks()
+		.then(res => {
+			this.ranks = res.data;
+		})
 	}
 }
 </script>

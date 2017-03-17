@@ -68,7 +68,7 @@ export default {
 	},
 	methods :{
 		twomore (id){
-			this.$router.push({ path:'containerone', query: { id:id }})
+			this.$router.push({path: '/containertwo/'+id})
 		}
 	}
 }

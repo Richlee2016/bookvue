@@ -86,13 +86,9 @@
         if (i >= 0 && i <= 2) {
           this.$router.push({path: '/containertwo/'+id})
         } else if (i == 3) {
-          this.$router.push({
-            path: 'classcontainer'
-          });
+          this.$router.push({path: 'category'});
         } else if (i == 4) {
-          this.$router.push({
-            path: 'rankcontainer'
-          })
+          this.$router.push({path: 'ranks'})
         };
       }
     }

@@ -70,12 +70,13 @@ export default {
 	},
 	methods: {
 		onemore (id){
-			this.$router.push({path: '/containertwo/'+id})
+			this.$router.push({path: '/containerone/'+ id + '?start=0&count=10'})
 		}
 	},
 	mounted (){
 		getmore(this.$route.params.id)
 		.then( res => {
+			console.log(res.data);
 			this.name = res.data.hidden_info;
 			this.container = res.data.items;
 		})

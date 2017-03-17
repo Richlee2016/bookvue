@@ -1,13 +1,38 @@
 import getAxios from './getHttp'
 
+//首页
 var index = () => getAxios('GET', '/hs/v3/channel/418');
 
+//瀑布流接口
 var pull = (start, count) => getAxios('POST', '/rock/book/recommend', {
     start:start,
     count:count
 })
-var search = (id) => getAxios('GET', '/store/v0/fiction/list/'+id);
 
+//banner接口
+var banner = (id,data) => getAxios('GET', '/store/v0/fiction/list/'+id);
+//获取更多
 var getmore = (id) =>  getAxios('GET', '/hs/v3/channel/'+id);
+//分类
+var category = () => getAxios('GET', '/hs/v0/android/store/category');
+//排行
+var ranks = () => getAxios('GET', '/store/v0/ad/ranks');
 
-export {index,pull,search,getmore}
+//频道内页更多信息
+var morefiction = (id,start,count) => getAxios('GET', '/store/v0/fiction/list/'+id, {
+    start:start,
+    count:count
+});
+
+//精选
+var persistent = (start, count, type) => getAxios('GET', '/store/v0/ad/persistent', {
+    start:start,
+    count:count,
+    type:type
+});
+
+//详情页
+var detail = (id) => getAxios('GET', '/hs/v0/android/fiction/book/' + id);
+
+
+export {index,pull,banner,category,ranks,morefiction,getmore,persistent,detail}

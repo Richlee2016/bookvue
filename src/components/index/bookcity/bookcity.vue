@@ -27,7 +27,7 @@
 
       <!--精选专题-->
       <div class="clear-line"></div>
-      <v-specialone :data="special"></v-specialone>
+      <v-persistent :data="special"></v-persistent>
 
       <!--瀑布流-->
       <div class="clear-line"></div>
@@ -47,7 +47,7 @@
   import girlLike from 'components/index/bookcity/girllike'
   import boyLike from 'components/index/bookcity/boylike'
   import timeFree from 'components/index/bookcity/timefree'
-  import specialOne from 'components/index/bookcity/specialone'
+  import persistent from 'components/index/bookcity/persistent'
   import pullBook from 'components/index/bookcity/pullbook'
   export default {
     components: {
@@ -57,7 +57,7 @@
       "v-girllike": girlLike,
       "v-boylike": boyLike,
       "v-timefree": timeFree,
-      "v-specialone": specialOne,
+      "v-persistent": persistent,
       "v-pullbook": pullBook,
     },
     methods: {

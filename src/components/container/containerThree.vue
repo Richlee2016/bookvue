@@ -19,6 +19,7 @@ import bookHead from 'components/common/bookHead'
 import bookTitle from 'components/common/bookTitle'
 import bookMore from 'components/common/bookMore'
 import boxBlockFive from 'components/common/boxBlockFive'
+import {persistent} from 'service/serviceApi'
 export default {
 	components :{
 		//抬头
@@ -26,15 +27,20 @@ export default {
 		//书块one
 		"v-blockfive":boxBlockFive,
 	},
-	computed :{
-		...mapGetters({
-			container:'specialMore'
-		})
+	data (){
+		return {
+			container:{}
+		}
 	},
-	created (){
-		this.$nextTick(() => {
-			this.$store.dispatch(types.SPECIAL_MORE,{start:0,count:10,type:4});
-		});		
+	computed :{
+		
+	},
+	mounted (){
+		persistent(this.$route.query.start,this.$route.query.count,this.$route.query.type)
+		.then( res => {
+			console.log(res.data);
+			this.container = res.data;
+		})		
 	}
 }
 </script>

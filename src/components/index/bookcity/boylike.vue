@@ -16,7 +16,7 @@
 		:titleone="'换一换'"
 		:titletwo="'男生频道>>'"
 		@onemore ="onemore"
-		@twomore="twomore(data.reference_id)"
+		@twomore="twomore(369)"
 			></v-more>
 	</div>
 </template>
@@ -46,7 +46,7 @@ export default {
 	},
 	methods :{
 		twomore (id){
-			this.$router.push({ path:'containertwo', query: { id:id }})
+			this.$router.push({path: '/containertwo/'+id})
 		}
 	}
 }

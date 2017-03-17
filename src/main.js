@@ -14,9 +14,9 @@ import containerOne from 'components/container/containerOne'
 import containerTwo from 'components/container/containerTwo'
 import containerThree from 'components/container/containerThree'
 import containerFour from 'components/container/containerFour'
-import classcontainer from 'components/container/classcontainer'
-import rankcontainer from 'components/container/rankcontainer'
-import detailcontainer from 'components/container/detailcontainer'
+import category from 'components/container/category'
+import ranks from 'components/container/ranks'
+import detail from 'components/container/detail'
 //book
 import Book from './components/book/book'
 //page
@@ -33,13 +33,13 @@ const router = new VueRouter({
 				{ path: '/', component: Index},
 				{ path: '/book', component: Book},
 				{path:'/banner/:id', component:Banner},
-				{path:'/containerone', component:containerOne},
+				{path:'/containerone/:id', component:containerOne},
 				{path:'/containertwo/:id', component:containerTwo},
-				{path:'/containerthree', component:containerThree},
+				{path:'/containerthree/', component:containerThree},
 				{path:'/containerfour', component:containerFour},
-				{path:'/classcontainer', component:classcontainer},
-				{path:'/rankcontainer', component:rankcontainer},
-				{path:'/detailcontainer', component:detailcontainer}
+				{path:'/category', component:category},
+				{path:'/ranks', component:ranks},
+				{path:'/detail/:id', component:detail}
 			],
 	//回退页面 滚动位置设置		
 //	scrollBehavior (to, from, savedPosition) {

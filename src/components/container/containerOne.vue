@@ -18,20 +18,25 @@ import types from 'types'
 import {mapGetters} from 'vuex'
 import bookHead from 'components/common/bookHead'
 import boxBlockOne from 'components/common/boxBlockOne'
+import {morefiction} from 'service/serviceApi'
 export default {
 	components :{
 		"v-head":bookHead,
 		//书块one
 		"v-blockone":boxBlockOne,
 	},
-	computed :{
-		...mapGetters({
-			container:'containerPage'
-		})
+	data (){
+		return {
+			container:{}
+		}
 	},
-	created (){
-		this.$nextTick(() => {
-			this.$store.dispatch(types.ID_JUMP,{list:this.$route.query.id});
+	computed: {
+		
+	},
+	mounted (){
+		morefiction(this.$route.params.id,this.$route.query.start,this.$route.query.count)
+		.then( res => {
+			this.container = res.data;
 		});
 	}
 }

@@ -1,8 +1,10 @@
 <template>
   	<ul class="box-block-three">
-		<li v-for="item in prop" @click="detailGo(item.fiction_id)">
+		<li v-for="item in prop">
+			<router-link :to="{path:'/detail/'+ item.fiction_id}">
 			<img :src="item.cover"/>
 			<span>{{item.title}}</span>
+			</router-link>
 		</li>
   	</ul>
 </template>
@@ -26,11 +28,9 @@ export default {
 	watch :{
 		prop (n,o){
 		}
-	}
-	,methods :{
-		detailGo (id){
-			this.$router.push({ path:'detailcontainer', query: { id:id }})
-		}
+	},
+	methods :{
+		
 	}
 }
 </script>

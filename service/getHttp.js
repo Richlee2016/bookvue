@@ -14,6 +14,7 @@ var get = (type = 'GET', url , data) => {
         if(type === 'GET'){
             if(data&&Object.keys(data).length > 0){
                 url = `${url}?${qsData}`
+                console.log(url);
             }
             axios.get(url)
             .then( (res) => {

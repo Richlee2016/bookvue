@@ -1,6 +1,6 @@
 <template>
   <div class="detail-container">
-      <!--<v-head
+      <v-head
       :title="container.item.title"	
       	></v-head>
       <div class="detail-descr">
@@ -50,7 +50,7 @@
       	<slot>
       		<p class="info">{{container.item.rights}}</p>
       	</slot>
-      </v-detailtitle>-->
+      </v-detailtitle>
   </div>
 </template>
 
@@ -60,30 +60,51 @@ import {mapGetters} from 'vuex'
 import bookHead from 'components/common/bookHead'
 import boxBlockThree from 'components/common/boxBlockThree'
 import detailTitle from 'components/common/detailTitle'
+import {detail} from 'service/serviceApi'
 export default {
-		data (){
-				return {
-					labelBd:['#fbebe8','#fcedda','#e8f9db'],
-					idchange:""
-				}
-		},
+	data (){
+			return {
+				labelBd:['#fbebe8','#fcedda','#e8f9db'],
+				idchange:"",
+				detail:{}
+			}
+	},
     components :{
 		    //抬头
 		    "v-head":bookHead,
 		    //书块 three
-				"v-blockthree":boxBlockThree,
-				//标题模块
-				"v-detailtitle":detailTitle
+			"v-blockthree":boxBlockThree,
+			//标题模块
+			"v-detailtitle":detailTitle
     },
     computed :{
-				...mapGetters({
-					container:'detailpage'
-				}),
-		    },    
-    created (){
-        this.$nextTick(() => {
-            this.$store.dispatch('reloadDetail',{list:this.$route.query.id});
-        });
+		container (){
+			var res = this.detail,item
+			if(res.item){
+				return {
+					comment:res.comment,
+					item:res.item,
+					related:res.related
+				};
+			};
+			return {
+				comment:{},
+				item:{},
+				related:[]
+			};	
+		}
+	},
+	watch:{
+		container (n,o){
+			console.log(0);
+			return n;
+		}
+	},    
+    mounted (){
+        detail(this.$route.params.id)
+		.then(res => {
+			this.detail = res.data;
+		})
     }
 }
 </script>
