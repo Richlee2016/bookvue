@@ -64,10 +64,9 @@ app.post('/book/read',function(req,res){
               var txt = reg.exec(text);
               var result = new Buffer(txt[1], 'base64').toString()
               res.json({txt:result})
-              console.log(result);
           })
           .catch( err => {
-
+              console.log(err);
           })
     })
     .catch( err => {
