@@ -30,6 +30,7 @@ import bookTitle from 'components/common/bookTitle'
 import bookMore from 'components/common/bookMore'
 import boxBlockOne from 'components/common/boxBlockOne'
 import {getmore} from 'service/serviceApi'
+import axios from 'axios'
 export default {
 	components :{
 		//标题
@@ -76,7 +77,7 @@ export default {
 	mounted (){
 		getmore(this.$route.params.id)
 		.then( res => {
-			console.log(res.data);
+			console.log(res);
 			this.name = res.data.hidden_info;
 			this.container = res.data.items;
 		})

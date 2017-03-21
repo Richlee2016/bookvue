@@ -9,7 +9,7 @@ app.use(views(__dirname + '/dist', {
 }));
 //proxy
 app.use(koaproxy({
-    host: 'http://dushu.xiaomi.com/'
+  host: 'http://dushu.xiaomi.com/'
 }));
 //router
 var index =router.get('/', async function(ctx, next) {

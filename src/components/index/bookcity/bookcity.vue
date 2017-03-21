@@ -49,6 +49,7 @@
   import timeFree from 'components/index/bookcity/timefree'
   import persistent from 'components/index/bookcity/persistent'
   import pullBook from 'components/index/bookcity/pullbook'
+  import {read} from 'service/serviceApi'
   export default {
     components: {
       "v-banner": Banner,

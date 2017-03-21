@@ -15,7 +15,9 @@
           </div>
       </div>
       <div class="detail-btn">
-            <div class="start-read"><span>开始阅读</span></div>
+            <div class="start-read">
+				<router-link :to="{path:'/book/'+ $route.params.id}">开始阅读</router-link>
+			</div>
             <div class="download"><span>下载</span></div>
       </div>
       <p class="detail-box">{{container.item.content}}</p>
@@ -147,7 +149,7 @@ export default {
     >div{
     	flex: 1;
     	text-align: center;
-    	span{
+    	span,a{
     		display: inline-block;
             width: 90%;
             height: 36px;
@@ -155,7 +157,7 @@ export default {
     	}
     }
     .start-read{
-    	span{
+    	a{
     		background: #f35d02;
     		color: white;
     		border-radius: 6px;

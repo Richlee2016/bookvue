@@ -1,16 +1,30 @@
 <template>
   	<div class="search">
 	  	<div>
-	  		<span class="icon-search"></span>
+	  		<span @click="searchGo" class="icon-search"></span>
 	  	</div>
-	  	<input disabled="disabled" type="" name="" id="" value="" placeholder="输入书名/作者/关键字" />
+		  	<label v-if="searchBox">输入书名/作者/关键字</label>
+	  		<input v-else v-model="keywords" type="" name="" id="" value="" placeholder="输入书名/作者/关键字" />
   	</div>
 </template>
 
 <script>
 export default {
-	created (){
-		
+	data (){
+		return {
+			keywords:""
+		}
+	},
+	props :{
+			searchBox:{
+				type:Boolean,
+				default:true
+			}
+	},
+	methods :{
+		searchGo (){
+			this.$emit("search",this.keywords);
+		}
 	}
 }
 </script>
@@ -36,6 +50,12 @@ export default {
 		flex: 1;
 		padding-left: 20px;
 		outline: none;
+	}
+	label{
+		flex: 1;
+		padding-left: 20px;
+		outline: none;
+		line-height: 36px
 	}
 }
 </style>

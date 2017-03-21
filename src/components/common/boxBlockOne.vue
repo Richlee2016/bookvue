@@ -12,6 +12,7 @@
   			<h1>{{prop.title}}</h1>
   			<h3>{{prop.authors}}</h3>
   			<p>{{prop.summary}}</p>
+			<slot name="search"><slot>
   			<div>
 	  			<label v-for="(n,index) in prop.tags" v-if="index<4">{{n}}</label>
   			</div>
@@ -110,8 +111,14 @@ export default {
 	}
 	.text{
 		flex:1;
+		position: relative;
 		h1{
 			line-height: 26px;
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+			word-break: break-all;
 		}
 		h3{
 			color: rgba(0,0,0,0.7);

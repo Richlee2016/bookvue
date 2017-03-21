@@ -1,8 +1,8 @@
 <template>
   <div class="banner-city">
-    <div class="city-search" @click="search">
+    <router-link :to="{path:'/search'}" class="city-search">
       <v-search></v-search>
-    </div>
+    </router-link>
     <div class="city-scroll">
       <v-swiper :slider="banner">
         <div slot="box" class="city-banner" v-for="item in data.data?data.data.data[0] : []">
@@ -79,17 +79,14 @@
       }
     },
     methods: {
-      ...mapActions({
-        search: types.GET_SEARCH_PAGE
-      }),
       navGo(i, id) {
-        if (i >= 0 && i <= 2) {
-          this.$router.push({path: '/containertwo/'+id})
-        } else if (i == 3) {
-          this.$router.push({path: 'category'});
-        } else if (i == 4) {
-          this.$router.push({path: 'ranks'})
-        };
+          if (i >= 0 && i <= 2) {
+            this.$router.push({path: '/containertwo/'+id})
+          } else if (i == 3) {
+            this.$router.push({path: 'category'});
+          } else if (i == 4) {
+            this.$router.push({path: 'ranks'})
+          };
       }
     }
   }

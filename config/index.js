@@ -18,7 +18,7 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8080,
+    port: 8082,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
@@ -40,7 +40,11 @@ module.exports = {
         //排行
         '/store/v0/ad/ranks',
         //详情
-        '/hs/v0/android/fiction/book/'
+        '/hs/v0/android/fiction/book/',
+        //搜索页面
+        // '/store/v0/ad?key=df_search_tags&a=1',
+        //搜索
+        '/store/v0/lib/query/onebox'
       ],
       options: {
         target: 'http://dushu.xiaomi.com/',

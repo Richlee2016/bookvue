@@ -12,9 +12,9 @@
   		</section>
   	</div>
   	<div class="book-main" @click="navOnOff = !navOnOff;fontShow = false;">
-	  	<h4>请根据上制作过程</h4>
+	  	<h4>{{bookcontainer.t}}</h4>
 	  	<ul class="book-body">
-	  		<li v-for="n in 20" :style="{fontSize:fontSize + 'px',lineHeight:fontSize + 20 + 'px'}">请根据上制作过程，认真思考并完成下边栏的结构和样式。请根据上边栏制作过程，认真思考并完成下边栏的结构和样式。请根据上边栏制作过程，认真思考并完成下边栏的结构和样式。</li>
+	  		<li v-for="text in bookcontainer.p" :style="{fontSize:fontSize + 'px',lineHeight:fontSize + 20 + 'px'}">{{text}}</li>
 	  	</ul>
   	</div>
   	<transition name="slide-fade">
@@ -61,9 +61,7 @@
 </template>
 
 <script>
-import axios from 'axios'
-import {mapAction} from 'vuex'
-import types from 'types'
+import {read} from 'service/serviceApi'
 export default {
 	data (){
 		return {
@@ -73,7 +71,8 @@ export default {
 			bodyBd:"bookbd01",
 			oldBd:"bookbd01",
 			fontBorderIndex:1,
-			fontSize:16
+			fontSize:16,
+			bookcontainer:{}
 		}
 	},
 	computed:{
@@ -129,9 +128,12 @@ export default {
 			};
 		}
 	},
-	created (){
-		this.$store.dispatch(types.GET_CHAPTER);
-		this.$store.dispatch(types.GET_TEXT,{chapter:2});
+	mounted (){
+		 read(this.$route.params.id,1)
+        .then( res => {
+		  this.bookcontainer = JSON.parse(res.data.txt);
+		  console.log(this.bookcontainer);
+        })
 	}
 }
 </script>

@@ -10,7 +10,6 @@ var prefix = `http://localhost:${port}`
 var get = (type = 'GET', url , data) => {
     var qsData = qs.stringify(data)
     return new Promise( (resolve, reject) => {
-
         if(type === 'GET'){
             if(data&&Object.keys(data).length > 0){
                 url = `${url}?${qsData}`
