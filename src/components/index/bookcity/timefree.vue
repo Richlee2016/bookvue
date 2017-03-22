@@ -8,7 +8,7 @@
 			></v-blockthree>
 		<v-more
 		:titleone="'更多限免佳作>>'"
-		@onemore="onemore(data.id)"
+		@onemore="onemore"
 			></v-more>	
 	</div>
 </template>
@@ -35,9 +35,8 @@ export default {
 		}
 	},
 	methods :{
-		onemore (id){
-			console.log(id);
-			this.$router.push({ path:'containerfour', query: { id:id }})
+		onemore (){
+			this.$router.push({ path:'/free'})
 		}
 	}
 }

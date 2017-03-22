@@ -1,7 +1,7 @@
 <template>
+  <div>
   <div class="bookcity" ref="cityscroll">
     <section>
-
       <!--banner-->
       <v-banner :data="bannerImg"></v-banner>
 
@@ -34,6 +34,7 @@
       <v-pullbook :data="pullbook"></v-pullbook>
     </section>
   </div>
+  <div>
 </template>
 
 <script>

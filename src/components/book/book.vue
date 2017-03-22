@@ -5,7 +5,7 @@
   	:class="bodyBd">
   	<div class="book-top" v-show="navOnOff">
   		<section>
-	  		<div class="back">
+	  		<div class="back" @click="$router.go(-1);">
 		  		<span class="icon-rback"></span>
 		  		<label>返回书架</label>
 	  		</div>

@@ -4,13 +4,13 @@
       <v-search></v-search>
     </router-link>
     <div class="city-scroll">
-      <v-swiper :slider="banner">
-        <div slot="box" class="city-banner" v-for="item in data.data?data.data.data[0] : []">
+      <swiper :options="swiperOption" ref="mySwiper">
+        <swiper-slide v-for="item in data.data?data.data.data[0] : []">
           <router-link :to="{path: '/banner/' + item.reference_id }">
-            <img :src="item.ad_pic_url" />
+            <img class="banner-img" :src="item.ad_pic_url" />
           </router-link>
-        </div>
-      </v-swiper>
+        </swiper-slide>
+      </swiper>
     </div>
     <!--导航-->
     <ul class="city-nav">
@@ -30,15 +30,23 @@
   import types from 'types'
   import richSwiper from 'components/common/richSwiper'
   import Search from 'components/common/search'
+  import { swiper, swiperSlide } from 'vue-awesome-swiper'
   export default {
     components: {
       //搜索
       "v-search": Search,
       //滑动
       "v-swiper": richSwiper,
+      swiper,
+      swiperSlide
     },
     data() {
       return {
+        swiperOption: {
+          autoplay: 5000,
+          initialSlide: 1,
+          loop: true
+        },
         banner: {
           swiper: false,
           box: 3,
@@ -80,7 +88,9 @@
     },
     methods: {
       navGo(i, id) {
-          if (i >= 0 && i <= 2) {
+          if(i === 0){
+            this.$router.push({path: '/free'})
+          }else if(i >= 1 && i <= 2) {
             this.$router.push({path: '/containertwo/'+id})
           } else if (i == 3) {
             this.$router.push({path: 'category'});
@@ -91,3 +101,8 @@
     }
   }
 </script>
+<style lang="scss">
+.banner-img{
+  width: 100%;
+}
+</style>

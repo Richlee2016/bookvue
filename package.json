@@ -93,6 +93,7 @@
     "sinon-chai": "^2.8.0",
     "superagent": "^3.5.1",
     "url-loader": "^0.5.7",
+    "vue-awesome-swiper": "^2.3.8",
     "vue-loader": "^9.4.0",
     "vue-resource": "^1.0.3",
     "vue-slider": "^1.1.1",

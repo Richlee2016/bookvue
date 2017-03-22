@@ -18,6 +18,7 @@ import category from 'components/container/category'
 import ranks from 'components/container/ranks'
 import detail from 'components/container/detail'
 import search from 'components/container/search'
+import free from 'components/container/free'
 //book
 import Book from './components/book/book'
 //page
@@ -38,6 +39,7 @@ const router = new VueRouter({
 				{path:'/containertwo/:id', component:containerTwo},
 				{path:'/containerthree/', component:containerThree},
 				{path:'/containerfour', component:containerFour},
+				{path:'/free', component:free},
 				{path:'/category', component:category},
 				{path:'/ranks', component:ranks},
 				{path:'/detail/:id', component:detail},

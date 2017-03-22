@@ -11,9 +11,9 @@
 		</div>
 		<div class="search-choice">
 			<v-colorblock
-			v-for="(item,index) in searchChoice.ads"
+			v-for="(item,index) in searchChoice"
 			:index="index"
-			:container="item"
+			:container="item.ad_name"
 			></v-colorblock>	
 		</div>
 		<ul class="search-result">
@@ -68,14 +68,10 @@ export default {
 		}
 	},
 	mounted (){
-		// searchpage()
-		// .then( res => {
-		// 	this.searchChoice = res.data;
-		// });
-		 read(273083,1)
-        .then( res => {
-          console.log(res);
-        })
+		searchpage()
+		.then( res => {
+			this.searchChoice = res.data.msg.ads;
+		});
 	}
 }
 </script>

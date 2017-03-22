@@ -1,5 +1,5 @@
 <template>
-	<span class="color-block" :style="{background:color[index]}">{{container}}</span>
+	<span class="color-block" :style="{background:color[index%3]}">{{container}}</span>
 </template>
 
 <script>
