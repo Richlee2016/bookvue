@@ -1,58 +1,117 @@
 <template>
   <div class="detail-container">
-      <v-head
-      :title="container.item.title"	
-      	></v-head>
-      <div class="detail-descr">
-          <div class="left">
-              <img :src="container.item.cover" alt="">
-          </div>
-          <div class="right">
-              <h3>{{container.item.title}}</h3>
-              <label>{{container.item.authors}}</label>
-              <span>价格:{{container.item.price}}书币/千字</span>
-              <span>字数:{{Math.ceil(container.item.word_count/10000)}}万字</span>
-          </div>
-      </div>
-      <div class="detail-btn">
-            <div class="start-read">
-				<router-link :to="{path:'/book/'+ $route.params.id}">开始阅读</router-link>
+	  <transition name="detail">
+	  <section v-if="detailFade">
+			<v-head
+			:title="container.item.title"	
+				></v-head>
+			<div class="detail-descr">
+				<div class="left">
+					<img :src="container.item.cover" alt="">
+				</div>
+				<div class="right">
+					<h3>{{container.item.title}}</h3>
+					<label>{{container.item.authors}}</label>
+					<span>价格:{{container.item.price}}书币/千字</span>
+					<span>字数:{{Math.ceil(container.item.word_count/10000)}}万字</span>
+				</div>
 			</div>
-            <div class="download"><span>下载</span></div>
-      </div>
-      <p class="detail-box">{{container.item.content}}</p>
-      <p class="detail-book-title">最新:{{container.item.latest}}</p>
-      <v-detailtitle
-      	:title="'类别标签'"
-      	:fontSize=16
-      	>
-      	<slot>
-      		<span class="detail-label"
-      			v-for="(item,index) in container.item.categories" 
-      			:style="{background:labelBd[index]}"
-      			>{{item.label}}</span>
-      	</slot>
-      </v-detailtitle>
-     
-      <v-detailtitle
-      	:title="'喜欢本书的人也喜欢'"
-      	:fontSize=16
-      	>
-      	<slot>
-      		<v-blockthree
-      		:prop="container.related"	
-      			></v-blockthree>
-      	</slot>
-      </v-detailtitle>	 
+			<div class="detail-btn">
+					<div class="start-read">
+						<router-link :to="{path:'/book/'+ $route.params.id}">开始阅读</router-link>
+					</div>
+					<div class="download"><span>下载</span></div>
+			</div>
+			<p class="detail-box">{{container.item.content}}</p>
+			<p class="detail-book-title">最新:{{container.item.latest}}</p>
+			<v-detailtitle
+				:title="'类别标签'"
+				:fontSize=16
+				>
+				<slot>
+					<span class="detail-label"
+						v-for="(item,index) in container.item.categories" 
+						:style="{background:labelBd[index]}"
+						>{{item.label}}</span>
+				</slot>
+			</v-detailtitle>
+			
+			<v-detailtitle
+				:title="'喜欢本书的人也喜欢'"
+				:fontSize=16
+				>
+				<slot>
+					<v-blockthree
+					:prop="container.related"	
+						></v-blockthree>
+				</slot>
+			</v-detailtitle>	 
 
-      <v-detailtitle
-      	:title="'图书信息'"
-      	:fontSize=16
-      	>
-      	<slot>
-      		<p class="info">{{container.item.rights}}</p>
-      	</slot>
-      </v-detailtitle>
+			<v-detailtitle
+				:title="'图书信息'"
+				:fontSize=16
+				>
+				<slot>
+					<p class="info">{{container.item.rights}}</p>
+				</slot>
+			</v-detailtitle>
+	  </section>
+	  <div v-else>
+		  <v-head
+			:title="container.item.title"	
+				></v-head>
+			<div class="detail-descr">
+				<div class="left">
+					<img :src="container.item.cover" alt="">
+				</div>
+				<div class="right">
+					<h3>{{container.item.title}}</h3>
+					<label>{{container.item.authors}}</label>
+					<span>价格:{{container.item.price}}书币/千字</span>
+					<span>字数:{{Math.ceil(container.item.word_count/10000)}}万字</span>
+				</div>
+			</div>
+			<div class="detail-btn">
+					<div class="start-read">
+						<router-link :to="{path:'/book/'+ $route.params.id}">开始阅读</router-link>
+					</div>
+					<div class="download"><span>下载</span></div>
+			</div>
+			<p class="detail-box">{{container.item.content}}</p>
+			<p class="detail-book-title">最新:{{container.item.latest}}</p>
+			<v-detailtitle
+				:title="'类别标签'"
+				:fontSize=16
+				>
+				<slot>
+					<span class="detail-label"
+						v-for="(item,index) in container.item.categories" 
+						:style="{background:labelBd[index]}"
+						>{{item.label}}</span>
+				</slot>
+			</v-detailtitle>
+			
+			<v-detailtitle
+				:title="'喜欢本书的人也喜欢'"
+				:fontSize=16
+				>
+				<slot>
+					<v-blockthree
+					:prop="container.related"	
+						></v-blockthree>
+				</slot>
+			</v-detailtitle>	 
+
+			<v-detailtitle
+				:title="'图书信息'"
+				:fontSize=16
+				>
+				<slot>
+					<p class="info">{{container.item.rights}}</p>
+				</slot>
+			</v-detailtitle>
+	  </div>
+	  </transition>
   </div>
 </template>
 
@@ -68,7 +127,8 @@ export default {
 			return {
 				labelBd:['#fbebe8','#fcedda','#e8f9db'],
 				idchange:"",
-				detail:{}
+				detail:{},
+				detailFade:false
 			}
 	},
     components :{
@@ -97,9 +157,12 @@ export default {
 		}
 	},
 	watch:{
-		container (n,o){
-			console.log(0);
-			return n;
+		"$route" (to,from){
+			detail(this.$route.params.id)
+			.then(res => {
+				this.detail = res.data;
+				this.detailFade = !this.detailFade;
+			})
 		}
 	},    
     mounted (){
@@ -111,6 +174,13 @@ export default {
 }
 </script>
 <style lang="scss">
+.detail-enter-active,.detail-leave-active{
+	-webkit-transition: 0.2s ease-in-out;
+	transition: 0.2s ease-in-out;
+}
+.detail-enter,.detail-leave-active{
+	opacity: 0;
+}
 .detail-descr{
     display: -webkit-flex;
     display: flex;
@@ -172,13 +242,18 @@ export default {
     }
 }
 .detail-box{
-	padding: 10px 20px;
+	margin: 10px 20px;
 	font-size: 14px;
 	color: #666666;
 	line-height: 20px;
-	border-bottom: #DDDDDD 1px solid;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 6;
+	-webkit-box-orient: vertical;
+	word-break: break-all;
 }
 .detail-book-title{
+	border-top: #DDDDDD 1px solid;
 	text-align: center;
 	line-height: 40px;
 	color: #666666;

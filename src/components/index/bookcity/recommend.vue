@@ -27,7 +27,7 @@
 		:type="false"
 		:titleone="'换一换'"
 		@onemore="onemore"
-		@twomore="twomore(data.reference_id)"
+		@twomore="twomore"
 			></v-more>
 	</div>
 </template>
@@ -67,7 +67,13 @@ export default {
 		}
 	},
 	methods :{
-		twomore (id){
+		twomore (){
+			let id =369;
+			if(this.tabn === 0){
+				id = 369;
+			}else{
+				id = 370;
+			};
 			this.$router.push({path: '/containertwo/'+id})
 		}
 	}

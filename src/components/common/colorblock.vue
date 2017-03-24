@@ -1,5 +1,7 @@
 <template>
+<router-link :to="{path:'/detail/'+ detailId}">
 	<span class="color-block" :style="{background:color[index%3]}">{{container}}</span>
+</router-link>	
 </template>
 
 <script>
@@ -17,6 +19,10 @@ export default {
 		container:{
 			type:String,
 			default:'book'
+		},
+		detailId:{
+			type:String,
+			default:1
 		}
 	}
 }

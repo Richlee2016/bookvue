@@ -1,5 +1,6 @@
 <template>
   	<div class="box-block-one">
+		<router-link :to="{path:'/detail/'+ newid}">  
   		<div class="img">
   			<div class="img-box">
 	 	 		<img :src="prop.cover"/>
@@ -17,6 +18,7 @@
 	  			<label v-for="(n,index) in prop.tags" v-if="index<4">{{n}}</label>
   			</div>
   		</div>
+		</router-link>  
   	</div>
 </template>
 
@@ -45,6 +47,11 @@ export default {
 			type:String,
 			default:""
 		}
+	},
+	computed:{
+		newid (){
+			return this.prop.fiction_id || this.prop.sid;
+		}
 	}
 }
 </script>
@@ -55,9 +62,11 @@ export default {
 	/*width: 100%;*/
 	height: 130px;
 	padding: 12px;
-	display: -webkit-flex;
-	display: flex;
     border-bottom: 1px solid #f0f0f0;
+	a{
+		display: -webkit-flex;
+		display: flex;
+	}
 	.img{
 		position: relative;
 		width: 125px;

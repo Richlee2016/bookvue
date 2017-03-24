@@ -12,6 +12,7 @@
 		<div class="search-choice">
 			<v-colorblock
 			v-for="(item,index) in searchChoice"
+			:detailId ="item.reference_id"
 			:index="index"
 			:container="item.ad_name"
 			></v-colorblock>	

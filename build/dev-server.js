@@ -11,8 +11,9 @@ var bodyParser = require('body-parser')
 var jsonParser = bodyParser.json()
     // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
-    // Define HTTP proxies to your custom API backend
-    // https://github.com/chimurai/http-proxy-middleware
+
+// Define HTTP proxies to your custom API backend
+// https://github.com/chimurai/http-proxy-middleware
 var proxyTable = config.dev.proxyTable
 
 var app = express()
@@ -119,7 +120,6 @@ app.use(hotMiddleware)
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
-
 module.exports = app.listen(port, function(err) {
     if (err) {
         console.log(err)

@@ -1,7 +1,7 @@
 <template>
   	<ul class="box-block-four">
 		<li v-for="(item,index) in prop">
-			<router-link :to="{path: '/banner', query: { id: item.reference_id }}">
+			<router-link :to="{path: '/banner/' + item.reference_id}">
 			<img :src="item.ad_pic_url"/>
 			</router-link>
 		</li>

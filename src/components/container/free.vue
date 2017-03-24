@@ -71,8 +71,9 @@ export default {
 	mounted (){
 		getfree()
 		.then(res => {
-			this.title = JSON.parse(res.data.msg.hidden_info).title;
-			let freeBook = setGroup(res.data.msg.items,1,5);
+			console.log(res);
+			this.title = JSON.parse(res.data.hidden_info).title;
+			let freeBook = setGroup(res.data.items,1,5);
 			this.free = {
 				one:freeBook[0][0],
 				two:freeBook[1]

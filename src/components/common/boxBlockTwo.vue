@@ -1,8 +1,10 @@
 <template>
   	<div class="box-block-two">
-  		<span class="rank">{{rankNum}}</span>
-  		<p>{{prop.title}}</p>
-  		<label>{{prop.authors}}</label>
+		<router-link :to="{path:'/detail/'+ prop.fiction_id}"> 
+			<span class="rank">{{rankNum}}</span>
+			<p>{{prop.title}}</p>
+			<label>{{prop.authors}}</label>
+		</router-link> 
   	</div>
 </template>
 
