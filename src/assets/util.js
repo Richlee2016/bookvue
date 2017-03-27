@@ -61,33 +61,34 @@ const myScroll = function() {
     };
 }
 
-// const myScroll = function(selector,set){
-// 	var box = document.querySelector(selector);
-// 	var scroll = new IScroll(box, set||{});
-// 	return {
-// 			pullRefresh:function(cb){	
-// 				scroll.on('scrollEnd', function(){
-// 					if(-this.y <= 0){
-// 						cb&&cb();
-// 					};
-// 				})
-// 			},
-// 			downLoad:function(cb){
-// 				var hei = box.querySelector('section').offsetHeight;
-// 				var clientHei = document.documentElement.clientHeight;
-// 				var end = (hei - clientHei) || 0;
-// 				scroll.on('scrollEnd', function(){
-// 								if(-this.y >= end){
-// 									scroll.destroy();
-// 									cb&&cb(hei-clientHei);
-// 								};
-// 							})
-// 			}
-// 	};
-// }
+const ScrollMore = function(selector, set) {
+    var box = document.querySelector(selector);
+    var scroll = new IScroll(box, set || {});
+    return {
+        pullRefresh: function(cb) {
+            scroll.on('scrollEnd', function() {
+                if (-this.y <= 0) {
+                    cb && cb();
+                };
+            })
+        },
+        downLoad: function(cb) {
+            var hei = box.querySelector('section').offsetHeight;
+            var clientHei = document.documentElement.clientHeight;
+            var end = (hei - clientHei) || 0;
+            scroll.on('scrollEnd', function() {
+                if (-this.y >= end) {
+                    scroll.destroy();
+                    cb && cb(hei - clientHei);
+                };
+            })
+        }
+    };
+}
 
 export {
     setGroup,
     chineseReg,
-    myScroll
+    myScroll,
+    ScrollMore
 }

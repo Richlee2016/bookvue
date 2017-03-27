@@ -24,7 +24,9 @@
 				:prop="book"
 				></v-blockone>
 			</div>
-			<v-more></v-more>
+			<v-more
+			@onemore="onemore(item.reference_id)"
+			></v-more>
 			<div class="clear-line"></div>
 		</section>
   </div>
@@ -66,6 +68,11 @@ export default {
 				return res.data.data.map( o => o.data)
 			}
 			return []
+		}
+	},
+	methods: {
+		onemore(id){
+			this.$router.push({path:'/scrollmore/'+ id})
 		}
 	},
 	mounted (){

@@ -39,8 +39,8 @@ compiler.plugin('compilation', function(compilation) {
 // proxy api requests
 //proxy
 var proxySet = config.dev.proxyTable;
-console.log(proxySet.context);
 app.use(proxyMiddleware(proxySet.context, proxyTable.options));
+
 //bodyParser 处理
 app.use(bodyParser.urlencoded({ extended: true }));
 //正文解析

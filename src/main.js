@@ -19,6 +19,7 @@ import ranks from 'components/container/ranks'
 import detail from 'components/container/detail'
 import search from 'components/container/search'
 import free from 'components/container/free'
+import scrollmore from 'components/container/scrollmore'
 //book
 import Book from './components/book/book'
 //page
@@ -31,29 +32,29 @@ Vue.use(VueRouter);
 /* eslint-disable no-new */
 
 const router = new VueRouter({
-	routes:[
-				{ path: '/', component: Index},
-				{ path: '/book/:id', component: Book},
-				{path:'/banner/:id', component:Banner},
-				{path:'/containerone/:id', component:containerOne},
-				{path:'/containertwo/:id', component:containerTwo},
-				{path:'/containerthree/', component:containerThree},
-				{path:'/containerfour', component:containerFour},
-				{path:'/free', component:free},
-				{path:'/category', component:category},
-				{path:'/ranks', component:ranks},
-				{path:'/detail/:id', component:detail},
-				{path:'/search', component:search}
-			],
-	//回退页面 滚动位置设置		
-//	scrollBehavior (to, from, savedPosition) {
-//	  return { x: 0, y: 0 }
-//	}		
+    routes: [
+        { path: '/', component: Index },
+        { path: '/book/:id', component: Book },
+        { path: '/banner/:id', component: Banner },
+        { path: '/containerone/:id', component: containerOne },
+        { path: '/containertwo/:id', component: containerTwo },
+        { path: '/containerthree/', component: containerThree },
+        { path: '/containerfour', component: containerFour },
+        { path: '/free', component: free },
+        { path: '/category', component: category },
+        { path: '/ranks', component: ranks },
+        { path: '/detail/:id', component: detail },
+        { path: '/search', component: search },
+        { path: '/scrollmore/:id', component: scrollmore },
+    ],
+    //回退页面 滚动位置设置		
+    //	scrollBehavior (to, from, savedPosition) {
+    //	  return { x: 0, y: 0 }
+    //	}		
 });
 
 const app = new Vue({
-	router,
-	store,
-	render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')
-
