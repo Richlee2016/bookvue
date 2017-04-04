@@ -10,6 +10,7 @@
 	  		</div>
 	  		<ul class="four_main">
 	  			<li v-for="data in container.data[index]">
+					<router-link :to="{path:'/categoryfiction/'+data.category_id }">  
 	  				<div class="left">
 	  					<span>{{data.label}}</span>
 	  					<label>{{data.fiction_count}}</label>
@@ -17,6 +18,7 @@
 	  				<div class="right">
 	  					<img :src="data.new_image"/>
 	  				</div>
+					</router-link>  
 	  			</li>
 	  		</ul>
   		</section>
@@ -46,6 +48,7 @@ export default {
 				title:[data.section[2],data.section[3]],
 				data:[data.male,data.female]
 			};
+			console.log(this.container);
 		}).
 		catch( err => {
 			console.log(err)

@@ -1,16 +1,18 @@
 <template>
 	  <div class="scroll-more">
-	  		<v-head
-	  		:title="book.label"	
-	  			></v-head>
-			<p class="sm-description">{{book.description}}</p>
-	  		<!--<section v-for="(item,index) in container">
-	  			<div class="container-inner" v-for="book in item.data.data">
-	  				<v-blockone
-	  				:prop="book"
-	  					></v-blockone>
-	  			</div>
-	  		</section>	-->
+			<v-head
+			:title="book.label"	
+				></v-head>
+			<div v-if="book.description">
+				<p class="sm-description">{{book.description}}</p>
+			</div>
+			<section>
+			<div class="container-inner" v-for="book in book.items">
+				<v-blockone
+				:prop="book"
+					></v-blockone>
+			</div>
+			</section>
 	  </div>
 </template>
 

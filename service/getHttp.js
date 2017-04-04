@@ -25,6 +25,7 @@ var get = (type = 'GET', url , data) => {
         };
 
         if(type === 'POST'){
+            console.log(url,qsData);
            axios.post(url,qsData)
            .then( (res) => {
                 resolve(res);

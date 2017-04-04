@@ -20,10 +20,14 @@ import detail from 'components/container/detail'
 import search from 'components/container/search'
 import free from 'components/container/free'
 import scrollmore from 'components/container/scrollmore'
+
+//fiction
+import categoryFiction from 'components/fiction/category'
 //book
 import Book from './components/book/book'
 //page
 import VueRouter from 'vue-router'
+
 
 Vue.use(VueRouter);
 // window.axios = axios;
@@ -46,6 +50,7 @@ const router = new VueRouter({
         { path: '/detail/:id', component: detail },
         { path: '/search', component: search },
         { path: '/scrollmore/:id', component: scrollmore },
+        {path:'/categoryfiction/:id',component:categoryFiction}
     ],
     //回退页面 滚动位置设置		
     //	scrollBehavior (to, from, savedPosition) {

@@ -74,7 +74,7 @@ export default {
 		img{
 			display: block;
 			width: 87px;
-			height: 100%
+			height: 120px;
 		}
 		label{
 			width: 14px;

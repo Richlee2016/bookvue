@@ -21,9 +21,12 @@ var pull = (start, count) => getAxios('POST', '/rock/book/recommend', {
 var banner = (id, data) => getAxios('GET', '/store/v0/fiction/list/' + id);
 //获取更多
 var getmore = (id) => getAxios('GET', '/hs/v3/channel/' + id);
-var getfree = (id) => getAxios('GET', '/api/free')
-    //分类
+var getfree = (id) => getAxios('GET', '/api/free');
+//分类
 var category = () => getAxios('GET', '/hs/v0/android/store/category');
+//分类详情
+var categoryFiction = (id,start,count,type='click') => getAxios('GET', `/store/v0/fiction/category/${id}?start=${start}&count=${count}&${type}=1`);
+var categoryTitle = (id) => getAxios('GET', '/hs/v0/android/fiction/category/'+id);
 //排行
 var ranks = () => getAxios('GET', '/store/v0/ad/ranks');
 
@@ -49,4 +52,4 @@ var read = (id, chapter) => getAxios('POST', '/book/read', {
     chapter: chapter
 })
 
-export { index, searchpage, search, pull, banner, category, ranks, morefiction, getmore, getfree, persistent, detail, read }
+export { index, searchpage, search, pull, banner, category,categoryFiction,categoryTitle, ranks, morefiction, getmore, getfree, persistent, detail, read }

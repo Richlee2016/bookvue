@@ -37,6 +37,8 @@ module.exports = {
                 '/store/v0/ad/persistent',
                 ////分类
                 '/hs/v0/android/store/category',
+               '/store/v0/fiction/category/',
+               '/hs/v0/android/fiction/category/',
                 //排行
                 '/store/v0/ad/ranks',
                 //详情
