@@ -23,6 +23,7 @@ import scrollmore from 'components/container/scrollmore'
 
 //fiction
 import categoryFiction from 'components/fiction/category'
+import ranksFiction from 'components/fiction/ranks'
 //book
 import Book from './components/book/book'
 //page
@@ -50,7 +51,8 @@ const router = new VueRouter({
         { path: '/detail/:id', component: detail },
         { path: '/search', component: search },
         { path: '/scrollmore/:id', component: scrollmore },
-        {path:'/categoryfiction/:id',component:categoryFiction}
+        { path: '/categoryfiction/:id', component: categoryFiction },
+        { path: '/ranksfiction/:id', component: ranksFiction }
     ],
     //回退页面 滚动位置设置		
     //	scrollBehavior (to, from, savedPosition) {

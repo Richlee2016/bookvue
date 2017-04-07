@@ -1,14 +1,14 @@
 <template>
   <div class="search-container">
-  		<v-head
-  		:title="'搜索'"	
-  			></v-head>
-		<div class="searchpage-box">
-		 	<v-search
-			 :searchBox='false'
-			 @search="search"
-			 ></v-search>	
-		</div>
+  		<v-head :titleShow='false' :iconShow='false'>
+			<div slot="search" class="searchpage-box">
+				<v-search
+				:searchBox='false'
+				@search="search"
+				:goShow="true"
+				></v-search>	
+			</div>
+		</v-head>
 		<div class="search-choice">
 			<v-colorblock
 			v-for="(item,index) in searchChoice"
@@ -37,11 +37,11 @@
 </template>
 
 <script>
-import types from 'types'
 import bookHead from 'components/common/bookHead'
 import boxBlockOne from 'components/common/boxBlockOne'
 import Search from 'components/common/search'
 import colorBlock from 'components/common/colorblock'
+import {myScroll} from 'assets/mixins'
 import {searchpage,search,read} from 'service/serviceApi'
 export default {
 	components :{
@@ -78,9 +78,11 @@ export default {
 </script>
 <style lang="scss">
 .searchpage-box{
-	margin-top: 20px;
-	padding:0 20px;
-	
+	background: white;
+	height:38px;
+	margin-top: 2px;
+	margin-right: 20px;
+	border: #ddd 1px solid;
 }
 .search-choice{
 	padding: 20px;

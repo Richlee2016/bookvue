@@ -5,12 +5,14 @@
   			></v-head>
   		<ul class="rank-box">
   			<li v-for="(item,index) in rankcontainer.data">
-  				<div class="left">
-  					<img :src="item.cover"/>
-  				</div>
-  				<div class="right">
-  					<p v-for="(n,i) in rankcontainer.description[index]">{{i+1}}:{{n}}</p>
-  				</div>
+				<router-link :to="{path:'/ranksfiction/' + item.ranks,query:{title:item.name}}">  
+					<div class="left">
+						<img :src="item.cover"/>
+					</div>
+					<div class="right">
+						<p v-for="(n,i) in rankcontainer.description[index]">{{i+1}}:{{n}}</p>
+					</div>
+				</router-link>
   			</li>
   		</ul>
   </div>
@@ -66,9 +68,11 @@ export default {
 .rank-box{
 	li{
 		padding: 10px;
-		display: -webkit-flex;
-		display: flex;
 		border-bottom: #ddd 1px solid;
+		a{
+			display: -webkit-flex;
+			display: flex;
+		}
 		>div{
 			-webkit-flex: 1;
 			flex: 1;

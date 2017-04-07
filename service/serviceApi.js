@@ -25,11 +25,15 @@ var getfree = (id) => getAxios('GET', '/api/free');
 //分类
 var category = () => getAxios('GET', '/hs/v0/android/store/category');
 //分类详情
-var categoryFiction = (id,start,count,type='click') => getAxios('GET', `/store/v0/fiction/category/${id}?start=${start}&count=${count}&${type}=1`);
-var categoryTitle = (id) => getAxios('GET', '/hs/v0/android/fiction/category/'+id);
+var categoryFiction = (id, start, count, type = 'click') => getAxios('GET', `/store/v0/fiction/category/${id}?start=${start}&count=${count}&${type}=1`);
+var categoryTitle = (id) => getAxios('GET', '/hs/v0/android/fiction/category/' + id);
 //排行
 var ranks = () => getAxios('GET', '/store/v0/ad/ranks');
-
+var ranksFiction = (start, count, r) => getAxios('GET', '/store/v0/fiction/rank', {
+    start: start,
+    count: count,
+    r: r
+});
 //频道内页更多信息
 var morefiction = (id, start, count) => getAxios('GET', '/store/v0/fiction/list/' + id, {
     start: start,
@@ -52,4 +56,4 @@ var read = (id, chapter) => getAxios('POST', '/book/read', {
     chapter: chapter
 })
 
-export { index, searchpage, search, pull, banner, category,categoryFiction,categoryTitle, ranks, morefiction, getmore, getfree, persistent, detail, read }
+export { index, searchpage, search, pull, banner, category, categoryFiction, categoryTitle, ranks, ranksFiction, morefiction, getmore, getfree, persistent, detail, read }

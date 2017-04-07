@@ -60,7 +60,7 @@ export default {
 <style lang='scss'>
 .box-block-one{
 	/*width: 100%;*/
-	height: 130px;
+	height: 121px;
 	padding: 12px;
     border-bottom: 1px solid #f0f0f0;
 	a{

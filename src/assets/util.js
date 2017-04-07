@@ -1,13 +1,13 @@
 import IScroll from 'iscroll'
 //css3 转化
-// const css3 = function(obj,m,n){
-// 	var one = m.toLowerCase(); 
-// 	obj.style['Webkit' + m] = n;//Webkit(Chrome/Safari)
-// 	obj.style['Moz' + m] = n;  //Gecko(Firefox)
-// 	obj.style['o' + m] = n;   //-o-transform opare
-// 	obj.style['ms' + m] = n;  //IE
-// 	obj.style[one] = n; 
-// };
+const css3 = function(obj, m, n) {
+    var one = m.toLowerCase();
+    obj.style['Webkit' + m] = n; //Webkit(Chrome/Safari)
+    obj.style['Moz' + m] = n; //Gecko(Firefox)
+    obj.style['o' + m] = n; //-o-transform opare
+    obj.style['ms' + m] = n; //IE
+    obj.style[one] = n;
+};
 //数组分组		
 const setGroup = function() {
         var args = Array.prototype.slice.call(arguments),
@@ -87,6 +87,7 @@ const ScrollMore = function(selector, set) {
 }
 
 export {
+    css3,
     setGroup,
     chineseReg,
     myScroll,

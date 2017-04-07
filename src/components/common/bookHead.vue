@@ -4,10 +4,11 @@
 			<div class="left">
 				<span class="icon-rback" @click="goBack"></span>
 			</div>
-			<div class="title">{{title}}</div>
-			<div class="right">
+			<div class="title" v-if="titleShow">{{title}}</div>
+			<div class="right" v-if="iconShow">
 				<span class="icon-home"></span>
 			</div>
+			<slot name="search"></slot>
 		</div>
 	</section>
 </template>
@@ -18,6 +19,14 @@ export default {
 		title:{
 			type:String,
 			default:"title"
+		},
+		titleShow:{
+			type:Boolean,
+			default:true
+		},
+		iconShow:{
+			type:Boolean,
+			default:true
 		}
 	},
 	methods :{

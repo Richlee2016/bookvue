@@ -37,5 +37,6 @@ export default {
 	border-radius: 4px;
 	margin-left: 10px;
 	margin-bottom: 10px;
+	font-size: 14px;
 }
 </style>

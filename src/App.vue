@@ -7,12 +7,16 @@
 </template>
 
 <script>
+import loading from 'components/common/loading'
 export default {
 	data (){
 		return {
 			name:'page-go',
 			historySrc:0
 		}
+	},
+	components:{
+		"v-loading":loading
 	},
 	watch :{
 		'$route' (to, from){
