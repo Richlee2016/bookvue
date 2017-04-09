@@ -3,35 +3,35 @@
 		<v-head
 		:title="title"	
 		></v-head>
-		<v-scroll :scrollStart="scrollStart">
-			<section slot="scroll">
-			<section>
-				<v-title
-				:title="free.one?free.one.ad_name : ''"
-				></v-title>
-				<div>
-					<v-blockthree
-					:prop="freeOne"
-					></v-blockthree>
-				</div>
-				<div class="clear-line"></div>
+			<section v-rScroll="true">
+			<section>	
+				<section>
+					<v-title
+					:title="free.one?free.one.ad_name : ''"
+					></v-title>
+					<div>
+						<v-blockthree
+						:prop="freeOne"
+						></v-blockthree>
+					</div>
+					<div class="clear-line"></div>
+				</section>
+				<section v-for="(item,index) in free.two">
+					<v-title
+					:title="item.ad_name"	
+					></v-title>
+					<div class="container-inner" v-for="book in item.data.data">
+						<v-blockone
+						:prop="book"
+						></v-blockone>
+					</div>
+					<v-more
+					@onemore="onemore(item.reference_id)"
+					></v-more>
+					<div class="clear-line"></div>
+				</section>
+			</section>	
 			</section>
-			<section v-for="(item,index) in free.two">
-				<v-title
-				:title="item.ad_name"	
-				></v-title>
-				<div class="container-inner" v-for="book in item.data.data">
-					<v-blockone
-					:prop="book"
-					></v-blockone>
-				</div>
-				<v-more
-				@onemore="onemore(item.reference_id)"
-				></v-more>
-				<div class="clear-line"></div>
-			</section>
-			<section>
-		</v-scroll>
   </div>
 </template>
 
@@ -94,7 +94,7 @@ export default {
 			return Promise.resolve();
 		}).
 		then( () => {
-			this.scrollStart = true;
+			this.scrollGo();
 		})
 	}
 }

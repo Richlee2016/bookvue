@@ -29,6 +29,10 @@ import Book from './components/book/book'
 //page
 import VueRouter from 'vue-router'
 
+import Scroll from 'assets/scroll'
+
+Vue.use(Scroll);
+
 
 Vue.use(VueRouter);
 // window.axios = axios;

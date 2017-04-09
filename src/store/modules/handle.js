@@ -1,6 +1,5 @@
 import types from "types"
 import {setGroup,chineseReg} from "assets/util"
-import requestApi from "assets/requestapi"
 const state = {
 	//搜索页面
 	searchpage:{},
