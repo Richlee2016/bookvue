@@ -29,7 +29,7 @@ import Book from './components/book/book'
 //page
 import VueRouter from 'vue-router'
 
-import Scroll from 'assets/scroll'
+import Scroll from 'assets/plugin/scroll'
 
 Vue.use(Scroll);
 
@@ -59,9 +59,9 @@ const router = new VueRouter({
         { path: '/ranksfiction/:id', component: ranksFiction }
     ],
     //回退页面 滚动位置设置		
-    //	scrollBehavior (to, from, savedPosition) {
-    //	  return { x: 0, y: 0 }
-    //	}		
+    scrollBehavior(to, from, savedPosition) {
+        return { x: savedPosition.x, y: savedPosition.y }
+    }
 });
 
 const app = new Vue({

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
   	<transition :name="name">
-		<router-view style="position:absolute;left:0px;top:0px;bottom:0px;right:0px;background:white;"></router-view>
+		<router-view></router-view>
 	</transition >
   </div>
 </template>
@@ -20,10 +20,11 @@ export default {
 	},
 	watch :{
 		'$route' (to, from){
+				alert(this.historySrc);
 			if(this.historySrc === 2){
-				this.name = 'page-back'
+				this.name = 'page-back';
 			}else{
-				this.name = 'page-go'
+				this.name = 'page-go';
 			};
 			this.historySrc = 0;
 		}

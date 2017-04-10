@@ -3,25 +3,25 @@
   		<v-head
   		:title="'分类'"	
   			></v-head>
-  		<section v-for="(item,index) in container.title">
-  			<div class="title">
-	  			<label>df</label>
-	  			<span>{{item.name}}</span>
-	  		</div>
-	  		<ul class="four_main">
-	  			<li v-for="data in container.data[index]">
-					<router-link :to="{path:'/categoryfiction/'+data.category_id }">  
-	  				<div class="left">
-	  					<span>{{data.label}}</span>
-	  					<label>{{data.fiction_count}}</label>
-	  				</div>
-	  				<div class="right">
-	  					<img :src="data.new_image"/>
-	  				</div>
-					</router-link>  
-	  			</li>
-	  		</ul>
-  		</section>
+			<section v-for="(item,index) in container.title">
+				<div class="title">
+					<label :style="{background:index===1?'#ffae20':'#4b79c2'}" class="icon-class"></label>
+					<span>{{item.name}}</span>
+				</div>
+				<ul class="four_main">
+					<li v-for="data in container.data[index]">
+						<router-link :to="{path:'/categoryfiction/'+data.category_id }">  
+						<div class="left">
+							<span>{{data.label}}</span>
+							<label>{{data.fiction_count}}</label>
+						</div>
+						<div class="right">
+							<img :src="data.new_image"/>
+						</div>
+						</router-link>  
+					</li>
+				</ul>
+			</section>
   </div>
 </template>
 
@@ -33,7 +33,7 @@ import {category} from 'service/serviceApi'
 export default {
 	components :{
 		//抬头
-		"v-head":bookHead,
+		"v-head":bookHead
 	},
 	data (){
 		return {
@@ -49,8 +49,9 @@ export default {
 				data:[data.male,data.female]
 			};
 			console.log(this.container);
-		}).
-		catch( err => {
+			return Promise.resolve();
+		})
+		.catch( err => {
 			console.log(err)
 		})
 	}
@@ -68,9 +69,9 @@ export default {
 			width: 30px;
 			height: 30px;
 			border-radius: 30px;
-			background: red;
 			text-align: center;
 			line-height: 30px;
+			color: white;
 		}
 		span{
 			padding-left: 10px;

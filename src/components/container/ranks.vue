@@ -60,7 +60,7 @@ export default {
 		ranks()
 		.then(res => {
 			this.ranks = res.data;
-		})
+		})	
 	}
 }
 </script>

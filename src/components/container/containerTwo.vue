@@ -3,25 +3,21 @@
 	  		<v-head
 	  		:title="title"	
 	  			></v-head>
-			<v-scroll :scrollStart="scrollStart">
-				<section slot="scroll">	  
-					<section v-for="(item,index) in container">
-						<v-title
-							:title="item.ad_name"	
-								></v-title>
-						<div class="container-inner" v-for="book in item.data.data">
-							<v-blockone
-							:prop="book"
-								></v-blockone>
-						</div>
-						<v-more
-							:titleone="titleone[index]"
-							@onemore="onemore(item.reference_id)"
-								></v-more>
-							<div class="clear-line"></div>
-					</section>	
-				</section>
-			</v-scroll>
+				<section v-for="(item,index) in container">
+					<v-title
+						:title="item.ad_name"	
+							></v-title>
+					<div class="container-inner" v-for="book in item.data.data">
+						<v-blockone
+						:prop="book"
+							></v-blockone>
+					</div>
+					<v-more
+						:titleone="titleone[index]"
+						@onemore="onemore(item.reference_id)"
+							></v-more>
+						<div class="clear-line"></div>
+				</section>	
 	  </div>
 </template>
 
@@ -33,7 +29,6 @@ import bookHead from 'components/common/bookHead'
 import bookTitle from 'components/common/bookTitle'
 import bookMore from 'components/common/bookMore'
 import boxBlockOne from 'components/common/boxBlockOne'
-import scroll from 'components/common/scroll'
 import {getmore,getfree} from 'service/serviceApi'
 export default {
 	components :{
@@ -45,16 +40,13 @@ export default {
 		"v-head":bookHead,
 		//书块one
 		"v-blockone":boxBlockOne,
-		//scroll
-		"v-scroll":scroll
 	},
 	data (){
 		return {
 			onemoreTitle:["查看更多","更多主编推荐>>","更多新书抢鲜读>>","更多新书抢鲜读>>"],
 			name:"title",
 			container:[],
-			foot:"更多",
-			scrollStart:false
+			foot:"更多"
 		}
 	},
 	computed :{
@@ -86,9 +78,6 @@ export default {
 		.then( res => {
 			this.name = res.data.hidden_info;
 			this.container = res.data.items;
-		}).
-		then( () => {
-			this.scrollStart = true;
 		})
 	}
 }

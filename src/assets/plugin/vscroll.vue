@@ -1,6 +1,8 @@
 <template>
-	<div class="scroll-container" ref="scroll">
-		<slot name="scroll"></slot>
+	<div class="scroll-container" v-rScroll="true">
+		<div>
+			<slot></slot>
+		<div>
 	</div>
 </template>
 
@@ -8,22 +10,13 @@
 import IScroll from 'iscroll'
 export default {
 	props:{
-		scrollStart:{
-			type:Boolean,
-			default:false
-		}
+		
 	},
 	watch:{
-		scrollStart(n,o){
-			if(n){
-				var scroll = new IScroll(this.$refs.scroll, {click:true});
-			};
-		}
+		
 	},
 	methods:{
-		_scroll(){
- 			// var scroll = new IScroll(this.$refs.scroll, {click:true});
-		}
+		
 	}
 }
 </script>

@@ -64,7 +64,6 @@
     },
     methods: {
       pullscroll (){
-          console.log(this.$refs.cityscroll);
           let scroll = new BScroll(this.$refs.cityscroll, {})
       }
     },
@@ -88,7 +87,8 @@
     created() {
       this.$nextTick(() => {
         this.$store.dispatch(types.GET_BOOKCITY);
-        this.$store.dispatch('getPullBook',{pullBox:this.$refs.cityscroll});
+        this.$store.dispatch('getPullBook',{pullBox:this.$refs.cityscroll})
+        
       });
     }
   }

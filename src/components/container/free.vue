@@ -3,34 +3,30 @@
 		<v-head
 		:title="title"	
 		></v-head>
-			<section v-rScroll="true">
-			<section>	
-				<section>
-					<v-title
-					:title="free.one?free.one.ad_name : ''"
-					></v-title>
-					<div>
-						<v-blockthree
-						:prop="freeOne"
-						></v-blockthree>
-					</div>
-					<div class="clear-line"></div>
-				</section>
-				<section v-for="(item,index) in free.two">
-					<v-title
-					:title="item.ad_name"	
-					></v-title>
-					<div class="container-inner" v-for="book in item.data.data">
-						<v-blockone
-						:prop="book"
-						></v-blockone>
-					</div>
-					<v-more
-					@onemore="onemore(item.reference_id)"
-					></v-more>
-					<div class="clear-line"></div>
-				</section>
-			</section>	
+			<section>
+				<v-title
+				:title="free.one?free.one.ad_name : ''"
+				></v-title>
+				<div>
+					<v-blockthree
+					:prop="freeOne"
+					></v-blockthree>
+				</div>
+				<div class="clear-line"></div>
+			</section>
+			<section v-for="(item,index) in free.two">
+				<v-title
+				:title="item.ad_name"	
+				></v-title>
+				<div class="container-inner" v-for="book in item.data.data">
+					<v-blockone
+					:prop="book"
+					></v-blockone>
+				</div>
+				<v-more
+				@onemore="onemore(item.reference_id)"
+				></v-more>
+				<div class="clear-line"></div>
 			</section>
   </div>
 </template>
@@ -42,7 +38,6 @@ import bookTitle from 'components/common/bookTitle'
 import bookMore from 'components/common/bookMore'
 import boxBlockOne from 'components/common/boxBlockOne'
 import boxBlockThree from 'components/common/boxBlockThree'
-import scroll from 'components/common/scroll'
 import {getfree} from 'service/serviceApi'
 import {setGroup} from 'assets/util'
 import defaultsDeep from 'lodash/defaultsDeep'
@@ -58,8 +53,6 @@ export default {
 		"v-blockone":boxBlockOne,
 		//书块three
 		"v-blockthree":boxBlockThree,
-		//scroll
-		"v-scroll":scroll
 	},
 	data (){
 		return {
@@ -92,9 +85,6 @@ export default {
 				two:freeBook[1]
 			}
 			return Promise.resolve();
-		}).
-		then( () => {
-			this.scrollGo();
 		})
 	}
 }

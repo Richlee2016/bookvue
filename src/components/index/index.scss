@@ -55,19 +55,14 @@
     }
 }
 
-.bookcity {
-    position: absolute;
-    left: 0px;
-    top: 50px;
-    right: 0px;
-    bottom: 0px;
-    overflow: hidden;
-    section {
-        //      max-width: 1200px;
-        //      margin: auto;
-    }
-}
-
+// .bookcity {
+// position: absolute;
+// left: 0px;
+// top: 50px;
+// right: 0px;
+// bottom: 0px;
+// overflow: hidden;
+// }
 .city-search {
     display: block;
     width: 96%;
@@ -111,6 +106,7 @@
             width: 100%;
             height: 30px;
             text-align: center;
+            padding: 0px;
         }
         label {
             display: inline-block;
