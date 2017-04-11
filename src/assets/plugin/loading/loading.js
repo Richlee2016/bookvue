@@ -2,8 +2,8 @@ import Vue from 'vue'
 import loading from './vLoading'
 import _throttle from 'lodash/throttle'
 import _once from 'lodash/once'
-//回调函数 加 promise 通知
-let loadPomise = function(cb) {
+//回调函数 promise 通知
+let loadPomise = (cb) => {
     return new Promise((resolve, reject) => {
         cb && cb(resolve);
     });
@@ -18,7 +18,7 @@ export default {
         })
 
         //加载方法
-        Vue.prototype.$rLoading = function(cb) {
+        Vue.prototype.$rLoading = (cb) => {
             let updatePosition = () => {
                 let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
                 let docHei = document.documentElement.offsetHeight || document.body.offsetTop;
