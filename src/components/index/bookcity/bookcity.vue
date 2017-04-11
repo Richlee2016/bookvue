@@ -34,6 +34,7 @@
       <v-pullbook :data="pullbook"></v-pullbook>
     </section>
   </div>
+  <r-loading></r-loading>
   <div>
 </template>
 
@@ -87,8 +88,7 @@
     created() {
       this.$nextTick(() => {
         this.$store.dispatch(types.GET_BOOKCITY);
-        this.$store.dispatch('getPullBook',{pullBox:this.$refs.cityscroll})
-        
+        this.$store.dispatch('getPullBook',{pullBox:this.$refs.cityscroll});
       });
     }
   }

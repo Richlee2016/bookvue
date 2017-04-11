@@ -20,7 +20,7 @@ import detail from 'components/container/detail'
 import search from 'components/container/search'
 import free from 'components/container/free'
 import scrollmore from 'components/container/scrollmore'
-
+import test from 'assets/test'
 //fiction
 import categoryFiction from 'components/fiction/category'
 import ranksFiction from 'components/fiction/ranks'
@@ -29,9 +29,9 @@ import Book from './components/book/book'
 //page
 import VueRouter from 'vue-router'
 
-import Scroll from 'assets/plugin/scroll'
-
-Vue.use(Scroll);
+// import Scroll from 'assets/plugin/scroll'
+import Loading from 'assets/plugin/loading/loading'
+Vue.use(Loading);
 
 
 Vue.use(VueRouter);
@@ -42,6 +42,7 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
     routes: [
+        { path: '/test', component: test },
         { path: '/', component: Index },
         { path: '/book/:id', component: Book },
         { path: '/banner/:id', component: Banner },

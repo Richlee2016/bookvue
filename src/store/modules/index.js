@@ -3,6 +3,7 @@ import types from "types"
 import { setGroup, chineseReg, myScroll } from "assets/util"
 import defaultsDeep from 'lodash/defaultsDeep'
 import { index, pull } from 'service/serviceApi'
+const vue = new Vue();
 const state = {
     bannerImg: {},
     weekHotData: {},
@@ -87,14 +88,13 @@ const mutations = {
         state.special = bookcity.items[6];
     },
     [types.GET_PULL_BOOK](state, { pullbook }) {
-        // if (Object.keys(state.pullbook).length === 0) {
-        //     state.pullbook = pullbook;
-        // } else {
-        //     state.pullbook.items = state.pullbook.items.concat(pullbook.items);
-        //     state.pullbook.count += state.addNum;
-        // };
-        // state.pullNum += state.addNum;
-        state.pullbook = pullbook;
+        if (Object.keys(state.pullbook).length === 0) {
+            state.pullbook = pullbook;
+        } else {
+            state.pullbook.items = state.pullbook.items.concat(pullbook.items);
+            state.pullbook.count += state.addNum;
+        };
+        state.pullNum += state.addNum;
     }
 }
 
@@ -105,22 +105,15 @@ const actions = {
         })
     },
     getPullBook({ commit, state }, { pullBox }) {
-        pull(0, 10).then(res => {
-            commit(types.GET_PULL_BOOK, { pullbook: res.data });
-            return Promise.resolve();
+        vue.$rLoading(function(solve) {
+            pull(state.pullNum + 1, state.addNum).then(res => {
+                    commit(types.GET_PULL_BOOK, { pullbook: res.data });
+                    solve(res);
+                })
+                .catch(err => {
+                    solve(err);
+                });
         });
-        // var addBook = myScroll();
-        // let getPull = () => {
-        // 	pull(state.pullNum+1,state.addNum).then( res => {
-        // 		commit(types.GET_PULL_BOOK,{pullbook:res.data});
-        // 		return Promise.resolve();
-        // 	}).then( res => {
-        // 		addBook(pullBox, () => {
-        // 			getPull();
-        // 		},state.addNum*150);
-        // 	})
-        // }
-        // getPull();
     }
 }
 export default {
