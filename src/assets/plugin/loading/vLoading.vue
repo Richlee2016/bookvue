@@ -1,5 +1,6 @@
 <template>
-		<div class="loader loader--style8" title="7">
+	<div>
+		<div class="loadone" title="7" v-if="loadone">
 		<div class="svg">
 			<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 			width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
@@ -21,7 +22,11 @@
 			</svg>
 		</div>	
 		<span>{{loadMsg}}</span>
+		</div>
+		<div class="loadtwo"  v-show="isLoading">
+			loadtwo{{isLoading}}
 		</div>	
+	</div>
 </template>
 
 <script>
@@ -31,6 +36,14 @@ export default {
 		loadMsg:{
 			type:String,
 			default:'正在加载书籍...'
+		},
+		loadone:{
+			type:Boolean,
+			default:false
+		},
+		loadtwo:{
+			type:Boolean,
+			default:false
 		}
 	},
 	watch:{
@@ -44,7 +57,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='scss'>
-.loader{
+.loadone{
 	padding: 30px 0px;
 	height: 30px;
 	text-align: center;
@@ -58,5 +71,14 @@ export default {
 		color: rgba(0,0,0,0.4);
 		line-height: 30px;
 	}
+}
+.loadtwo{
+	z-index: 100000;
+	position: fixed;
+	left:0px;
+	top: 0px;
+	bottom:0px;
+	right:0px;
+	background: rgba(255,255,255,0.8);
 }
 </style>

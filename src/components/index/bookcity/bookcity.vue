@@ -34,7 +34,9 @@
       <v-pullbook :data="pullbook"></v-pullbook>
     </section>
   </div>
-  <r-loading></r-loading>
+  <r-loading
+  :loadone="true"
+  ></r-loading>
   <div>
 </template>
 

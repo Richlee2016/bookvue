@@ -8,17 +8,39 @@ let loadPomise = (cb) => {
         cb && cb(resolve);
     });
 };
+
 export default {
     install(Vue) {
         //引入 全局加载组件
         Vue.mixin({
             components: {
                 "r-loading": loading
+            },
+            data() {
+                return {
+                    isLoading: false
+                }
+            },
+            methods: {
+                _isLoading() {
+                    // this.isLoading = true;
+                }
             }
         })
 
+        Vue.prototype.$inLoading = function() {
+            // console.log(this.isLoading);
+            // this.$set(this.$data, 'isLoading', true);
+            // // this.isLoading = true;
+            // console.log(this.isLoading);
+        }
+
+        // Vue.prototype.$outLoading = () => {
+        //     console.log(1);
+        // }
+
         //加载方法
-        Vue.prototype.$rLoading = (cb) => {
+        Vue.prototype.$rLoading = function(cb) {
             let updatePosition = () => {
                 let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
                 let docHei = document.documentElement.offsetHeight || document.body.offsetTop;
