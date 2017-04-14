@@ -1,5 +1,4 @@
 <template>
-  <div>
   <div class="bookcity" ref="cityscroll">
     <section>
       <!--banner-->
@@ -33,11 +32,10 @@
       <div class="clear-line"></div>
       <v-pullbook :data="pullbook"></v-pullbook>
     </section>
+    <r-loading
+    :loadone="true"
+    ></r-loading>
   </div>
-  <r-loading
-  :loadone="true"
-  ></r-loading>
-  <div>
 </template>
 
 <script>
@@ -53,6 +51,7 @@
   import timeFree from 'components/index/bookcity/timefree'
   import persistent from 'components/index/bookcity/persistent'
   import pullBook from 'components/index/bookcity/pullbook'
+  import loading from 'components/common/loading'
   import {read} from 'service/serviceApi'
   export default {
     components: {
@@ -64,6 +63,7 @@
       "v-timefree": timeFree,
       "v-persistent": persistent,
       "v-pullbook": pullBook,
+      "v-loading":loading
     },
     methods: {
       pullscroll (){
@@ -90,8 +90,11 @@
     created() {
       this.$nextTick(() => {
         this.$store.dispatch(types.GET_BOOKCITY);
-        this.$store.dispatch('getPullBook',{pullBox:this.$refs.cityscroll});
+        
       });
+    },
+    activated(){
+      this.$store.dispatch('getPullBook',{pullBox:this.$refs.cityscroll});
     }
   }
 </script>

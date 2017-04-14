@@ -3,7 +3,7 @@
   	<transition :name="name">
 		<router-view class="view-container"></router-view>
 	</transition >
-	<r-loading></r-loading>
+	<!--<r-loading></r-loading>-->
   </div>
 </template>
 
@@ -13,7 +13,6 @@ export default {
 	data (){
 		return {
 			name:'page-go',
-			historySrc:localStorage.getItem('src')?localStorage.getItem('src').split(',') : []
 		}
 	},
 	components:{
@@ -21,36 +20,18 @@ export default {
 	},
 	watch :{
 		'$route' (to, from){
-			let len = this.historySrc.length;
-			if(len === 0){
-				 this.historySrc.push(from.path);
-				 this.historySrc.push(to.path);
+			//页面切换动画 设置
+			if(this.$router.isBack){
+				this.name = 'page-back';
+				console.log('page-back');
+				this.$router.isBack = false;
 			}else{
-				 let isBack = this.historySrc.indexOf(to.path);
-				 if(isBack !== -1){
-					let res =this.historySrc.slice(0,isBack+1);
-					this.historySrc = res;
-					this.name = 'page-back'
-				 }else{
-				 	this.historySrc.push(to.path);
-					 this.name = 'page-go'
-				 };
+				console.log('page-go');
+				this.name = 'page-go'
 			};
-			localStorage.setItem('src',this.historySrc);
+			//切换页面的时候去掉 window.onscroll 监听
+			this.$offLoading();
 		}
-	},
-	mounted (){
-		// var self = this;
-		// window.onpopstate = function(event) {
-		// 	self.historySrc++;
-		// };
-		// localStorage.clear('src');
-		// let num =0;
-		// window.addEventListener("popstate", function(e) {
-		// 	num++;
-		// 	console.log(num);
-		// 	console.log(e);
-		// });
 	}
 }
 </script>
@@ -60,20 +41,30 @@ export default {
 	position: absolute;
 	left: 0px;
 	top: 0px;
+	&:before{
+		content:"";
+		z-index: 9999999;
+		display: block;
+		position: fixed;
+		width: 100%;
+		height:100%;
+		background:rgba(255,255,255,0.8);
+		display:none;
+	}
 }
 .page-go-enter-active,.page-go-leave-active,{
-	-webkit-transition: 10s ease-in-out;
-	transition: 10s ease-in-out;
+	-webkit-transition: 0.4s ease-in-out;
+	transition: 0.4s ease-in-out;
 }
 .page-go-enter,{
 	-webkit-transform: translateX(100%);
 	transform: translateX(100%);
-	opacity:0;
+	// opacity:0;
 }
 .page-go-leave-active,{
 	-webkit-transform: translateX(-100%);
 	transform: translateX(-100%);
-	opacity:0;
+	// opacity:0;
 }
 
 .page-back-enter-active,.page-back-leave-active,{
@@ -83,11 +74,11 @@ export default {
 .page-back-enter,{
 	-webkit-transform: translateX(-100%);
 	transform: translateX(-100%);
-	opacity:1;
+	// opacity:1;
 }
 .page-back-leave-active,{
 	-webkit-transform: translateX(100%);
 	transform: translateX(100%);
-	opacity:0;
+	// opacity:0;
 }
 </style>

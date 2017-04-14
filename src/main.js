@@ -2,54 +2,51 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+
 //vuex
 import store from './store'
 
-//index
-import Index from './components/index/index'
-//banner
-import Banner from 'components/container/banner'
-//bookContainer
-import containerOne from 'components/container/containerOne'
-import containerTwo from 'components/container/containerTwo'
-import containerThree from 'components/container/containerThree'
-import containerFour from 'components/container/containerFour'
-import category from 'components/container/category'
-import ranks from 'components/container/ranks'
-import detail from 'components/container/detail'
-import search from 'components/container/search'
-import free from 'components/container/free'
-import scrollmore from 'components/container/scrollmore'
-import test from 'assets/test'
-//fiction
-import categoryFiction from 'components/fiction/category'
-import ranksFiction from 'components/fiction/ranks'
-//book
-import Book from './components/book/book'
-//page
-import VueRouter from 'vue-router'
-
-// import Scroll from 'assets/plugin/scroll'
+//下拉加载数据插件
 import Loading from 'assets/plugin/loading/loading'
+
+//路由
+import VueRouter from 'vue-router'
+//前进 返回 判断 设置
+VueRouter.prototype.isBack = false;
+VueRouter.prototype.goback = function() {
+    this.isBack = true;
+    this.go(-1);
+};
+
 Vue.use(Loading);
-
-VueRouter.prototype.goBack = function() {
-    this.isBack = true
-    window.history.go(-1)
-}
-
 Vue.use(VueRouter);
-// window.axios = axios;
 
+//懒加载
+const index = r => require.ensure([], () => r(require('./components/index/index')), 'index');
+const banner = r => require.ensure([], () => r(require('./components/container/banner')), 'banner');
+const containerOne = r => require.ensure([], () => r(require('components/container/containerOne')), 'containerOne');
+const containerTwo = r => require.ensure([], () => r(require('components/container/containerTwo')), 'containerTwo');
+const containerThree = r => require.ensure([], () => r(require('components/container/containerThree')), 'containerThree');
+const containerFour = r => require.ensure([], () => r(require('components/container/containerFour')), 'containerFour');
+const category = r => require.ensure([], () => r(require('components/container/category')), 'category');
+const ranks = r => require.ensure([], () => r(require('components/container/ranks')), 'ranks');
+const detail = r => require.ensure([], () => r(require('components/container/detail')), 'detail');
+const search = r => require.ensure([], () => r(require('components/container/search')), 'search');
+const free = r => require.ensure([], () => r(require('components/container/free')), 'free');
+const scrollmore = r => require.ensure([], () => r(require('components/container/scrollmore')), 'scrollmore');
+const categoryFiction = r => require.ensure([], () => r(require('components/fiction/category')), 'categoryFiction');
+const ranksFiction = r => require.ensure([], () => r(require('components/fiction/ranks')), 'ranksFiction');
+const book = r => require.ensure([], () => r(require('components/book/book')), 'book');
 
-/* eslint-disable no-new */
+//测试页面
+import test from 'assets/test.vue'
 
 const router = new VueRouter({
     routes: [
         { path: '/test', component: test },
-        { path: '/', component: Index },
-        { path: '/book/:id', component: Book },
-        { path: '/banner/:id', component: Banner },
+        { path: '/', component: index },
+        { path: '/book/:id', component: book },
+        { path: '/banner/:id', component: banner },
         { path: '/containerone/:id', component: containerOne },
         { path: '/containertwo/:id', component: containerTwo },
         { path: '/containerthree/', component: containerThree },

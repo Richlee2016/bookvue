@@ -48,7 +48,6 @@ export default {
 				title:[data.section[2],data.section[3]],
 				data:[data.male,data.female]
 			};
-			console.log(this.container);
 			return Promise.resolve();
 		})
 		.catch( err => {

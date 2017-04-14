@@ -64,7 +64,6 @@ export default {
 			search(0,10,keywords)
 			.then( res => {
 				this.searchData = res.data.items;
-				console.log(res);
 			})
 		}
 	},

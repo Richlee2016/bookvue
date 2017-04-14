@@ -105,13 +105,13 @@ const actions = {
         })
     },
     getPullBook({ commit, state }, { pullBox }) {
-        vue.$rLoading(function(solve) {
+        vue.$onLoading(function(solve) {
             pull(state.pullNum + 1, state.addNum).then(res => {
                     commit(types.GET_PULL_BOOK, { pullbook: res.data });
                     solve(res);
                 })
                 .catch(err => {
-                    solve(err);
+                    console.log(err);
                 });
         });
     }

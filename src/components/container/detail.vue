@@ -158,11 +158,13 @@ export default {
 	},
 	watch:{
 		"$route" (to,from){
-			detail(this.$route.params.id)
-			.then(res => {
-				this.detail = res.data;
-				this.detailFade = !this.detailFade;
-			})
+			if(this.$route.params.id){
+				detail(this.$route.params.id)
+				.then(res => {
+					this.detail = res.data;
+					this.detailFade = !this.detailFade;
+				})
+			};
 		}
 	},    
     mounted (){

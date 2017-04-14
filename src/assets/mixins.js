@@ -40,35 +40,30 @@ const change = {
     }
 }
 
-const myScroll = {
+const loading = {
     methods: {
-        _scroll(selector, set) {
-            var box = selector;
-            var scroll = new IScroll(box, set || {});
-            return {
-                pullRefresh: function(cb) {
-                    scroll.on('scrollEnd', function() {
-                        if (-this.y <= 0) {
-                            cb && cb();
-                        };
-                    })
-                },
-                downLoad: function(cb) {
-                    var hei = box.querySelector('section').offsetHeight;
-                    var clientHei = document.documentElement.clientHeight;
-                    var end = (hei - clientHei) || 0;
-                    scroll.on('scrollEnd', function() {
-                        if (-this.y >= end) {
-                            scroll.destroy();
-                            cb && cb(hei - clientHei);
-                        };
-                    })
-                }
-            };
+        _loading(axios, options, cb) {
+            [axios](options).then(res => {
+                    vue.$offLoading();
+                    cb && cb();
+                    return Promise.resolve(res);
+                })
+                .then(res => {
+                    vue.$onLoading(pullAxios);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
-    }
+    },
+    // created() {
+    //     vue.$onLoading(this._loading);
+    // },
+    // activated() {
+    //     vue.$onLoading(this._loading);
+    // }
 }
 
 
 
-export { translate, change, myScroll };
+export { translate, change, loading };

@@ -23,12 +23,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='scss'>
-.scroll-container{
-	position: absolute;
-    left: 0px;
-    top: 50px;
-    right: 0px;
-    bottom: 0px;
-    overflow: hidden;
-}
+// .scroll-container{
+// 	position: absolute;
+//     left: 0px;
+//     top: 50px;
+//     right: 0px;
+//     bottom: 0px;
+//     overflow: hidden;
+// }
 </style>

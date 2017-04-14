@@ -23,8 +23,7 @@
 		</div>	
 		<span>{{loadMsg}}</span>
 		</div>
-		<div class="loadtwo"  v-show="isLoading">
-			loadtwo{{isLoading}}
+		<div class="loadtwo" v-show="false">
 		</div>	
 	</div>
 </template>
@@ -39,7 +38,7 @@ export default {
 		},
 		loadone:{
 			type:Boolean,
-			default:false
+			default:true
 		},
 		loadtwo:{
 			type:Boolean,

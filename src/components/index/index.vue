@@ -7,9 +7,9 @@
   			<label></label>
   		</span>
   	</div>
-	<!--<v-scroll>-->
+	<keep-alive>
 	<v-bookcity></v-bookcity>
-	<!--</v-scroll>-->
+	</keep-alive>
   </div>
 </template>
 

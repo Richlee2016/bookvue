@@ -7,7 +7,7 @@ export default {
         // 3. 注入全局组件
         Vue.mixin({
             components: {
-                "v-scroll": vScroll
+                "r-scroll": vScroll
             }
         })
 
@@ -15,10 +15,10 @@ export default {
         Vue.directive("rScroll", {
             bind(el) {
                 //DOM结构调整
-                // el.style.height = document.documentElement.clientHeight - 44 + 'px';
-                // el.style.overflow = 'hidden';
+                el.style.height = document.documentElement.clientHeight - 44 + 'px';
+                el.style.overflow = 'hidden';
                 //开启方法
-                Vue.prototype.scrollGo = (function() {
+                Vue.prototype.$scrollGo = (function() {
                     return function() {
                         var scroll = new IScroll(el, { click: true });
                     };

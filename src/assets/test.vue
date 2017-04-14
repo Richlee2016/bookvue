@@ -1,23 +1,23 @@
 <template>
 	<div class="testgo">
 		<section>
-			<div></div>
+			<button @click="test">go</button>
 		</section>	
-		<r-loading></r-loading>	
 	</div>
 </template>
 
 <script>
-
+import Z from 'assets/zepto'
 export default {
+	methods:{
+		// test(){
+		// 	Z(window).off("scroll");
+		// }
+	},
 	created(){
-		this.$rLoading(function(resolve){
-			setTimeout(()=>{
-				let oDiv = document.createElement('div');
-				document.querySelector('.testgo section').appendChild(oDiv);
-				resolve(1);
-			},3000)
-		});
+		// Z(window).on("scroll",function(){
+		// 	console.log(0);
+		// })
 	}
 }
 </script>
@@ -25,6 +25,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='scss'>
 .testgo{
+	height: 2000px;
 	// background: rgba(0,0,0,0.6)
 	section{
 		div{

@@ -2,7 +2,7 @@
 	<section class="book-header">
 		<div class="book-head">
 			<div class="left">
-				<span class="icon-rback" @click="goBack"></span>
+				<span class="icon-rback" @click="$router.goback()"></span>
 			</div>
 			<div class="title" v-if="titleShow">{{title}}</div>
 			<div class="right" v-if="iconShow">

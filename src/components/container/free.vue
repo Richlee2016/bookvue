@@ -28,7 +28,6 @@
 				></v-more>
 				<div class="clear-line"></div>
 			</section>
-			<r-loading></r-loading>
   </div>
 </template>
 
@@ -85,11 +84,10 @@ export default {
 				one:freeBook[0][0],
 				two:freeBook[1]
 			}
-			this.$inLoading();
 			return Promise.resolve();
 		})
 		.then(() => {
-			// this.$outLoading();
+			
 		})
 	}
 }

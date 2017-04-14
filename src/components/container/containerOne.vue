@@ -1,15 +1,18 @@
 <template>
   <div class="container-one">
   		<v-head
-  		:title="container.label"	
+  		:title="label"	
   			></v-head>
   		<section>
-  			<div class="container-inner" v-for="item in container.items">
+  			<div class="container-inner" v-for="item in allbooks">
   				<v-blockone
   				:prop="item"
   					></v-blockone>
   			</div>
   		</section>	
+		<r-loading
+		:loadMsg="loadMsg"
+		></r-loading>
   </div>
 </template>
 
@@ -27,16 +30,37 @@ export default {
 	},
 	data (){
 		return {
-			container:{}
+			label:"",
+			allbooks:[],
+			start:0,
+			count:6,
+			loadMsg:""
 		}
 	},
 	computed: {
 		
 	},
-	mounted (){
-		morefiction(this.$route.params.id,this.$route.query.start,this.$route.query.count)
-		.then( res => {
-			this.container = res.data;
+	mounted(){
+		this.$onLoading((reso)=>{
+			morefiction(this.$route.params.id,this.start,this.count)
+			.then( res => {
+				this.label = res.data.label;
+				if (Object.keys(this.allbooks).length === 0) {
+					this.allbooks = res.data.items;
+				} else {
+					this.allbooks = this.allbooks.concat(res.data.items);
+				};
+				this.start += this.count;
+				console.log(res.data.items.length);
+				if(res.data.items.length === this.count){
+					reso(res);
+				}else{
+
+				};
+			})
+			.catch(err => {
+				console.log(err);
+			})
 		});
 	}
 }
