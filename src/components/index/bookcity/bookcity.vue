@@ -89,8 +89,7 @@
     },
     created() {
       this.$nextTick(() => {
-        this.$store.dispatch(types.GET_BOOKCITY);
-        
+        this.$store.dispatch(types.GET_BOOKCITY,{vueel:this});
       });
     },
     activated(){

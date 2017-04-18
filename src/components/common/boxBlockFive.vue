@@ -1,11 +1,13 @@
 <template>
   	<div class="box-block-five">
+		<router-link :to="{path: '/banner/' + prop.reference_id}">
   		<h3>{{prop.ad_name}}</h3>
   		<p>{{prop.ad_copy}}</p>
   		<div class="five-img">
 	  		<img :src="prop.ad_pic_url"/>
   		</div>
   		<div class="clear-line"></div>
+		</router-link>  
   	</div>
 </template>
 

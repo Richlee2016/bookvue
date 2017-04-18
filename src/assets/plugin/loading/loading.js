@@ -2,6 +2,7 @@ import Vue from 'vue'
 import loading from './vLoading'
 import _throttle from 'lodash/throttle'
 import $ from 'assets/zepto'
+
 //回调函数 promise 通知
 let loadPomise = (cb) => {
     return new Promise((resolve, reject) => {
@@ -41,10 +42,29 @@ export default {
         };
         //移除 window scroll 监听
         Vue.prototype.$offLoading = function() {
-            console.log('off');
             $(window).off('scroll');
         }
 
+        //切换loading完成取消
+        Vue.prototype.$overLoad = function() {
+            if (this.$parent) {
+                this.$parent.fade = false;
+            };
+            if (this.$parent.$parent) {
+                this.$parent.$parent.fade = false;
+            };
+        }
 
+        //切换loading完成取消
+        Vue.prototype.$letLoad = function() {
+            console.log(this.$parent);
+            if (this.$parent) {
+                this.$parent.fade = true;
+            };
+            if (this.$parent.$parent) {
+                this.$parent.$parent.fade = true;
+            };
+
+        }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-	  <div class="container-two">
+	  <div class="container-channel">
 	  		<v-head
 	  		:title="title"	
 	  			></v-head>

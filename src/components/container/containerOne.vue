@@ -44,6 +44,7 @@ export default {
 		this.$onLoading((reso)=>{
 			morefiction(this.$route.params.id,this.start,this.count)
 			.then( res => {
+				// this.$letLoad();
 				this.label = res.data.label;
 				if (Object.keys(this.allbooks).length === 0) {
 					this.allbooks = res.data.items;
@@ -51,12 +52,15 @@ export default {
 					this.allbooks = this.allbooks.concat(res.data.items);
 				};
 				this.start += this.count;
-				console.log(res.data.items.length);
 				if(res.data.items.length === this.count){
 					reso(res);
 				}else{
-
+					console.log(0);
 				};
+				return Promise.resolve();
+			})
+			.then( () => {
+				// this.$overLoad();
 			})
 			.catch(err => {
 				console.log(err);

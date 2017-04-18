@@ -87,7 +87,7 @@ export default {
 			return Promise.resolve();
 		})
 		.then(() => {
-			
+			this.$overLoad();
 		})
 	}
 }

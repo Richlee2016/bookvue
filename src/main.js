@@ -25,7 +25,7 @@ Vue.use(VueRouter);
 const index = r => require.ensure([], () => r(require('./components/index/index')), 'index');
 const banner = r => require.ensure([], () => r(require('./components/container/banner')), 'banner');
 const containerOne = r => require.ensure([], () => r(require('components/container/containerOne')), 'containerOne');
-const containerTwo = r => require.ensure([], () => r(require('components/container/containerTwo')), 'containerTwo');
+const channel = r => require.ensure([], () => r(require('components/container/channel')), 'channel');
 const containerThree = r => require.ensure([], () => r(require('components/container/containerThree')), 'containerThree');
 const containerFour = r => require.ensure([], () => r(require('components/container/containerFour')), 'containerFour');
 const category = r => require.ensure([], () => r(require('components/container/category')), 'category');
@@ -48,7 +48,7 @@ const router = new VueRouter({
         { path: '/book/:id', component: book },
         { path: '/banner/:id', component: banner },
         { path: '/containerone/:id', component: containerOne },
-        { path: '/containertwo/:id', component: containerTwo },
+        { path: '/channel/:id', component: channel },
         { path: '/containerthree/', component: containerThree },
         { path: '/containerfour', component: containerFour },
         { path: '/free', component: free },

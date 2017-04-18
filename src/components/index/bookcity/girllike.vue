@@ -47,7 +47,7 @@ export default {
 	methods :{
 		twomore (id){
 			console.log(id);
-			this.$router.push({path: '/containertwo/'+id})
+			this.$router.push({path: '/channel/'+id})
 		}
 	}
 }

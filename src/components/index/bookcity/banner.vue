@@ -91,7 +91,7 @@
           if(i === 0){
             this.$router.push({path: '/free'})
           }else if(i >= 1 && i <= 2) {
-            this.$router.push({path: '/containertwo/'+id})
+            this.$router.push({path: '/channel/'+id})
           } else if (i == 3) {
             this.$router.push({path: 'category'});
           } else if (i == 4) {

@@ -3,7 +3,7 @@ import types from "types"
 import { setGroup, chineseReg, myScroll } from "assets/util"
 import defaultsDeep from 'lodash/defaultsDeep'
 import { index, pull } from 'service/serviceApi'
-const vue = new Vue();
+const vue = new Vue({});
 const state = {
     bannerImg: {},
     weekHotData: {},
@@ -99,9 +99,10 @@ const mutations = {
 }
 
 const actions = {
-    [types.GET_BOOKCITY]({ commit }) {
+    [types.GET_BOOKCITY]({ commit }, { vueel }) {
         index().then(res => {
             commit(types.GET_BOOKCITY, { bookcity: res.data });
+            vueel.$overLoad();
         })
     },
     getPullBook({ commit, state }, { pullBox }) {

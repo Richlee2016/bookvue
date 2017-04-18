@@ -3,16 +3,22 @@
   	<transition :name="name">
 		<router-view class="view-container"></router-view>
 	</transition >
+	<transition :name="fadename">
+		<div class="loadyet" v-show="fade"></div>
+	</transition >
 	<!--<r-loading></r-loading>-->
   </div>
 </template>
 
 <script>
+import types from 'types'
 import loading from 'components/common/loading'
 export default {
 	data (){
 		return {
 			name:'page-go',
+			fade:false,
+			fadename:"load"
 		}
 	},
 	components:{
@@ -20,23 +26,40 @@ export default {
 	},
 	watch :{
 		'$route' (to, from){
-			//页面切换动画 设置
+			
 			if(this.$router.isBack){
 				this.name = 'page-back';
-				console.log('page-back');
 				this.$router.isBack = false;
 			}else{
-				console.log('page-go');
 				this.name = 'page-go'
 			};
+			this.fadename = "fade"
+			console.log(to.path,from.path);
+			if(to.path === from.path || from.path === '/'){
+				this.name = "";
+				this.fadename = "";
+			};
+			this.fade = true;
 			//切换页面的时候去掉 window.onscroll 监听
 			this.$offLoading();
 		}
+	},
+	created(){
+		
 	}
 }
 </script>
 
 <style lang='scss'>
+.loadyet{
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	bottom:0px;
+	right:0px;
+	width: 100%;
+	background: rgba(255,255,255,0.9);
+}
 .view-container{
 	position: absolute;
 	left: 0px;
@@ -52,11 +75,22 @@ export default {
 		display:none;
 	}
 }
+
+.load-enter-active{
+	-webkit-transition: 0.4s ease-in-out;
+	transition: 0.4s ease-in-out;
+}
+.load-enter{
+	-webkit-transform: translateX(100%);
+	transform: translateX(100%);
+	// opacity:0;
+}
+
 .page-go-enter-active,.page-go-leave-active,{
 	-webkit-transition: 0.4s ease-in-out;
 	transition: 0.4s ease-in-out;
 }
-.page-go-enter,{
+.page-go-enter{
 	-webkit-transform: translateX(100%);
 	transform: translateX(100%);
 	// opacity:0;
@@ -71,12 +105,12 @@ export default {
 	-webkit-transition: 0.4s ease-in-out;
 	transition: 0.4s ease-in-out;
 }
-.page-back-enter,{
+.page-back-enter{
 	-webkit-transform: translateX(-100%);
 	transform: translateX(-100%);
 	// opacity:1;
 }
-.page-back-leave-active,{
+.page-back-leave-active{
 	-webkit-transform: translateX(100%);
 	transform: translateX(100%);
 	// opacity:0;
