@@ -156,22 +156,28 @@ export default {
 			};	
 		}
 	},
+	methods:{
+		_getData(){
+			 detail(this.$route.params.id)
+			.then(res => {
+				this.detail = res.data;
+				return Promise.resolve();
+			})
+			.then(() => {
+				this.$overLoad();
+			})
+			.catch( err => {
+				console.log(err)
+			})
+		}
+	},
 	watch:{
 		"$route" (to,from){
-			if(this.$route.params.id){
-				detail(this.$route.params.id)
-				.then(res => {
-					this.detail = res.data;
-					this.detailFade = !this.detailFade;
-				})
-			};
+			this._getData();
 		}
 	},    
     mounted (){
-        detail(this.$route.params.id)
-		.then(res => {
-			this.detail = res.data;
-		})
+      		this._getData();
     }
 }
 </script>

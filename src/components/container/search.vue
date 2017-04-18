@@ -71,7 +71,14 @@ export default {
 		searchpage()
 		.then( res => {
 			this.searchChoice = res.data.msg.ads;
-		});
+			return Promise.resolve();
+		})
+		.then(() => {
+			this.$overLoad();
+		})
+		.catch( err => {
+			console.log(err)
+		})
 	}
 }
 </script>

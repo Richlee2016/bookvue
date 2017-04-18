@@ -38,6 +38,10 @@ export default {
 		banner(this.$route.params.id)
 		.then( res => {
 			this.bannerpage = res.data;
+			return Promise.resolve();
+		})
+		.then(() => {
+			this.$overLoad();
 		})
 	}
 }

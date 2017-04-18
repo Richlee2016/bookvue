@@ -5,7 +5,7 @@
   	:class="bodyBd">
   	<div class="book-top" v-show="navOnOff">
   		<section>
-	  		<div class="back" @click="$router.go(-1);">
+	  		<div class="back" @click="$router.goback();">
 		  		<span class="icon-rback"></span>
 		  		<label>返回书架</label>
 	  		</div>
@@ -132,8 +132,14 @@ export default {
 		 read(this.$route.params.id,1)
         .then( res => {
 		  this.bookcontainer = JSON.parse(res.data.txt);
-		  console.log(this.bookcontainer);
-        })
+		  return Promise.resolve();
+		})
+		.then(() => {
+			this.$overLoad();
+		})
+		.catch( err => {
+			console.log(err)
+		})
 	}
 }
 </script>

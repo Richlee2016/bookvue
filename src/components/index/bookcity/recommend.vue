@@ -74,7 +74,7 @@ export default {
 			}else{
 				id = 370;
 			};
-			this.$router.push({path: '/containertwo/'+id})
+			this.$router.push({path: '/channel/'+id})
 		}
 	}
 }

@@ -56,7 +56,7 @@ export default {
 	},
 	data (){
 		return {
-			title:"title",
+			title:"",
 			free:{},
 			scrollStart:false
 		}
@@ -88,6 +88,9 @@ export default {
 		})
 		.then(() => {
 			this.$overLoad();
+		})
+		.catch( err => {
+			console.log(err)
 		})
 	}
 }

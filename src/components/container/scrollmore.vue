@@ -37,10 +37,13 @@ export default {
 		morefiction(this.$route.params.id,0,10)
 		.then( res => {
 			this.book = res.data;
-			console.log(res.data);
+			return Promise.resolve();
+		})
+		.then(() => {
+			this.$overLoad();
 		})
 		.catch( err => {
-			csonole.log(err);
+			console.log(err)
 		})
 	}
 }

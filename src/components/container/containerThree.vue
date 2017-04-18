@@ -38,8 +38,14 @@ export default {
 	mounted (){
 		persistent(this.$route.query.start,this.$route.query.count,this.$route.query.type)
 		.then( res => {
-			console.log(res.data);
 			this.container = res.data;
+			return Promise.resolve();
+		})
+		.then(() => {
+			this.$overLoad();
+		})
+		.catch( err => {
+			console.log(err)
 		})		
 	}
 }

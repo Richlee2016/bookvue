@@ -18,7 +18,7 @@ export default {
 	props :{
 		title:{
 			type:String,
-			default:"title"
+			default:""
 		},
 		titleShow:{
 			type:Boolean,

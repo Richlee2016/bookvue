@@ -55,16 +55,16 @@ export default {
             };
         }
 
-        //切换loading完成取消
-        Vue.prototype.$letLoad = function() {
-            console.log(this.$parent);
-            if (this.$parent) {
-                this.$parent.fade = true;
-            };
-            if (this.$parent.$parent) {
-                this.$parent.$parent.fade = true;
-            };
+        // //切换loading完成取消
+        // Vue.prototype.$letLoad = function() {
+        //     console.log(this.$parent);
+        //     if (this.$parent) {
+        //         this.$parent.fade = true;
+        //     };
+        //     if (this.$parent.$parent) {
+        //         this.$parent.$parent.fade = true;
+        //     };
 
-        }
+        // }
     }
 }

@@ -60,6 +60,13 @@ export default {
 		ranks()
 		.then(res => {
 			this.ranks = res.data;
+			return Promise.resolve();
+		})
+		.then(() => {
+			this.$overLoad();
+		})
+		.catch( err => {
+			console.log(err)
 		})	
 	}
 }

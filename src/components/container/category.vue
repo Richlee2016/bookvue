@@ -50,6 +50,9 @@ export default {
 			};
 			return Promise.resolve();
 		})
+		.then(() => {
+			this.$overLoad();
+		})
 		.catch( err => {
 			console.log(err)
 		})

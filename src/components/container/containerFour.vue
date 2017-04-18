@@ -64,10 +64,17 @@ export default {
 			return res;
 		}
 	},
-	created (){
+	mounted (){
 		this.$nextTick(() => {
 			this.$store.dispatch(types.GET_MORE,{list:this.$route.query.id});
-		});
+			return Promise.resolve();
+		})
+		.then(() => {
+			this.$overLoad();
+		})
+		.catch( err => {
+			console.log(err)
+		})
 	}
 }
 </script>
