@@ -56,4 +56,8 @@ var read = (id, chapter) => getAxios('POST', '/book/read', {
     chapter: chapter
 })
 
-export { index, searchpage, search, pull, banner, category, categoryFiction, categoryTitle, ranks, ranksFiction, morefiction, getmore, getfree, persistent, detail, read }
+//获取免费章节(爬取免费网页)
+var freeChapter = (id) => getAxios('GET', '/api/chapter/' + id);
+var freeRead = (id) => getAxios('GET', '/api/read/' + id);
+//获取收费章节(免费章节没有的情况下)
+export { index, searchpage, search, pull, banner, category, categoryFiction, categoryTitle, ranks, ranksFiction, morefiction, getmore, getfree, persistent, detail, read, freeChapter, freeRead }

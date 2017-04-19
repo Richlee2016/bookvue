@@ -9,10 +9,13 @@
   				:prop="item"
   					></v-blockone>
   			</div>
-  		</section>	
-		<r-loading
-		:loadMsg="loadMsg"
-		></r-loading>
+  		</section>
+
+		<v-load
+		:load="overLoad"
+		@inLoading="inLoading"
+		@more = "morecate"
+		></v-load>
   </div>
 </template>
 
@@ -21,12 +24,14 @@ import types from 'types'
 import {mapGetters} from 'vuex'
 import bookHead from 'components/common/bookHead'
 import boxBlockOne from 'components/common/boxBlockOne'
+import load from 'components/common/load'
 import {morefiction} from 'service/serviceApi'
 export default {
 	components :{
 		"v-head":bookHead,
 		//书块one
 		"v-blockone":boxBlockOne,
+		"v-load":load
 	},
 	data (){
 		return {
@@ -34,17 +39,24 @@ export default {
 			allbooks:[],
 			start:0,
 			count:6,
-			loadMsg:""
+			loadMsg:"",
+			isLoad:true,
+			overLoad:true
 		}
 	},
-	computed: {
-		
-	},
-	mounted(){
-		this.$onLoading((reso)=>{
-			morefiction(this.$route.params.id,this.start,this.count)
-			.then( res => {
-				// this.$letLoad();
+	methods: {
+		morecate(){
+			this.$router.push({ path:'/containerthree', query:{start:0,count:10,type:4}})
+		},
+		async inLoading(){
+			if(this.isLoad){
+				this.isLoad = false;
+				let res;
+				try {
+					res =await morefiction(this.$route.params.id,this.start,this.count);
+				} catch (error) {
+					console.log(error);
+				}
 				this.label = res.data.label;
 				if (Object.keys(this.allbooks).length === 0) {
 					this.allbooks = res.data.items;
@@ -53,19 +65,14 @@ export default {
 				};
 				this.start += this.count;
 				if(res.data.items.length === this.count){
-					reso(res);
+					this.isLoad = true;
 				}else{
-					console.log(0);
+					this.overLoad = false;
+					this.isLoad = false;
 				};
-				return Promise.resolve();
-			})
-			.then( () => {
 				this.$overLoad();
-			})
-			.catch(err => {
-				console.log(err);
-			})
-		});
+			};
+		}
 	}
 }
 </script>

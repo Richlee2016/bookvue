@@ -12,7 +12,6 @@
 
 <script>
 import types from 'types'
-import loading from 'components/common/loading'
 export default {
 	data (){
 		return {
@@ -22,7 +21,6 @@ export default {
 		}
 	},
 	components:{
-		"v-loading":loading
 	},
 	watch :{
 		'$route' (to, from){

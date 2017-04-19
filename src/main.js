@@ -37,7 +37,7 @@ const scrollmore = r => require.ensure([], () => r(require('components/container
 const categoryFiction = r => require.ensure([], () => r(require('components/fiction/category')), 'categoryFiction');
 const ranksFiction = r => require.ensure([], () => r(require('components/fiction/ranks')), 'ranksFiction');
 const book = r => require.ensure([], () => r(require('components/book/book')), 'book');
-
+const chapter = r => require.ensure([], () => r(require('components/book/chapter')), 'chapter');
 //测试页面
 import test from 'assets/test.vue'
 
@@ -46,6 +46,7 @@ const router = new VueRouter({
         { path: '/test', component: test },
         { path: '/', component: index },
         { path: '/book/:id', component: book },
+        { path: '/chapter/:id', component: chapter },
         { path: '/banner/:id', component: banner },
         { path: '/containerone/:id', component: containerOne },
         { path: '/channel/:id', component: channel },

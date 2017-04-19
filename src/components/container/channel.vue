@@ -70,7 +70,7 @@ export default {
 	},
 	methods: {
 		onemore (id){
-			this.$router.push({path: '/containerone/'+ id + '?start=0&count=10'})
+			this.$router.push({path: '/containerone/'+ id})
 		}
 	},
 	mounted (){

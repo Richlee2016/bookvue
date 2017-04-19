@@ -3,7 +3,11 @@ import types from "types"
 import { setGroup, chineseReg, myScroll } from "assets/util"
 import defaultsDeep from 'lodash/defaultsDeep'
 import { index, pull } from 'service/serviceApi'
-const vue = new Vue({});
+let pullSet = {
+    pullNum: 0,
+    addNum: 4,
+    isLoad: true
+}
 const state = {
     bannerImg: {},
     weekHotData: {},
@@ -14,8 +18,6 @@ const state = {
     special: {},
     //瀑布流
     pullbook: [],
-    pullNum: 0,
-    addNum: 4
 }
 
 const util = {
@@ -92,9 +94,9 @@ const mutations = {
             state.pullbook = pullbook;
         } else {
             state.pullbook.items = state.pullbook.items.concat(pullbook.items);
-            state.pullbook.count += state.addNum;
+            state.pullbook.count += pullSet.addNum;
         };
-        state.pullNum += state.addNum;
+        pullSet.pullNum += pullSet.addNum;
     }
 }
 
@@ -105,16 +107,17 @@ const actions = {
             vueel.$overLoad();
         })
     },
-    getPullBook({ commit, state }, { pullBox }) {
-        vue.$onLoading(function(solve) {
-            pull(state.pullNum + 1, state.addNum).then(res => {
+    getPullBook({ commit, state }) {
+        if (pullSet.isLoad) {
+            pullSet.isLoad = false;
+            pull(pullSet.pullNum + 1, pullSet.addNum).then(res => {
                     commit(types.GET_PULL_BOOK, { pullbook: res.data });
-                    solve(res);
+                    pullSet.isLoad = true;
                 })
                 .catch(err => {
                     console.log(err);
                 });
-        });
+        };
     }
 }
 export default {

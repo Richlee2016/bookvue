@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="loadone" title="7">
+		<div v-if="load" class="loadone" title="7">
 		<div class="svg">
 			<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 			width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
@@ -23,6 +23,7 @@
 		</div>	
 		<span>{{loadMsg}}</span>
 		</div>	
+		<div class="seemore" v-else @click="$emit('more')">更多专题</div>
 	</div>
 </template>
 
@@ -35,36 +36,41 @@ export default {
 			type:String,
 			default:'正在加载书籍...'
 		},
-		goload:{
+		load:{
 			type:Boolean,
-			default:false
+			default:true
+		},
+		options:{
+			type:Object,
+			default(){
+				return {
+					start:0,
+					count:6,
+					isLoad:true
+				}
+			}
 		}
 	},
 	methods:{
-		_loadPomise(cb){
-			return new Promise((resolve, reject) => {
-				cb && cb(resolve);
-			});
-		},
-		_loading(cb){
-			cb && cb(function() {});
+		_loading(){
+			let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+			if(scrollTop === 0){
+				this.$emit('inLoading');
+			};
             let updatePosition = () => {
-                let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-                let docHei = document.querySelector('.view-container').offsetHeight;
-                let disY = docHei - window.screen.height - 90;
+				let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+				let docHei = document.querySelector('.view-container').offsetHeight;
+				let disY = docHei - window.screen.height - 200;;
                 if (scrollTop >= disY) {
-                    $(window).off('scroll');
-                    this._loadPomise(cb)
-                        .then(res => {
-                            if (res) {
-                                $(window).on('scroll', _throttle(updatePosition, 500));
-                            };
-                        })
+                   this.$emit('inLoading');
                 };
             }
             //throttle 节流绑定
             $(window).on('scroll', _throttle(updatePosition, 500));
 		}
+	},
+	created(){
+		this._loading();
 	}
 }
 </script>
@@ -72,7 +78,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='scss'>
 .loadone{
-	padding: 30px 0px;
+	padding: 18px 0px;
 	height: 30px;
 	text-align: center;
 	display: -webkit-flex;
@@ -86,13 +92,14 @@ export default {
 		line-height: 30px;
 	}
 }
-.loadtwo{
-	z-index: 100000;
-	position: fixed;
-	left:0px;
-	top: 0px;
-	bottom:0px;
-	right:0px;
-	background: rgba(255,255,255,0.8);
+.seemore{
+	// margin-top: 20px;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border-top: #efeff0 1px solid;
+	color:#999;
+	font-size: 14px;
 }
 </style>

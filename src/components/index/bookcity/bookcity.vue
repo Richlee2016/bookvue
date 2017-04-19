@@ -32,9 +32,9 @@
       <div class="clear-line"></div>
       <v-pullbook :data="pullbook"></v-pullbook>
     </section>
-    <r-loading
-    :loadone="true"
-    ></r-loading>
+    <v-load
+    @inLoading="inLoading"
+    ></v-load>
   </div>
 </template>
 
@@ -51,7 +51,7 @@
   import timeFree from 'components/index/bookcity/timefree'
   import persistent from 'components/index/bookcity/persistent'
   import pullBook from 'components/index/bookcity/pullbook'
-  import loading from 'components/common/loading'
+  import load from 'components/common/load'
   import {read} from 'service/serviceApi'
   export default {
     components: {
@@ -63,7 +63,7 @@
       "v-timefree": timeFree,
       "v-persistent": persistent,
       "v-pullbook": pullBook,
-      "v-loading":loading
+      "v-load":load
     },
     methods: {
       pullscroll (){
@@ -87,13 +87,15 @@
         pullbook: "pullbook"
       })
     },
+    methods:{
+      inLoading(){
+        this.$store.dispatch('getPullBook');
+      }
+    },
     created() {
       this.$nextTick(() => {
         this.$store.dispatch(types.GET_BOOKCITY,{vueel:this});
       });
-    },
-    activated(){
-      this.$store.dispatch('getPullBook',{pullBox:this.$refs.cityscroll});
     }
   }
 </script>
