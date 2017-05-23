@@ -29,7 +29,7 @@ import types from 'types'
 import bookHead from 'components/common/bookHead'
 import boxBlockOne from 'components/common/boxBlockOne'
 import tab from 'components/common/tab'
-import {categoryFiction,categoryTitle} from 'service/serviceApi'
+import {categoryFiction,categoryTitle,categoryTag} from 'service/serviceApi'
 export default {
 	components :{
 		//抬头
@@ -63,13 +63,19 @@ export default {
 	},
 	methods:{
 		_getBook(id,start,count,type){
-			categoryFiction(id,start,count,type)
-			.then(res => {
-				this.book = res.data;
-			})
-			.catch(err => {
-				console.log(err);
-			})
+			if(/\d+/g.test(this.navId)){
+				categoryFiction(id,start,count,type)
+				.then(res => {
+					this.book = res.data;
+					this.$overLoad();
+				})
+			}else{
+				categoryTag(id,start,count,type)
+				.then(res => {
+					this.book = res.data;
+					this.$overLoad();
+				})
+			};
 		},
 		navChoice(i){
 			let id = this.navs[i].category_id;
@@ -82,19 +88,25 @@ export default {
 	},
 	mounted (){
 		this.navId = this.$route.params.id;
-		categoryTitle(this.$route.params.id)
-		.then(res => {;
-			this.navs = res.data.cate.children;
-			this.navs.unshift({category_id:this.$route.params.id,label:'全部'})
-			this.title = res.data.cate.label;
-			return Promise.resolve(res);
-		})
-		.then( data => {
-			this._getBook(this.$route.params.id,0,10);
-		})
-		.catch(err => {
-			console.log(err);
-		})
+		//判断是 id分类 还是 文字分类
+		if(/\d+/g.test(this.navId)){
+			categoryTitle(this.$route.params.id)
+			.then(res => {;
+				this.navs = res.data.cate.children;
+				this.navs.unshift({category_id:this.$route.params.id,label:'全部'})
+				this.title = res.data.cate.label;
+				return Promise.resolve(res);
+			})
+			.then( data => {
+				this._getBook(this.$route.params.id,0,10);
+			})
+			.catch(err => {
+				console.log(err);
+			})
+		}else{
+			this._getBook(this.$route.params.id,0,10)
+		};
+		
 	}
 }
 </script>

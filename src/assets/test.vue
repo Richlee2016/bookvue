@@ -1,23 +1,22 @@
 <template>
 	<div class="testgo">
 		<section>
-			<button @click="test">go</button>
+			<button>go</button>
 		</section>	
 	</div>
 </template>
 
 <script>
-import Z from 'assets/zepto'
+import { freeChapter, freeRead,freeSearch} from 'service/serviceApi'
 export default {
 	methods:{
-		// test(){
-		// 	Z(window).off("scroll");
-		// }
+		
 	},
 	created(){
-		// Z(window).on("scroll",function(){
-		// 	console.log(0);
-		// })
+		freeSearch('盘龙')
+		.then(res => {
+			console.log(res);
+		})
 	}
 }
 </script>

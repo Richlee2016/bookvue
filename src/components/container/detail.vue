@@ -87,7 +87,11 @@
 					<span class="detail-label"
 						v-for="(item,index) in container.item.categories" 
 						:style="{background:labelBd[index]}"
-						>{{item.label}}</span>
+						>
+						<a @click="categoryLink(item)"> 
+							{{item.label}}
+						</a>	
+						</span>
 				</slot>
 			</v-detailtitle>
 			
@@ -161,7 +165,6 @@ export default {
 			 detail(this.$route.params.id)
 			.then(res => {
 				this.detail = res.data;
-				return Promise.resolve();
 			})
 			.then(() => {
 				this.$overLoad();
@@ -169,6 +172,13 @@ export default {
 			.catch( err => {
 				console.log(err)
 			})
+		},
+		categoryLink(data){
+			if(data.category_id >= 1000000){
+				this.$router.push({path:'/categoryfiction/'+ data.category_id });
+			}else{
+				this.$router.push({path:'/categoryfiction/'+ encodeURI(data.label) });
+			};
 		}
 	},
 	watch:{

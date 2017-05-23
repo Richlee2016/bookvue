@@ -20,6 +20,7 @@ var get = (type = 'GET', url, data) => {
                     resolve(res);
                 })
                 .catch((err) => {
+                    console(err);
                     reject(err);
                 });
         };
@@ -31,6 +32,7 @@ var get = (type = 'GET', url, data) => {
                     resolve(res);
                 })
                 .catch((err) => {
+                    console(err);
                     reject(err);
                 });
         }

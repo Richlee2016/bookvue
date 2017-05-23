@@ -51,6 +51,7 @@ export default {
 			ranksFiction(start,count,type)
 			.then(res => {
 				this.book = res.data;
+				this.$overLoad();
 			})
 			.catch(err => {
 				console.log(err);
@@ -66,6 +67,8 @@ export default {
 	},
 	mounted (){
 		this.rankNum =this.$route.params.id.split(',');
+		let total = this.rankNum.shift();
+		this.rankNum.push(total);
 		this.title = this.$route.query.title;
 		this._getBook(0,10,this.rankNum[0]);
 	}

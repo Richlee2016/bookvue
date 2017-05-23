@@ -39,6 +39,7 @@ module.exports = {
                 '/hs/v0/android/store/category',
                 '/store/v0/fiction/category/',
                 '/hs/v0/android/fiction/category/',
+                '/store/v0/fiction/tag',
                 //排行
                 '/store/v0/ad/ranks',
                 '/store/v0/fiction/rank',

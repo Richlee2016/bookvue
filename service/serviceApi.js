@@ -27,7 +27,8 @@ var category = () => getAxios('GET', '/hs/v0/android/store/category');
 //分类详情
 var categoryFiction = (id, start, count, type = 'click') => getAxios('GET', `/store/v0/fiction/category/${id}?start=${start}&count=${count}&${type}=1`);
 var categoryTitle = (id) => getAxios('GET', '/hs/v0/android/fiction/category/' + id);
-//排行
+var categoryTag = (name, start, count, type = 'click') => getAxios('GET', `/store/v0/fiction/tag?start=${start}&tag_name=${name}&count=${count}&${type}=1`)
+    //排行
 var ranks = () => getAxios('GET', '/store/v0/ad/ranks');
 var ranksFiction = (start, count, r) => getAxios('GET', '/store/v0/fiction/rank', {
     start: start,
@@ -59,5 +60,8 @@ var read = (id, chapter) => getAxios('POST', '/book/read', {
 //获取免费章节(爬取免费网页)
 var freeChapter = (id) => getAxios('GET', '/api/chapter/' + id);
 var freeRead = (id) => getAxios('GET', '/api/read/' + id);
-//获取收费章节(免费章节没有的情况下)
-export { index, searchpage, search, pull, banner, category, categoryFiction, categoryTitle, ranks, ranksFiction, morefiction, getmore, getfree, persistent, detail, read, freeChapter, freeRead }
+var freeSearch = (name) => getAxios('POST', '/api/freeSearch', {
+        name: name
+    })
+    //获取收费章节(免费章节没有的情况下)
+export { index, searchpage, search, pull, banner, category, categoryFiction, categoryTitle, categoryTag, ranks, ranksFiction, morefiction, getmore, getfree, persistent, detail, read, freeChapter, freeRead, freeSearch }

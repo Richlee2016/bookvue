@@ -48,9 +48,8 @@ app.post('/book/read', cookieApi.read)
 app.get('/api/free', cookieApi.free)
 app.get('/api/searchpage', cookieApi.searchpage)
     //免费小说获取
-app.get('/api/chapter/:id', cookieApi.freeSearch, cookieApi.freeChapter);
+app.post('/api/freeSearch', cookieApi.freeSearch, cookieApi.freeChapter);
 app.get('/api/read/:id', cookieApi.freeRead);
-
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())
 

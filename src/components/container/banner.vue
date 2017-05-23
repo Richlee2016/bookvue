@@ -14,6 +14,11 @@
   					></v-blockone>
   			</div>
   		</section>
+		<v-more
+		:titleone="'查看更多'"
+		@onemore="$router.push({ path:'/containerthree', query:{start:0,count:10,type:4}})"
+		>
+		</v-more>
   </div>
 </template>
 
@@ -22,12 +27,15 @@ import types from 'types'
 import {mapActions,mapGetters} from 'vuex'
 import bookHead from 'components/common/bookHead'
 import boxBlockOne from 'components/common/boxBlockOne'
+import bookMore from 'components/common/bookMore'
 import {banner} from 'service/serviceApi'
 export default {
 	components :{
 		"v-head":bookHead,
 		//书块one
 		"v-blockone":boxBlockOne,
+		//more
+		"v-more":bookMore
 	},
 	data (){
 		return {

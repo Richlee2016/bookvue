@@ -72,10 +72,10 @@ var bookSrc = {
     }
     //test
 exports.freeSearch = function(req, res, next) {
-    console.log(req.params.id);
+    console.log(req.body.name, encodeURI(req.body.name));
     request({
             method: 'GET',
-            uri: bookSrc.search + encodeURI(req.params.id),
+            uri: bookSrc.search + encodeURI(req.body.name),
             json: true
         })
         .then(data => {
@@ -86,7 +86,7 @@ exports.freeSearch = function(req, res, next) {
                 title: bookDom.attr('title')
             }
 
-            if (req.params.id === result.title) {
+            if (req.body.name === result.title) {
                 req.book = result;
                 bookSrc.book = result;
                 // return Promise.resolve(result);

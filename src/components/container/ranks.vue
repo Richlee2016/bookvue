@@ -41,14 +41,14 @@ export default {
 			var data = [],
 				description=[];
 			if(res){
-				description =res.map( (o) => {
+				data = res.filter( (o) => o.id>19);
+				description =data.map( (o) => {
 					if( /、/g.test(o.description) ){
 						return o.description.split("、");
 					}else{
 						return o.description.split("\n");
 					};
 				});
-				data = res.filter( (o) => o.id>19);
 			};
 			return{
 				data:data,

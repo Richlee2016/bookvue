@@ -23,9 +23,9 @@
 					:prop="book"
 					></v-blockone>
 				</div>
-				<v-more
+				<!--<v-more
 				@onemore="onemore(item.reference_id)"
-				></v-more>
+				></v-more>-->
 				<div class="clear-line"></div>
 			</section>
   </div>
