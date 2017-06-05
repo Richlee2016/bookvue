@@ -64,4 +64,5 @@ var freeSearch = (name) => getAxios('POST', '/api/freeSearch', {
         name: name
     })
     //获取收费章节(免费章节没有的情况下)
-export { index, searchpage, search, pull, banner, category, categoryFiction, categoryTitle, categoryTag, ranks, ranksFiction, morefiction, getmore, getfree, persistent, detail, read, freeChapter, freeRead, freeSearch }
+var chapterCatalogue = (id) => getAxios('GET', `/store/v0/fiction/detail/${id}?chapter_id=0`);
+export { index, searchpage, search, pull, banner, category, categoryFiction, categoryTitle, categoryTag, ranks, ranksFiction, morefiction, getmore, getfree, persistent, detail, read, freeChapter, freeRead, freeSearch, chapterCatalogue }

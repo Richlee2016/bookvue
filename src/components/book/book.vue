@@ -12,10 +12,13 @@
   		</section>
   	</div>
   	<div class="book-main" @click="navOnOff = !navOnOff;fontShow = false;">
-	  	<h4>{{bookcontainer.t}}</h4>
-	  	<ul class="book-body">
-	  		<li v-for="text in bookcontainer.p" :style="{fontSize:fontSize + 'px',lineHeight:fontSize + 20 + 'px'}">{{text}}</li>
-	  	</ul>
+		  <div  v-if="Number($route.query.price) <= 0">
+				<h4>{{bookcontainer.t}}</h4>
+				<ul class="book-body">
+					<li v-for="text in bookcontainer.p" :style="{fontSize:fontSize + 'px',lineHeight:fontSize + 20 + 'px'}">{{text}}</li>
+				</ul>
+		  </div>
+		<div class="book-main-none" v-else>这Tm的不是免费</div>
   	</div>
   	<transition name="slide-fade">
 	  		<div v-show="fontShow" class="fontChoice">
@@ -33,9 +36,11 @@
 		</transition>
   	<ul class="book-bottom" v-show="navOnOff">
   		<li>
-  			<div>
-	  			<span class="icon-rmenu1"></span>
-	  			<p>目录</p>
+  			<div class="catagrolBox">
+				<router-link :to="{path:'/chapter/'+$route.params.id}">
+					<span class="icon-rmenu1"></span>
+					<p>目录</p>
+				</router-link>
   			</div>
   		</li>
   		<li>
@@ -129,17 +134,23 @@ export default {
 		}
 	},
 	mounted (){
-		 read(this.$route.params.id,1)
-        .then( res => {
-		  this.bookcontainer = JSON.parse(res.data.txt);
-		  return Promise.resolve();
-		})
-		.then(() => {
+		console.log(Number(this.$route.query.price) <= 0 );
+		if(Number(this.$route.query.price) === 0){
+			read(this.$route.params.id,this.$route.query.chapter)
+			.then( res => {
+			this.bookcontainer = JSON.parse(res.data.txt);
+			return Promise.resolve();
+			})
+			.then(() => {
+				this.$overLoad();
+			})
+			.catch( err => {
+				console.log(err)
+			})
+		}else{
 			this.$overLoad();
-		})
-		.catch( err => {
-			console.log(err)
-		})
+		};
+		 
 	}
 }
 </script>

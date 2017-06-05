@@ -48,7 +48,9 @@ module.exports = {
                 //搜索页面
                 // '/store/v0/ad?key=df_search_tags&a=1',
                 //搜索
-                '/store/v0/lib/query/onebox'
+                '/store/v0/lib/query/onebox',
+                //章节
+                '/store/v0/fiction/detail/',
             ],
             options: {
                 target: 'http://dushu.xiaomi.com/',

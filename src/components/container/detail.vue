@@ -1,62 +1,7 @@
 <template>
   <div class="detail-container">
 	  <transition name="detail">
-	  <section v-if="detailFade">
-			<v-head
-			:title="container.item.title"	
-				></v-head>
-			<div class="detail-descr">
-				<div class="left">
-					<img :src="container.item.cover" alt="">
-				</div>
-				<div class="right">
-					<h3>{{container.item.title}}</h3>
-					<label>{{container.item.authors}}</label>
-					<span>价格:{{container.item.price}}书币/千字</span>
-					<span>字数:{{Math.ceil(container.item.word_count/10000)}}万字</span>
-				</div>
-			</div>
-			<div class="detail-btn">
-					<div class="start-read">
-						<router-link :to="{path:'/book/'+ $route.params.id}">开始阅读</router-link>
-					</div>
-					<div class="download"><span>下载</span></div>
-			</div>
-			<p class="detail-box">{{container.item.content}}</p>
-			<p class="detail-book-title">最新:{{container.item.latest}}</p>
-			<v-detailtitle
-				:title="'类别标签'"
-				:fontSize=16
-				>
-				<slot>
-					<span class="detail-label"
-						v-for="(item,index) in container.item.categories" 
-						:style="{background:labelBd[index]}"
-						>{{item.label}}</span>
-				</slot>
-			</v-detailtitle>
-			
-			<v-detailtitle
-				:title="'喜欢本书的人也喜欢'"
-				:fontSize=16
-				>
-				<slot>
-					<v-blockthree
-					:prop="container.related"	
-						></v-blockthree>
-				</slot>
-			</v-detailtitle>	 
-
-			<v-detailtitle
-				:title="'图书信息'"
-				:fontSize=16
-				>
-				<slot>
-					<p class="info">{{container.item.rights}}</p>
-				</slot>
-			</v-detailtitle>
-	  </section>
-	  <div v-else>
+	  <div>
 		  <v-head
 			:title="container.item.title"	
 				></v-head>
@@ -73,12 +18,12 @@
 			</div>
 			<div class="detail-btn">
 					<div class="start-read">
-						<router-link :to="{path:'/book/'+ $route.params.id}">开始阅读</router-link>
+						<router-link :to="{path:'/book/'+ $route.params.id + '?chapter=0'}">开始阅读</router-link>
 					</div>
 					<div class="download"><span>下载</span></div>
 			</div>
 			<p class="detail-box">{{container.item.content}}</p>
-			<p class="detail-book-title">最新:{{container.item.latest}}</p>
+			<p class="detail-book-title"><router-link :to="{path:'/chapter/' + $route.params.id }">最新:{{container.item.latest}}</router-link></p>
 			<v-detailtitle
 				:title="'类别标签'"
 				:fontSize=16

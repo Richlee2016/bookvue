@@ -5,7 +5,7 @@
 		<router-view class="view-container"></router-view>
 	<!--</transition >-->
 	<!--<transition :name="fadename">-->
-		<div class="loadyet" v-show="fade"></div>
+		<div class="loadyet" v-show="fade"><img src="./assets/images/loading.gif" /></div>
 	<!--</transition >-->
   </div>
 </template>
@@ -54,6 +54,13 @@ export default {
 	right:0px;
 	width: 100%;
 	background: rgba(255,255,255,1);
+	img{
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -75px;
+		margin-top:-18px;
+	}
 }
 // .view-container{
 // 	position: absolute;

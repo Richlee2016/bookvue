@@ -4,14 +4,14 @@
   		:title="label"	
   			></v-head>
 		<ul class="chapter-box">
-			<li v-for="item in chapter" @click="read(item.href)">{{item.text}}</li>
+			<li v-for="item in chapter" @click="read(item)">{{item.title}}</li>
 		</ul>
 	</div>
 </template>
 
 <script>
 import bookHead from 'components/common/bookHead'
-import { freeChapter } from 'service/serviceApi'
+import { freeChapter, chapterCatalogue} from 'service/serviceApi'
 export default {
 	data(){
 		return {
@@ -39,13 +39,22 @@ export default {
 			}
 			this.$overLoad();
 		},
-		read(id){
+		_getChapterCatalogue(){
+			chapterCatalogue(this.$route.params.id)
+			.then(res => {
+				this.chapter = res.data.item.toc;
+				this.$overLoad();
+			})
+		},
+		read(item){
+			this.$router.push({path:'/book/'+ this.$route.params.id + '?chapter=' + item.chapter_id + '&price=' + item.price})
 			// this.$router.push({path:'/book/'})
 		}
 	},
 	mounted(){
-		this.label = '一念永恒';
-		this._getChapter();
+		this._getChapterCatalogue();
+		// this.label = '一念永恒';
+		// this._getChapter();
 	}
 }
 </script>
