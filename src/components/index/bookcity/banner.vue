@@ -5,7 +5,7 @@
     </router-link>
     <div class="city-scroll">
       <swiper :options="swiperOption" ref="mySwiper">
-        <swiper-slide v-for="item in data.data?data.data.data[0] : []">
+        <swiper-slide v-for="item in data.data?data.data.data[0] : []" v-if="item.ad_pic_url">
           <router-link :to="{path: '/banner/' + item.reference_id }">
             <img class="banner-img" :src="item.ad_pic_url" />
           </router-link>
@@ -98,6 +98,9 @@
             this.$router.push({path: 'ranks'})
           };
       }
+    },
+    mounted(){
+      console.log(this.data);
     }
   }
 </script>

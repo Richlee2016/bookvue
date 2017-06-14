@@ -1,11 +1,7 @@
 <template>
   <div class="index">
   	<div class="top-nav">
-  		<a @click="cityGo">书城</a>
-  		<a @click="framGo">书架</a>
-  		<span class="move-line" ref="moveline">
-  			<label></label>
-  		</span>
+  		<a>熊猫人之书城联盟</a>
   	</div>
 	<keep-alive>
 	<v-bookcity></v-bookcity>
@@ -15,12 +11,10 @@
 
 <script>
 import bookCity from './bookcity/bookcity'
-import bookFram from './bookfram/bookfram'
 import {translate} from 'assets/mixins'
 export default {
 	components:{
 		"v-bookcity":bookCity,
-		"v-bookfram":bookFram
 	},
 	mixins:[translate],
 	methods:{

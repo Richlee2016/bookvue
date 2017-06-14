@@ -4,7 +4,10 @@
   		:title="label"	
   			></v-head>
 		<ul class="chapter-box">
-			<li v-for="item in chapter" @click="read(item)">{{item.title}}</li>
+			<li v-for="item in chapter" @click="read(item)">
+				<label>{{item.title}}</label>
+				<span class="isfree" v-show="Number(item.price) === 0">免费</span>
+			</li>
 		</ul>
 	</div>
 </template>
@@ -27,7 +30,6 @@ export default {
 			let chapter;
 			try {
 				chapter = await freeChapter('一念永恒');
-				console.log(chapter.data.data.length);
 				if(chapter.data.data.length > 0){
 					this.chapter = chapter.data.data;
 				}else{
@@ -43,12 +45,17 @@ export default {
 			chapterCatalogue(this.$route.params.id)
 			.then(res => {
 				this.chapter = res.data.item.toc;
+				//把免费章节存到 localstore
+				let freeChapter = this.chapter.filter(o => {
+					return o.free;
+				}).map(o => {
+					return o.chapter_id;
+				})
 				this.$overLoad();
 			})
 		},
 		read(item){
-			this.$router.push({path:'/book/'+ this.$route.params.id + '?chapter=' + item.chapter_id + '&price=' + item.price})
-			// this.$router.push({path:'/book/'})
+			this.$router.push({path:'/book/'+ this.$route.params.id + '?chapter=' + item.chapter_id})
 		}
 	},
 	mounted(){
@@ -67,6 +74,10 @@ export default {
 		line-height: 40px;
 		padding:0 20px;
 		border-top: #efeff0 1px solid;
+		.isfree{
+			float: right;
+			color: #6cb378;
+		}
 	}
 }	
 </style>

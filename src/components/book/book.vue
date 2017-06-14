@@ -12,11 +12,15 @@
   		</section>
   	</div>
   	<div class="book-main" @click="navOnOff = !navOnOff;fontShow = false;">
-		  <div  v-if="Number($route.query.price) <= 0">
+		  <div v-if="isfree">
 				<h4>{{bookcontainer.t}}</h4>
 				<ul class="book-body">
 					<li v-for="text in bookcontainer.p" :style="{fontSize:fontSize + 'px',lineHeight:fontSize + 20 + 'px'}">{{text}}</li>
 				</ul>
+				<div class="nextChapter">
+					<span :style="{color:Number($route.query.chapter) === 0?'#999' :'initial' }" class="prev" @click.stop="prevPage">上一章</span>
+					<span class="next" @click.stop="nextPage">下一章</span>	
+				</div>
 		  </div>
 		<div class="book-main-none" v-else>这Tm的不是免费</div>
   	</div>
@@ -66,7 +70,7 @@
 </template>
 
 <script>
-import {read} from 'service/serviceApi'
+import {read, chapterCatalogue} from 'service/serviceApi'
 export default {
 	data (){
 		return {
@@ -77,7 +81,8 @@ export default {
 			oldBd:"bookbd01",
 			fontBorderIndex:1,
 			fontSize:16,
-			bookcontainer:{}
+			bookcontainer:{},
+			isfree:true
 		}
 	},
 	computed:{
@@ -88,6 +93,11 @@ export default {
 			}
 			onOff[this.fontBorderIndex] = true;
 			return onOff;
+		}
+	},
+	watch :{
+		'$route' (to, from){
+			this.readBood();
 		}
 	},
 	methods:{
@@ -131,15 +141,46 @@ export default {
 			if(this.fontSize < 12){
 				this.fontSize = 12;
 			};
-		}
-	},
-	mounted (){
-		console.log(Number(this.$route.query.price) <= 0 );
-		if(Number(this.$route.query.price) === 0){
+		},
+		prevPage(){
+			if(this.$route.query.chapter ==! 0){
+				this.$router.push({
+					path:'/book/'+ this.$route.params.id,
+					query:{chapter:Number(this.$route.query.chapter) - 1}
+					});
+			}else{
+
+			};
+		},
+		nextPage(){
+			this.$router.push({
+				path:'/book/'+ this.$route.params.id,
+				query:{chapter:Number(this.$route.query.chapter) + 1}
+				});
+		},
+		async readBood(){
+			let free = await chapterCatalogue(this.$route.params.id);
+			let chapter = free.data.item.toc;
+			let freeChapter = chapter.filter(o => {
+					return o.free;
+				}).map(o => {
+					return o.chapter_id;
+				})
+			if(freeChapter.indexOf(Number(this.$route.query.chapter)) !== -1){
+				this._getRead();
+			}else{
+				this.isfree = false;
+				this.$overLoad();
+			};
+		},
+		_getRead(){
 			read(this.$route.params.id,this.$route.query.chapter)
 			.then( res => {
 			this.bookcontainer = JSON.parse(res.data.txt);
-			return Promise.resolve();
+			if(!res.data.txt){
+				this.isfree = false;
+			};
+				return Promise.resolve();
 			})
 			.then(() => {
 				this.$overLoad();
@@ -147,10 +188,12 @@ export default {
 			.catch( err => {
 				console.log(err)
 			})
-		}else{
-			this.$overLoad();
-		};
-		 
+		}
+	},
+	mounted (){
+		this.readBood();
+		// let free =await this.getChapter();
+		// console.log(free);
 	}
 }
 </script>
