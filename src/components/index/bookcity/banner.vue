@@ -14,7 +14,7 @@
     </div>
     <!--导航-->
     <ul class="city-nav">
-      <li v-for="(item,index) in navArr" @click="navGo(index,item.id)">
+      <li v-for="(item,index) in navArr" @click="navGo(index,item.id)" :key="item.id">
         <span :class="item.icon"></span> 
         <label>{{item.name}}</label>
       </li>

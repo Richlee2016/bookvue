@@ -148,9 +148,7 @@ export default {
 					path:'/book/'+ this.$route.params.id,
 					query:{chapter:Number(this.$route.query.chapter) - 1}
 					});
-			}else{
-
-			};
+			}
 		},
 		nextPage(){
 			this.$router.push({

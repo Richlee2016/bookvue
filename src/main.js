@@ -3,7 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 
-//vuex
+import richgo from 'src/components/book/test'
+
+Vue.component('r-richgo', richgo)
+    //vuex
 import store from './store'
 
 //下拉加载数据插件

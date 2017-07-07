@@ -53,6 +53,7 @@
   import pullBook from 'components/index/bookcity/pullbook'
   import load from 'components/common/load'
   import {read} from 'service/serviceApi'
+
   export default {
     components: {
       "v-banner": Banner,
@@ -64,11 +65,6 @@
       "v-persistent": persistent,
       "v-pullbook": pullBook,
       "v-load":load
-    },
-    methods: {
-      pullscroll (){
-          let scroll = new BScroll(this.$refs.cityscroll, {})
-      }
     },
     data() {
       return {
@@ -88,6 +84,9 @@
       })
     },
     methods:{
+      pullscroll (){
+          let scroll = new BScroll(this.$refs.cityscroll, {})
+      },
       inLoading(){
         this.$store.dispatch('getPullBook');
       }
